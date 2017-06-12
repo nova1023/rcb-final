@@ -1,0 +1,23 @@
+{
+  "name": "rcb-final",
+  "version": "1.0.0",
+  "description": "Online multiplayer game.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlcNine/rcb-final.git"
+  },
+  "author": "Dan Cross",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dlcNine/rcb-final/issues"
+  },
+  "homepage": "https://github.com/dlcNine/rcb-final#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
