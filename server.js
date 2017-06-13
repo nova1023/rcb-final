@@ -20,7 +20,7 @@ app.use(BodyParser.json({ type: "application/vnd.api+json" }));
 app.use(Express.static("public"));
 
 //Mongoose database setup
-Mongoose.connect("mongodb://localhost:gameDatabase");
+Mongoose.connect("mongodb://localhost/gameDatabase");
 var db = Mongoose.connection;
 
 db.on("error", function(error)
