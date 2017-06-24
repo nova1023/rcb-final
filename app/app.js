@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import GameRoom from './components/GameRoom.js';
@@ -214,7 +213,6 @@ class App extends Component {
       <div className="App">
         
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
         
@@ -277,3 +275,19 @@ class App extends Component {
 }
 
 export default App;
+// module.exports = App;
+
+// const React = require("react");
+
+// var app = React.createClass(
+// {
+//   render: function()
+//   {
+//     return (
+//       <h1>This is testing</h1>
+//     );
+//   }
+// });
+
+// module.exports = app;
+
