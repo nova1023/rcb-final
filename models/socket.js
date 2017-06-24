@@ -140,7 +140,7 @@ module.exports = function(server){
 
         //-------------------------------------
 
-        function sendMessage()
+        function sendMessage(message)
         {
             var currentUser = getUserByID(socket.id);
             
