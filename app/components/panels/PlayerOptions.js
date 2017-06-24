@@ -5,24 +5,38 @@ import PlayerAvatar from './panelsChildren/PlayerAvatar';
 import Hand from './panelsChildren/Hand';
 import Emotes from './panelsChildren/Emotes';
 
+const PlayerOptionsStyling = {
+	background: 'lightblue',
+	height: '10%',
+}
+
+const PlayerButtonStyling = {
+	height: '100%',
+
+}
+
 class PlayerOptions extends Component {
 	render() {
 		return (
-			<div>
-				<div className='col-xs-12'>
-					<div className='col-xs-3'>
-						<Menu />
-						<Score />
-					</div>
+			<div className='row' style={PlayerOptionsStyling}>
+				<div className='col-xs-2' style={PlayerButtonStyling}>
+					<Menu />
+				</div>
 
-					<div className='col-xs-6'>
-						<PlayerAvatar />
-					</div>
+				<div className='col-xs-2' style={PlayerButtonStyling}>
+					<Score />
+				</div>
 
-					<div className='col-xs-3'>
-						<Hand />
-						<Emotes />
-					</div>
+				<div className='col-xs-4' style={PlayerButtonStyling}>
+					<PlayerAvatar />
+				</div>
+
+				<div className='col-xs-2' style={PlayerButtonStyling}>
+					<Hand />
+				</div>
+
+				<div className='col-xs-2' style={PlayerButtonStyling}>
+					<Emotes />
 				</div>
 			</div>
 		)
