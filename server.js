@@ -1,7 +1,7 @@
 //Dependenciess =======================================================
 const Express = require("express")
     , Mongoose = require("mongoose")
-    , BodyParser = require("body-parser")
+    , BodyParser = require("body-parser");
 
 //Setup ===============================================================
 var app = Express();
