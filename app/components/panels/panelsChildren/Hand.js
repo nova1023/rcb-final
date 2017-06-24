@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 import Modal from './ModalJS/Modal';
 
+const PlayerButtonsStyling = {
+  border: '1px solid red',
+  width: '100%',
+  height: '100%',
+
+}
+
+const PlayerButtonWrapper = {
+  height: '100%',
+
+}
+
 class Hand extends Component {
 	constructor(props) {
     super(props);
@@ -9,8 +21,8 @@ class Hand extends Component {
 
   render() {
     return (
-      <div>
-        <button className='btn btn-primary' onClick={() => this.openModal()}>Hand</button>
+      <div  className='row' style={PlayerButtonWrapper}>
+        <div className='col-xs-12' style={PlayerButtonsStyling} onClick={() => this.openModal()}>Hand</div>
         <Modal isOpen={this.state.isModalOpen} onClose={() => this.closeModal()}>
           <h1>Modal title</h1>
           <p>hello</p>

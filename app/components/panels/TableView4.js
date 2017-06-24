@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
 import PortraitView from './panelsChildren/PortraitView';
 
-// const styling = {
-// 	border: "1px solid black"
-// };
+const TableViewWrapper = {
+	height: '90%',
+	width: '165%',
+	backgroundImage: 'url(/images/avatars/bar-bg.jpg)',
+};
+
+const PortraitViewWrapper = {
+	height: '100%',
+
+};
 
 class TableView4 extends Component {
 
 	render() {
 		return (
-			<div>
-				<div className="col-xs-4 PortraitView" >
+			<div className='row' style={TableViewWrapper}>
+				<div className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
 					<PortraitView />
 				</div>
-				<div className="col-xs-4 PortraitView" >
+				<div className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
 					<PortraitView />
 				</div>
-				<div className="col-xs-4 PortraitView" >
+				<div className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
 					<PortraitView />
 				</div>
 			</div>

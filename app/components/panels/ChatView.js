@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
 const chatBox = {
-	margin: '0 auto',
-	height: '350px',
-	width: '350px',
-	backgroundColor: 'black'
+	height: '70%',
+	width: '100%',
+	backgroundColor: 'black',
+	
 }
 
 class ChatView extends Component {

@@ -268,26 +268,18 @@ class App extends Component {
 
         <button onClick={this.buttonReadyNextTurn}>sendReadyForNextTurn</button>
 
-        {<GameRoom />}
+        <hr />
+        <hr />
+        <hr />
+
+        <div className='container-fluid'>
+          <div className='row'>
+            <GameRoom />
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 export default App;
-// module.exports = App;
-
-// const React = require("react");
-
-// var app = React.createClass(
-// {
-//   render: function()
-//   {
-//     return (
-//       <h1>This is testing</h1>
-//     );
-//   }
-// });
-
-// module.exports = app;
-
