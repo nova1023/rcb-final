@@ -4,8 +4,8 @@
   "description": "Online multiplayer game.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js && webpack -w"
+    "test": "mocha || true",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,11 @@
     "babel-preset-env": "^1.5.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "chai": "^4.0.2",
+    "css-loader": "^0.28.4",
+    "mocha": "^3.4.2",
+    "react-svg-loader": "^1.1.1",
+    "style-loader": "^0.18.2",
     "webpack": "^2.6.1"
   }
 }

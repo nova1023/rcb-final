@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 class Modal extends Component {
   render() {
     if (this.props.isOpen === false)

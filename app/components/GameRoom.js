@@ -17,6 +17,7 @@ const ViewPortStyling = {
 const ChatStyling = {
 	height: '40%',
 }
+
 class GameRoom extends Component {
 
 
