@@ -6,6 +6,8 @@ import GameRoom from './components/GameRoom.js';
 import IO from 'socket.io-client';  
 const socket = IO() ;
 
+let playerNumber = 0;
+
 // receive an array of strings with the card numbers
 socket.on("cardsDealt", fillHand);
 
@@ -24,6 +26,7 @@ socket.on("turnResults", displayResults)
 
 function fillHand(cardsDealt) {
   console.log("fillHand", cardsDealt);
+  playerNumber = cardsDealt.playerNumber;
   // var handDiv = $("<div>");
   // handDiv.addClass("col-xs-12 handDiv");
   // for(var i = 0; i < cardsDealt.cards.length; i++) {
@@ -201,7 +204,7 @@ class App extends Component {
   }
 
   submitCard(cardID) {
-    socket.emit("submitCard", {cardID:cardID});
+    socket.emit("submitCard", {cardID:cardID, belongsTo:player});
   }
 
   submitVote(cardID) {

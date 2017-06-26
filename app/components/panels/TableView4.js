@@ -49,7 +49,7 @@ class TableView4 extends Component {
   	}
 
   	componentDidMount(){
-  		Velocity(this.refs.p3,{ rotateZ: '+=360deg' },1000)
+  		Velocity(this.refs.p2,{ rotateZ: '+=360deg' },1000)
          .then(e=>console.log('animation complete'))
         
     }
@@ -57,16 +57,16 @@ class TableView4 extends Component {
     swipedRight() {
     	// Velocity(this.refs.block,{ rotateZ: '+=360deg' },1000)
          // .then(e=>console.log('animation complete'))
-    	Velocity(this.refs.p3, "scroll", { container: this.refs.block, axis:'x', duration: 1000})
-         .then(e=>console.log('animation complete'))
+    	Velocity(this.refs.p3, "scroll", { container: this.refs.block, axis:'x', duration: 1000, offset: -200})
+         .then(e=>console.log('swipedRight... animation complete'))
     	
     }
 
     swipedLeft() {
-    	// Velocity(this.refs.block,{ rotateZ: '+=360deg' },1000)
+    	// Velocity(this.refs.p1,{ rotateZ: '+=360deg' },1000)
          // .then(e=>console.log('animation complete'))
     	Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 1000})
-         .then(e=>console.log('animation complete'))
+         .then(e=>console.log('swipedLeft... animation complete'))
     	
     }
 
@@ -74,6 +74,7 @@ class TableView4 extends Component {
 		return (
 			<div ref='block' style={TableViewSwipeWrapper}>
 				<Swipeable 
+				trackMouse={true}
 				onSwiping={this.swiping}
         		onSwiped={this.swiped} 
         		onSwipedRight={this.swipedRight} 
