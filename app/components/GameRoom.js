@@ -6,12 +6,17 @@ import ChatInput from './panels/ChatInput';
 
 const GameRoomStyling = {
 	height: '100vh',
-	width: 'calc(100vw-100px)',
+	// width: '100vw',
 
 }
 
 const ViewPortStyling = {
 	height: '60%',
+	width: '100vw',
+	
+
+
+
 }
 
 const ChatStyling = {
@@ -32,7 +37,7 @@ class GameRoom extends Component {
 
 
 		return(
-			<div style={GameRoomStyling}>
+			<div className='row' style={GameRoomStyling}>
 				<div className="col-xs-12 ViewPort" style={ViewPortStyling}>
 					{/*this.numberOfTables*/}
 					<TableView4 />
