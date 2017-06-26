@@ -12,6 +12,7 @@ const GameRoomStyling = {
 
 const ViewPortStyling = {
 	height: '60%',
+
 }
 
 const ChatStyling = {
