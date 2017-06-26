@@ -25,7 +25,7 @@ module.exports = function(server){
     const IO = SocketIO(server);
     const Chat = require("./chat")(IO);
 
-    var game1 = new Game(IO);
+    var game1 = new Game(IO); //Creates game instance.
 
     IO.on("connection", function(socket)
     {
@@ -148,7 +148,7 @@ module.exports = function(server){
                 console.log('User not found!');
         }
 
-        //--------------------------------------------------
+        //--------------------------------------
         
         function disconnect()
         {
@@ -163,7 +163,6 @@ module.exports = function(server){
 //Searches users array for user by socketID. If found returns user in users array else returns false.
 function getUserById(socketID)
 {
-
     for(var i = 0; i < users.length; i++)
     {
         if(users[i].socketID == socketID)
@@ -171,5 +170,4 @@ function getUserById(socketID)
     }    
     
     return false;
-
 }
