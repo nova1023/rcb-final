@@ -10,10 +10,8 @@ const SocketIO = require("socket.io");
 const Game = require("./game-classes/game");
 const Player = require("./game-classes/player");
 
-
 //ALL players in a room/game
 var users = []; //used to look up name/id/room/game
-
 
 // Test variables used used for single room/game
 var playersInGame = 0;     // tracks number of players who are pushed to game1.players    
@@ -27,11 +25,11 @@ module.exports = function(server){
     const IO = SocketIO(server);
     const Chat = require("./chat")(IO);
 
-    let game1 = new Game(IO);
+    var game1 = new Game(IO); //Creates game instance.
 
     IO.on("connection", function(socket)
     {
-        console.log("user connected");
+        console.log("user connected", socket.id);
 
         //Socket events
         socket.on("playerJoined", playerJoined);
@@ -54,7 +52,7 @@ module.exports = function(server){
             socket.join("Main");
             playersInGame++;
             
-            let newPlayer = new Player(socket.id);
+            var newPlayer = new Player(socket.id);
             newPlayer.userName = userName;
             newPlayer.room = "Main";
             newPlayer.game = "game1";
@@ -140,7 +138,7 @@ module.exports = function(server){
 
         //-------------------------------------
 
-        function sendMessage()
+        function sendMessage(message)
         {
             var currentUser = getUserByID(socket.id);
             
@@ -150,7 +148,7 @@ module.exports = function(server){
                 console.log('User not found!');
         }
 
-        //--------------------------------------------------
+        //--------------------------------------
         
         function disconnect()
         {
@@ -165,7 +163,6 @@ module.exports = function(server){
 //Searches users array for user by socketID. If found returns user in users array else returns false.
 function getUserById(socketID)
 {
-
     for(var i = 0; i < users.length; i++)
     {
         if(users[i].socketID == socketID)
@@ -173,5 +170,4 @@ function getUserById(socketID)
     }    
     
     return false;
-
 }

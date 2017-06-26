@@ -1,15 +1,14 @@
-
-// Chat module.  Contains all Socket.io event and logic functions. 
+// Chat module.  Used to relay chat messages via socket.io.
 
 module.exports = function(IO){
 
-    let module= {};
+    var module= {};
 
-    //send data object containing users message and username go all user in room.
-    let relayChat = function(userName, message, room)
+    //send data object containing user's message and username to all user in room.
+    var relayMessage = function(userName, message, room)
     {
         //data object        
-        let data = {
+        var data = {
             name: userName,
             message: message
         };
