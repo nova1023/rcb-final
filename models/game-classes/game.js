@@ -92,8 +92,8 @@ function Game(io)
             io.to(this.players[index].socketID).emit("cardsDealt",
             {
                 storyTeller: this.storyTeller.playerNumber,
-                cards: this.players[index].cardsInHand
-                // playerNumber: this.players[index].playerNumber
+                cards: this.players[index].cardsInHand,
+                playerNumber: this.players[index].playerNumber
             });
         }
     };    
@@ -242,7 +242,7 @@ function Game(io)
         // console.log(this.players[0].cardsInHand);
 
         if (card !== false)
-            game.cardsPlayedThisTurn.push(card);
+            this.cardsPlayedThisTurn.push(card);
 
         // console.log(this.cardsPlayedThisTurn);
     };
