@@ -18,7 +18,7 @@ class Emotes extends Component {
 		return (
 			<div className='row' style={PlayerButtonWrapper}> 
 				<div className='col-xs-12' style={PlayerButtonsStyling}>
-					Emotes
+					E
 				</div>
 			</div>
 		)

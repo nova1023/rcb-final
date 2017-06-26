@@ -5,7 +5,8 @@ module.exports = function(IO){
     var module= {};
 
     //send data object containing user's message and username to all user in room.
-    var relayMessage = function(userName, message, room)
+    var relayMessage
+     = function(userName, message, room)
     {
         //data object        
         var data = {

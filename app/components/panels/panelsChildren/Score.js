@@ -18,7 +18,7 @@ class Score extends Component {
 		return (
 			<div className='row' style={PlayerButtonWrapper}>
 				<div className='col-xs-12' style={PlayerButtonsStyling}>
-					Score
+					S
 				</div>
 			</div>
 		)

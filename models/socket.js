@@ -76,9 +76,9 @@ module.exports = function(server){
 
         function storyTellerClue(data)
         {            
-            data.playerNumber = getUserByID(socket.id).playerNumber;
+            data.belongsTo = game1.storyTeller.playerNumber;
             game1.HandleSubmitCard(data);
-            IO.sockets.in("Main").emit("relayClue", data);
+            IO.sockets.in("Main").emit("relayClue", data.clueText);
         }
 
         //---------------------------------------
@@ -86,10 +86,10 @@ module.exports = function(server){
 
         function submitCard(data)
         {
-            var currentPlayerNumber = getUserByID(socket.id).playerNumber;
-            var player = game1.FindPlayerByNumber(currentPlayerNumber);     
 
-            data.playerNumber = currentPlayerNumber;
+            var player = game1.FindPlayerByNumber(data.belongsTo);     
+
+            data.belongsTo = currentPlayerNumber;
             game1.HandleSubmitCard(data);
 
             game1.cardsPlayedThisTurn.push(data);            
