@@ -5,6 +5,9 @@ const TableViewWrapper = {
 	height: '90%',
 	width: '165%',
 	backgroundImage: 'url(/images/avatars/bar-bg.jpg)',
+	backgroundSize: 'cover',
+	overflow: 'hidden',
+
 };
 
 const PortraitViewWrapper = {

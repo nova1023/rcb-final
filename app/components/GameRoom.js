@@ -6,7 +6,7 @@ import ChatInput from './panels/ChatInput';
 
 const GameRoomStyling = {
 	height: '100vh',
-	width: 'calc(100vw-100px)',
+	width: '100vw',
 
 }
 
