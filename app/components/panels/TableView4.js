@@ -5,15 +5,18 @@ import Velocity from 'velocity-animate';
 
 const TableViewSwipeWrapper = {
 	height: '90%',
-	width: '165%',
+	width: '100%',
+	overflow: 'auto',
+	position: 'relative',
 	
 };
 
 const TableViewWrapper = {
 	height: '100%',
-	width: '100%',
+	width: '165%',
 	backgroundImage: 'url(/images/avatars/bar-bg.jpg)',
 	backgroundSize: 'cover',
+	position: 'relative',
 
 };
 
@@ -31,6 +34,7 @@ class TableView4 extends Component {
 		}
 
 		this.swipedRight = this.swipedRight.bind(this);
+		this.swipedLeft = this.swipedLeft.bind(this);
 		this.swiping = this.swiping.bind(this);
 		this.swiped = this.swiped.bind(this);
 	}
@@ -45,40 +49,49 @@ class TableView4 extends Component {
   	}
 
   	componentDidMount(){
-  		Velocity(this.refs.block,{ rotateZ: '+=360deg' },1000)
+  		Velocity(this.refs.p3,{ rotateZ: '+=360deg' },1000)
          .then(e=>console.log('animation complete'))
-         // Velocity(this.refs.block,'scroll',{ axis:'x', duration: 1500, easing: "spring", offset:150 })
-         // .then(e=>console.log('animation complete'))
+        
     }
 
     swipedRight() {
-    	Velocity(this.refs.block, "scroll", { axis:'x', duration: 1000, offset: '250px' })
+    	// Velocity(this.refs.block,{ rotateZ: '+=360deg' },1000)
+         // .then(e=>console.log('animation complete'))
+    	Velocity(this.refs.p3, "scroll", { container: this.refs.block, axis:'x', duration: 1000})
          .then(e=>console.log('animation complete'))
-    	 // Velocity(this.refs.block,'scroll',{ axis:'x', duration: 1500, easing: "spring", offset: 150 })
-      //    .then(e=>console.log('Swiped Right... animation complete'))
+    	
+    }
+
+    swipedLeft() {
+    	// Velocity(this.refs.block,{ rotateZ: '+=360deg' },1000)
+         // .then(e=>console.log('animation complete'))
+    	Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 1000})
+         .then(e=>console.log('animation complete'))
+    	
     }
 
 	render() {
 		return (
-			<Swipeable 
+			<div ref='block' style={TableViewSwipeWrapper}>
+				<Swipeable 
 				onSwiping={this.swiping}
         		onSwiped={this.swiped} 
         		onSwipedRight={this.swipedRight} 
+        		onSwipedLeft={this.swipedLeft}
         		className='row' 
-        		style={TableViewSwipeWrapper}
-        	>	
-        		<div ref='block' style={TableViewWrapper}>
-					<div className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
+        		style={TableViewWrapper}
+        		>	
+					<div ref='p1' className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
 						<PortraitView />
 					</div>
-					<div className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
+					<div ref='p2' className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
 						<PortraitView />
 					</div>
-					<div className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
+					<div ref='p3' className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
 						<PortraitView />
 					</div>
-				</div>
-			</Swipeable>
+				</Swipeable>
+			</div>		
 		)
 	}
 }

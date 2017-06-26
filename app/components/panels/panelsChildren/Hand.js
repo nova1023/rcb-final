@@ -22,7 +22,7 @@ class Hand extends Component {
   render() {
     return (
       <div  className='row' style={PlayerButtonWrapper}>
-        <div className='col-xs-12' style={PlayerButtonsStyling} onClick={() => this.openModal()}>Hand</div>
+        <div className='col-xs-12' style={PlayerButtonsStyling} onClick={() => this.openModal()}>H</div>
         <Modal isOpen={this.state.isModalOpen} onClose={() => this.closeModal()}>
           <h1>Modal title</h1>
           <p>hello</p>
