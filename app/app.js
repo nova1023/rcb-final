@@ -167,7 +167,8 @@ class App extends Component {
     event.preventDefault();
   }
 
-  handleSubmitCardPlayer(event) {
+  handleSubmitCard(event) {
+    this.submitCard(this.state.card, playerNumber);
     console.log('A card was submitted: ' + this.state.card);
     this.submitCard(this.state.value, playerNumber);
     event.preventDefault();
@@ -203,8 +204,8 @@ class App extends Component {
     console.log("sent storyTeller selections");
   }
 
-  submitCard(cardID, playerNumber) {
-    socket.emit("submitCard", {cardID:cardID, belongsTo:playerNumber});
+  submitCard(cardID, player) {
+    socket.emit("submitCard", {cardID:cardID, belongsTo:player});
   }
 
   submitVote(cardID) {

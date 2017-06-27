@@ -92,9 +92,13 @@ function Game(io)
             io.to(this.players[index].socketID).emit("cardsDealt",
             {
                 storyTeller: this.storyTeller.playerNumber,
-                cards: this.players[index].cardsInHand
-                // playerNumber: this.players[index].playerNumber
+                cards: this.players[index].cardsInHand,
+                playerNumber: this.players[index].playerNumber
             });
+
+            //testing 
+            console.log("player " + (index + 1) + " cards");
+            console.log(this.players[index].cardsInHand);
         }
     };    
 
@@ -235,16 +239,23 @@ function Game(io)
     {
         // console.log(this.players[0].cardsInHand);
         // console.log(this.cardsPlayedThisTurn);
+        console.log("card received: ");
+        for (var prop in cardReceived)
+        {
+            console.log(prop + ": " + cardReceived[prop]);
+            console.log("typeof: " + typeof cardReceived[prop]);
+        }
 
         var player = this.FindPlayerByNumber(cardReceived.belongsTo);
         var card = player.RemoveCardFromHand(cardReceived.cardID);
 
-        // console.log(this.players[0].cardsInHand);
+        console.log(this.players[player.playerNumber - 1].cardsInHand);
+        console.log("card from hand: " + card);
 
         if (card !== false)
-            game.cardsPlayedThisTurn.push(card);
+            this.cardsPlayedThisTurn.push(card);
 
-        // console.log(this.cardsPlayedThisTurn);
+        console.log(this.cardsPlayedThisTurn);
     };
 
     this.StartNextTurn = function()
