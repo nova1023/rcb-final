@@ -255,7 +255,8 @@ function Game(io)
         if (card !== false)
             this.cardsPlayedThisTurn.push(card);
 
-        console.log(this.cardsPlayedThisTurn);
+        
+        console.log("cardsPlayedThisTurn: " + this.cardsPlayedThisTurn);
     };
 
     this.StartNextTurn = function()
