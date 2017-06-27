@@ -16,7 +16,7 @@ const decorationStyling = {
 }
 
 const avatarStyling = {
-	width: '100%',
+	width: '50%',
 	minWidth: '100px',
 	position: 'absolute',
 	bottom: '20%',
