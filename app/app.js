@@ -118,7 +118,7 @@ class App extends Component {
     this.handleChangeClue = this.handleChangeClue.bind(this);
     this.handleSubmitClue = this.handleSubmitClue.bind(this);
     this.handleChangeCard = this.handleChangeCard.bind(this);
-    this.handleSubmitCardPlayer = this.handleSubmitCardPlayer.bind(this);
+    this.handleSubmitCard = this.handleSubmitCard.bind(this);
     this.submitStoryTellerRes = this.submitStoryTellerRes.bind(this);
     this.submitCard = this.submitCard.bind(this);
     this.submitVote = this.submitVote.bind(this);
@@ -150,34 +150,34 @@ class App extends Component {
   }
 
   handleSubmit(event) {
-    console.log('A name was submitted: ' + this.state.value);
     event.preventDefault();
+    console.log('A name was submitted: ' + this.state.value);
   }
   
   handleSubmitName(event) {
+    event.preventDefault();
     this.sendName(this.state.name);
     console.log('A name was submitted: ' + this.state.name);
-    event.preventDefault();
   }
 
   handleSubmitClue(event) {
+    event.preventDefault();
     console.log('A clue was submitted: ' + this.state.clue);
     console.log('A card was submitted: ' + this.state.card);
     this.submitStoryTellerRes(this.state.card, this.state.clue);
-    event.preventDefault();
   }
 
   handleSubmitCard(event) {
+    event.preventDefault();
     this.submitCard(this.state.card, playerNumber);
     console.log('A card was submitted: ' + this.state.card);
-    this.submitCard(this.state.value, playerNumber);
-    event.preventDefault();
+    // this.submitCard(this.state.value, playerNumber);
   }
 
   handleSubmitVote(event) {
+    event.preventDefault();
     this.submitVote(this.state.value);
     console.log('A vote was submitted: ' + this.state.vote);
-    event.preventDefault();
   }
 
   buttonClick()   {
@@ -263,7 +263,7 @@ class App extends Component {
 
               <hr />
 
-              <form onSubmit={this.handleSubmitCardPlayer}>
+              <form onSubmit={this.handleSubmitCard}>
               <h3>Player's Submissions</h3>
                 <label>
                   Card:
