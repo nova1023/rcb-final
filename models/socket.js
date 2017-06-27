@@ -87,15 +87,12 @@ module.exports = function(server){
 
         function submitCard(data)
         {
-            var player = game1.FindPlayerByNumber(data.belongsTo);     
-
-            data.belongsTo = player.playerNumber;
             game1.HandleSubmitCard(data);
 
             if(game1.CheckAllPlayersSubmittedCards())
             {    
                 game1.ShuffleCardDeck(1, game1.cardsPlayedThisTurn);
-                IO.sockets.in("Main").emit("relayCards", game1.cardsPlayedThisTurn);
+                IO.sockets.in("Main").emit("relayCards", game1.GetCardsPlayedIDS());
             }    
         }
 
@@ -103,15 +100,10 @@ module.exports = function(server){
 
         function submitVote(data)
         {
-            //gets card object from owner of card voted on.
-            var card = game1.FindPlayersCard(data.belongsTo);
-            
-            if(!card.hasOwnProperty("votedForBy"))
-            {    
-                card.votedForBy = [];
-            }
-            // playerNumber of player submitting vote
-            card.votedForBy.push(data.playerNumber);
+            console.log("inside socket.js submit vote");
+            console.log(data);
+
+            game1.HandleSubmitVote(data);
 
             if(game1.CheckAllPlayersVoted())
             {
