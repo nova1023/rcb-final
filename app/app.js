@@ -176,7 +176,7 @@ class App extends Component {
 
   handleSubmitVote(event) {
     event.preventDefault();
-    this.submitVote(this.state.value);
+    this.submitVote(this.state.vote, playerNumber);
     console.log('A vote was submitted: ' + this.state.vote);
   }
 
@@ -209,7 +209,7 @@ class App extends Component {
   }
 
   submitVote(cardID) {
-    socket.emit("submitVote", {cardID: cardID});
+    socket.emit("submitVote", {cardID: cardID, playerNumber: player});
   }
 
   sendReadyForNextTurn() {

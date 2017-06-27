@@ -263,6 +263,8 @@ function Game(io)
 
     this.HandleSubmitVote = function(voteObject)
     {
+        console.log("handling vote");
+        
         for (var index = 0; index < this.cardsPlayedThisTurn.length; index++)
         {
             var currentCard = this.cardsPlayedThisTurn[index];
