@@ -89,7 +89,7 @@ module.exports = function(server){
 
             var player = game1.FindPlayerByNumber(data.belongsTo);     
 
-            data.belongsTo = currentPlayerNumber;
+            data.belongsTo = player.playerNumber;
             game1.HandleSubmitCard(data);
 
             game1.cardsPlayedThisTurn.push(data);            

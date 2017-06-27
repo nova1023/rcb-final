@@ -168,7 +168,7 @@ class App extends Component {
   }
 
   handleSubmitCard(event) {
-    this.submitCard(this.state.value);
+    this.submitCard(this.state.card, playerNumber);
     console.log('A card was submitted: ' + this.state.card);
     event.preventDefault();
   }
@@ -203,7 +203,7 @@ class App extends Component {
     console.log("sent storyTeller selections");
   }
 
-  submitCard(cardID) {
+  submitCard(cardID, player) {
     socket.emit("submitCard", {cardID:cardID, belongsTo:player});
   }
 
