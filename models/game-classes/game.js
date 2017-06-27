@@ -28,6 +28,8 @@ function Game(io)
             if (this.cardsPlayedThisTurn[card].belongsTo === playerNumber)
                 return this.cardsPlayedThisTurn[card];
         }
+        //only reached if there is no card from that player
+        return false;
     };
 
     this.FindPlayerByNumber = function(playerNumber = this.storyTeller.playerNumber)
@@ -250,12 +252,12 @@ function Game(io)
         var card = player.RemoveCardFromHand(cardReceived.cardID);
 
         console.log(this.players[player.playerNumber - 1].cardsInHand);
-        console.log("card from hand: " + card);
 
         if (card !== false)
-            this.cardsPlayedThisTurn.push(card);
+            this.cardsPlayedThisTurn.push(cardReceived);
 
         console.log(this.cardsPlayedThisTurn);
+        console.log("--------------------------------");
     };
 
     this.StartNextTurn = function()
