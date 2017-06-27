@@ -29,6 +29,7 @@ module.exports = function(server){
 
     IO.on("connection", function(socket)
     {
+        socket.removeAllListeners()
         console.log("user connected", socket.id);
 
         //Socket events
