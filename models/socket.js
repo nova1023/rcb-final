@@ -86,10 +86,9 @@ module.exports = function(server){
 
         function submitCard(data)
         {
-
             var player = game1.FindPlayerByNumber(data.belongsTo);     
 
-            data.belongsTo = currentPlayerNumber;
+            data.belongsTo = player.playerNumber;
             game1.HandleSubmitCard(data);
 
             game1.cardsPlayedThisTurn.push(data);            
@@ -106,15 +105,15 @@ module.exports = function(server){
 
         function submitVote(data)
         {
-            var currentPlayerNumber = getUserByID(socket.id).playerNumber;
+            //gets card object from owner of card voted on.
             var card = game1.FindPlayersCard(data.belongsTo);
             
             if(!card.hasOwnProperty("votedForBy"))
             {    
                 card.votedForBy = [];
             }
-            
-            card.votedForBy.push(currentPlayerNumber);
+            // playerNumber of player submitting vote
+            card.votedForBy.push(data.playerNumber);
 
             if(game1.CheckAllPlayersVoted())
             {
