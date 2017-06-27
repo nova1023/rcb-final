@@ -6,6 +6,8 @@ import GameRoom from './components/GameRoom.js';
 import IO from 'socket.io-client';  
 const socket = IO() ;
 
+let playerNumber = 0;
+
 // receive an array of strings with the card numbers
 socket.on("cardsDealt", fillHand);
 
@@ -24,6 +26,7 @@ socket.on("turnResults", displayResults)
 
 function fillHand(cardsDealt) {
   console.log("fillHand", cardsDealt);
+  playerNumber = cardsDealt.playerNumber;
   // var handDiv = $("<div>");
   // handDiv.addClass("col-xs-12 handDiv");
   // for(var i = 0; i < cardsDealt.cards.length; i++) {
@@ -89,6 +92,12 @@ function displayResults(turnResults) {
   // }
 }
 
+const AppContainerStyling = {
+  height:'100vh',
+  width: '100vw',
+
+}
+
 
 class App extends Component {
   constructor(props) {
@@ -109,7 +118,7 @@ class App extends Component {
     this.handleChangeClue = this.handleChangeClue.bind(this);
     this.handleSubmitClue = this.handleSubmitClue.bind(this);
     this.handleChangeCard = this.handleChangeCard.bind(this);
-    this.handleSubmitCard = this.handleSubmitCard.bind(this);
+    this.handleSubmitCardPlayer = this.handleSubmitCardPlayer.bind(this);
     this.submitStoryTellerRes = this.submitStoryTellerRes.bind(this);
     this.submitCard = this.submitCard.bind(this);
     this.submitVote = this.submitVote.bind(this);
@@ -159,8 +168,9 @@ class App extends Component {
   }
 
   handleSubmitCard(event) {
-    this.submitCard(this.state.value);
+    this.submitCard(this.state.card, playerNumber);
     console.log('A card was submitted: ' + this.state.card);
+    this.submitCard(this.state.value, playerNumber);
     event.preventDefault();
   }
 
@@ -194,8 +204,8 @@ class App extends Component {
     console.log("sent storyTeller selections");
   }
 
-  submitCard(cardID) {
-    socket.emit("submitCard", {cardID:cardID});
+  submitCard(cardID, player) {
+    socket.emit("submitCard", {cardID:cardID, belongsTo:player});
   }
 
   submitVote(cardID) {
@@ -210,73 +220,83 @@ class App extends Component {
 
    
     return (
-      <div className="App">
-        
-        <div className="App-header">
-          <h2>Welcome to React</h2>
-        </div>
-        
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        
-        <button onClick={this.buttonClick}>socket test</button>
-        
-        <hr />
-        
-        <form onSubmit={this.handleSubmitName}>
-          <label>
-            Name:
-            <input type="text" value={this.state.name} onChange={this.handleChangeName} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+      <div className="App container-fluid" style={AppContainerStyling}>
+          
+          <div className="row">
+            <div className="col-xs-12">
+              
 
-        <hr />
+              <div className="App-header">
+                <h2>Welcome to React</h2>
+              </div>
+              
+              <p className="App-intro">
+                To get started, edit <code>src/App.js</code> and save to reload.
+              </p>
+              
+              <button onClick={this.buttonClick}>socket test</button>
+              
+              <hr />
+              
+              <form onSubmit={this.handleSubmitName}>
+                <label>
+                  Name:
+                  <input type="text" value={this.state.name} onChange={this.handleChangeName} />
+                </label>
+                <input type="submit" value="Submit" />
+              </form>
 
-        <form onSubmit={this.handleSubmitClue}>
-          <h3>Story Teller's Submissions</h3>
-          <label>
-            Clue:
-            <input type="text" value={this.state.clue} onChange={this.handleChangeClue} />
-          </label>
-          <label>
-            Card:
-            <input type="text" value={this.state.card} onChange={this.handleChangeCard} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+              <hr />
 
-        <hr />
+              <form onSubmit={this.handleSubmitClue}>
+                <h3>Story Teller's Submissions</h3>
+                <label>
+                  Clue:
+                  <input type="text" value={this.state.clue} onChange={this.handleChangeClue} />
+                </label>
+                <label>
+                  Card:
+                  <input type="text" value={this.state.card} onChange={this.handleChangeCard} />
+                </label>
+                <input type="submit" value="Submit" />
+              </form>
 
-        <form onSubmit={this.handleSubmitCard}>
-        <h3>Player's Submissions</h3>
-          <label>
-            Card:
-            <input type="text" value={this.state.card} onChange={this.handleChangeCard} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-        
-        <form onSubmit={this.handleSubmitVote}>
-          <label>
-            Vote:
-            <input type="text" value={this.state.vote} onChange={this.handleChangeVote} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+              <hr />
 
-        <button onClick={this.buttonReadyNextTurn}>sendReadyForNextTurn</button>
+              <form onSubmit={this.handleSubmitCardPlayer}>
+              <h3>Player's Submissions</h3>
+                <label>
+                  Card:
+                  <input type="text" value={this.state.card} onChange={this.handleChangeCard} />
+                </label>
+                <input type="submit" value="Submit" />
+              </form>
+              
+              <form onSubmit={this.handleSubmitVote}>
+                <label>
+                  Vote:
+                  <input type="text" value={this.state.vote} onChange={this.handleChangeVote} />
+                </label>
+                <input type="submit" value="Submit" />
+              </form>
 
-        <hr />
-        <hr />
-        <hr />
+              <button onClick={this.buttonReadyNextTurn}>sendReadyForNextTurn</button>
+            
 
-        <div className='container-fluid'>
-          <div className='row'>
-            <GameRoom />
+            </div>
           </div>
-        </div>
+
+          <hr />
+          <hr />
+          <hr />
+
+          
+          <div className='row'>
+            <div className='col-xs-12'>
+              <GameRoom />
+            </div>
+          </div>
+
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import IO from 'socket.io-client';  
-const socket = IO() ;
+//import IO from 'socket.io-client';  
+//const socket = IO() ;
 
 const chatInput = {
 	height: '30%',
@@ -26,7 +26,7 @@ class ChatInput extends Component {
 	handleMessageSubmit(event) {
 		event.preventDefault();
 		console.log("Message Submitted." + this.state.message);
-		socket.emit("sendMessage", this.state.message);
+		//socket.emit("sendMessage", this.state.message);
 		this.setState({message: ""});
 	}
 
