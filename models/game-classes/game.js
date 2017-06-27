@@ -28,8 +28,6 @@ function Game(io)
             if (this.cardsPlayedThisTurn[card].belongsTo === playerNumber)
                 return this.cardsPlayedThisTurn[card];
         }
-        //only reached if there is no card from that player
-        return false;
     };
 
     this.FindPlayerByNumber = function(playerNumber = this.storyTeller.playerNumber)
@@ -241,17 +239,20 @@ function Game(io)
     {
         // console.log(this.players[0].cardsInHand);
         // console.log(this.cardsPlayedThisTurn);
-        console.log("card received: ");
+        console.log("card received --------- ");
         for (var prop in cardReceived)
         {
             console.log(prop + ": " + cardReceived[prop]);
             console.log("typeof: " + typeof cardReceived[prop]);
         }
-
+        console.log("end card received -------------");
         var player = this.FindPlayerByNumber(cardReceived.belongsTo);
+        console.log("player.cardsInHand before:");
+        console.log(player.cardsInHand);
         var card = player.RemoveCardFromHand(cardReceived.cardID);
 
-        console.log(this.players[player.playerNumber - 1].cardsInHand);
+        console.log("player.cardsInHand after:");
+        console.log(player.cardsInHand);
 
         if (card !== false)
             this.cardsPlayedThisTurn.push(cardReceived);
@@ -262,7 +263,8 @@ function Game(io)
 
     this.StartNextTurn = function()
     {
-        //check if game is over. TODO: check for a tie
+        //check if game is over.
+        //TODO: check for a tie
         if (this.cardDeck.length < this.players.length || this.CheckForWinner())
             io.emit("gameOver", this.GetTurnResultsArray());
         else
@@ -281,7 +283,6 @@ function Game(io)
                 this.players[index].hasVoted = false;
             }
 
-            //refill players hands
             this.RefillPlayersCardHand();
         }
     };
