@@ -118,7 +118,7 @@ class App extends Component {
     this.handleChangeClue = this.handleChangeClue.bind(this);
     this.handleSubmitClue = this.handleSubmitClue.bind(this);
     this.handleChangeCard = this.handleChangeCard.bind(this);
-    this.handleSubmitCard = this.handleSubmitCard.bind(this);
+    this.handleSubmitCardPlayer = this.handleSubmitCardPlayer.bind(this);
     this.submitStoryTellerRes = this.submitStoryTellerRes.bind(this);
     this.submitCard = this.submitCard.bind(this);
     this.submitVote = this.submitVote.bind(this);
@@ -167,9 +167,9 @@ class App extends Component {
     event.preventDefault();
   }
 
-  handleSubmitCard(event) {
-    this.submitCard(this.state.value);
+  handleSubmitCardPlayer(event) {
     console.log('A card was submitted: ' + this.state.card);
+    this.submitCard(this.state.value, playerNumber);
     event.preventDefault();
   }
 
@@ -203,8 +203,8 @@ class App extends Component {
     console.log("sent storyTeller selections");
   }
 
-  submitCard(cardID) {
-    socket.emit("submitCard", {cardID:cardID, belongsTo:player});
+  submitCard(cardID, playerNumber) {
+    socket.emit("submitCard", {cardID:cardID, belongsTo:playerNumber});
   }
 
   submitVote(cardID) {
@@ -262,7 +262,7 @@ class App extends Component {
 
               <hr />
 
-              <form onSubmit={this.handleSubmitCard}>
+              <form onSubmit={this.handleSubmitCardPlayer}>
               <h3>Player's Submissions</h3>
                 <label>
                   Card:

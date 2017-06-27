@@ -6,14 +6,14 @@ import Velocity from 'velocity-animate';
 const TableViewSwipeWrapper = {
 	height: '90%',
 	width: '100%',
-	overflow: 'auto',
+	overflow: 'hidden',
 	position: 'relative',
 	
 };
 
 const TableViewWrapper = {
 	height: '100%',
-	width: '165%',
+	width: '300%',
 	backgroundImage: 'url(/images/avatars/bar-bg.jpg)',
 	backgroundSize: 'cover',
 	position: 'relative',
@@ -55,17 +55,17 @@ class TableView4 extends Component {
     }
 
     swipedRight() {
-    	// Velocity(this.refs.block,{ rotateZ: '+=360deg' },1000)
+    	// Velocity(this.refs.p3,{ rotateZ: '+=360deg' },1000)
          // .then(e=>console.log('animation complete'))
-    	Velocity(this.refs.p3, "scroll", { container: this.refs.block, axis:'x', duration: 1000, offset: -200})
-         .then(e=>console.log('swipedRight... animation complete'))
+    	Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 1000, offset: 360})
+         .then(e=>console.log('swipedRight... animation complete', this.refs.block))
     	
     }
 
     swipedLeft() {
     	// Velocity(this.refs.p1,{ rotateZ: '+=360deg' },1000)
          // .then(e=>console.log('animation complete'))
-    	Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 1000})
+    	Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 1000, offset: -360})
          .then(e=>console.log('swipedLeft... animation complete'))
     	
     }
@@ -81,6 +81,7 @@ class TableView4 extends Component {
         		onSwipedLeft={this.swipedLeft}
         		className='row' 
         		style={TableViewWrapper}
+        		ref='swipe'
         		>	
 					<div ref='p1' className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
 						<PortraitView />
