@@ -17,17 +17,18 @@ function Player(socketID)
     // If not found returns false
     this.RemoveCardFromHand = function(cardID)
     {
-        for(var i = 0; i < this.cardsInHand; i++)
+        for(var i = 0; i < this.cardsInHand.length; i++)
         {
             var currentCard = this.cardsInHand[i];
             
-            if(currentCard.cardID == cardID)
+            if(currentCard == cardID)
             {
                 this.cardsInHand.splice(i,1);
                 return currentCard;
-            } 
-            return false;   
+            }        
         }
+
+         return false;
     }
 
 }
