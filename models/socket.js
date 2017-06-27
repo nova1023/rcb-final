@@ -92,9 +92,6 @@ module.exports = function(server){
             data.belongsTo = player.playerNumber;
             game1.HandleSubmitCard(data);
 
-            game1.cardsPlayedThisTurn.push(data);            
-            player.hasSubmittedCard = true;
-
             if(game1.CheckAllPlayersSubmittedCards())
             {    
                 game1.ShuffleCardDeck(1, game1.cardsPlayedThisTurn);

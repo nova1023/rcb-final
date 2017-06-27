@@ -246,16 +246,15 @@ function Game(io)
             console.log("typeof: " + typeof cardReceived[prop]);
         }
         console.log("end card received -------------");
+
         var player = this.FindPlayerByNumber(cardReceived.belongsTo);
-        console.log("player.cardsInHand before:");
-        console.log(player.cardsInHand);
         var card = player.RemoveCardFromHand(cardReceived.cardID);
 
-        console.log("player.cardsInHand after:");
-        console.log(player.cardsInHand);
-
         if (card !== false)
+        {
             this.cardsPlayedThisTurn.push(cardReceived);
+            player.hasSubmittedCard = true;
+        }
 
         console.log(this.cardsPlayedThisTurn);
         console.log("--------------------------------");
