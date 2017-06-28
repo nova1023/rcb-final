@@ -112,22 +112,27 @@ class App extends Component {
         1:{
           name: '',
           isStoryTeller: false,
-          isDone: false
+          isDone: false,
+          isMe: true,
+
         },
         2:{
           name: '',
           isStoryTeller: false,
-          isDone: false
+          isDone: false,
+          isMe: false,
         },
         3:{
           name: '',
           isStoryTeller: false,
-          isDone: false
+          isDone: false,
+          isMe: false,
         },
         4:{
           name: '',
           isStoryTeller: false,
-          isDone: false
+          isDone: false,
+          isMe: false,
         }
       }
     };
