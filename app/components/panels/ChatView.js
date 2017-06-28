@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 const chatBox = {
 	height: '70%',
-	width: '100%',
+	width: '95%',
 	backgroundColor: 'black',
+	margin: '0 auto',
 	
 }
 
