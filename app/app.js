@@ -65,7 +65,7 @@ function showClue(relayClue) {
 }
 
 function startVoting(relayCards) {
-  console.log("startVoting", relayCards);
+  // console.log("startVoting", relayCards);
   // var votingHand = $("<div>");
   // votingHand.addClass("col-xs-12 votingHand");
   // for (var i = 0; i < relayCards.length; i++) {
@@ -118,7 +118,6 @@ class App extends Component {
     this.handleChangeClue = this.handleChangeClue.bind(this);
     this.handleSubmitClue = this.handleSubmitClue.bind(this);
     this.handleChangeCard = this.handleChangeCard.bind(this);
-    this.handleSubmitCard = this.handleSubmitCard.bind(this);
     this.submitStoryTellerRes = this.submitStoryTellerRes.bind(this);
     this.submitCard = this.submitCard.bind(this);
     this.submitVote = this.submitVote.bind(this);
@@ -175,8 +174,8 @@ class App extends Component {
   }
 
   handleSubmitVote(event) {
-    event.preventDefault();
     this.submitVote(this.state.vote, playerNumber);
+    event.preventDefault();
     console.log('A vote was submitted: ' + this.state.vote);
   }
 
@@ -208,8 +207,13 @@ class App extends Component {
     socket.emit("submitCard", {cardID:cardID, belongsTo:player});
   }
 
+<<<<<<< HEAD
   submitVote(cardID) {
     socket.emit("submitVote", {cardID: cardID, playerNumber: player});
+=======
+  submitVote(cardID, playerNumber) {
+    socket.emit("submitVote", {cardID: cardID, playerNumber: playerNumber});
+>>>>>>> development
   }
 
   sendReadyForNextTurn() {
