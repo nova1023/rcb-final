@@ -10,7 +10,8 @@ var CardSchema = new Schema({
     type: String
   },
   // Array of clue objects
-  clue: []
+  clue: [{ clue: String,
+           score: Number}]
 });
 
 // Create the Note model with the NoteSchema
