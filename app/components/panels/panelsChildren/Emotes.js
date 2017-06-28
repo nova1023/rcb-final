@@ -17,8 +17,16 @@ class Emotes extends Component {
 	render() {
 		return (
 			<div className='row' style={PlayerButtonWrapper}> 
-				<div className='col-xs-12' style={PlayerButtonsStyling}>
-					E
+				<div className='dropup' style={PlayerButtonWrapper}>
+					<div className='col-xs-12 dropdown-toggle' id='dropdownMenu2' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' style={PlayerButtonsStyling}>
+						E
+					</div>
+						<div className="col-xs-12 dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+					    <img className='col-xs-3' src="/images/emotes/wink-face.png" />
+					    <img className='col-xs-3' src="/images/emotes/wink-face.png" />
+					    <img className='col-xs-3' src="/images/emotes/wink-face.png" />
+					    <img className='col-xs-3' src="/images/emotes/wink-face.png" />
+					  </div>
 				</div>
 			</div>
 		)
@@ -26,3 +34,4 @@ class Emotes extends Component {
 }
 
 export default Emotes;
+

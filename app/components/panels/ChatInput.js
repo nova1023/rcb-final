@@ -5,8 +5,11 @@ import React, { Component } from 'react';
 
 const chatInput = {
 	height: '30%',
-	width: '100%',
+	width: '90%',
+	margin: '0 auto'
+
 }
+
 
 class ChatInput extends Component {
 	constructor(props) {
@@ -33,22 +36,35 @@ class ChatInput extends Component {
 	render() {
 		return (
 
-			<form onSubmit={this.handleMessageSubmit} id="message-form" style={chatInput}>
-					<label>
-						Message:
-						<input
-							style={chatInput} 
-							type="text" 
-							placeholder="message" 
-							id="message" 
-							value={this.state.message}
-							onChange={this.handleMessageInputChange}
-						/>
-					</label>
-					<input type="submit" value="Submit" id="chat-button"  />
+			<form onSubmit={this.handleMessageSubmit} id="message-form">
+
+				<input
+					style={chatInput} 
+					type="text" 
+					placeholder="Message" 
+					id="message" 
+					value={this.state.message}
+					onChange={this.handleMessageInputChange}
+					/>
+				<input type="submit" value="Submit" id="chat-button" />
 			</form>
 		)
 	}
 }
 
 export default ChatInput;
+
+// <form onSubmit={this.handleMessageSubmit} id="message-form" style={chatInput}>
+// 					<label>
+// 						Message:
+// 						<input
+// 							style={chatInput} 
+// 							type="text" 
+// 							placeholder="message" 
+// 							id="message" 
+// 							value={this.state.message}
+// 							onChange={this.handleMessageInputChange}
+// 						/>
+// 					</label>
+// 					<input type="submit" value="Submit" id="chat-button"  />
+// 			</form>
