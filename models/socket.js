@@ -100,7 +100,7 @@ module.exports = function(server){
 
         function submitVote(data)
         {
-            console.log("inside socket.js submit vote");
+            console.log(" ------- inside socket.js submit vote -------");
             console.log(data);
 
             game1.HandleSubmitVote(data);
@@ -108,7 +108,6 @@ module.exports = function(server){
             if(game1.CheckAllPlayersVoted())
             {
                 game1.CalculateResults();
-                 
                 IO.sockets.in("Main").emit("turnResults", game1.GetTurnResultsArray());
             }    
         }
@@ -122,6 +121,7 @@ module.exports = function(server){
             if(nextTurnCheck === numPlayers)
             {
                 game1.StartNextTurn();
+                nextTurnCheck = 0;
             }    
         }
 
