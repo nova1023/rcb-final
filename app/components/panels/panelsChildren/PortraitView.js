@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 
 const portraitStyling = {
-	backgroundRepeat: 'no-repeat',
-	backgroundSize: 'cover',
 	height: '100%'
 }
 
 const decorationStyling = {
-	backgroundColor: 'green',
+	backgroundImage: 'url(/images/avatars/classy-fabric.png), url(/images/avatars/table-1.png)',
 	minHeight: '20%',
 	maxHeight: '20%',
+	width: '300%',
 	position: 'absolute',
 	bottom: '0',
 	left: '0'
@@ -33,11 +32,9 @@ class PortraitView extends Component {
 		return (
 			<div className='row' style={PortraitWrapper}>
 				<div className="col-xs-12 SinglePortrait" style={portraitStyling}>
-					<h1>Avatar</h1>
 					<img src="/images/avatars/complete/Anankos-2.png" style={avatarStyling}></img>
 				</div>
 				<div style={decorationStyling}>
-					<h1>Decoration</h1>
 				</div>
 			</div>
 		)

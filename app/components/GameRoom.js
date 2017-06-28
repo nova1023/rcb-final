@@ -24,7 +24,17 @@ const ChatStyling = {
 }
 
 class GameRoom extends Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			players: {},
 
+		}
+	}
+
+	componentWillUpdate() {
+		this.setState({players: this.props.players})
+	}
 
 	render() {
 		// this.numberOfTables;

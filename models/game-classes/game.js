@@ -214,6 +214,7 @@ function Game(io)
 
     this.GetTurnResultsArray = function()
     {
+        console.log("sending turn results");
         var turnResults = [];
 
         for (var index = 0; index < this.players.length; index++)
@@ -236,6 +237,9 @@ function Game(io)
             //store card in hand
             this.players[index].cardsInHand.push(newCard);
 
+            console.log("player " + this.players[index].playerNumber + "'s refilled hand.");
+            console.log(this.players[index].cardsInHand);
+
             //emit new card and StoryTeller
             io.to(this.players[index].socketID).emit("nextTurn",
             {
@@ -248,6 +252,7 @@ function Game(io)
 
     this.HandleSubmitCard = function(cardReceived)
     {
+        console.log("--------- inside HandleSubmitCard ----------");
         var player = this.FindPlayerByNumber(cardReceived.belongsTo);
         var card = player.RemoveCardFromHand(cardReceived.cardID);
 
@@ -262,7 +267,7 @@ function Game(io)
     };
 
     this.HandleSubmitVote = function(voteObject)
-    {
+    {   
         for (var index = 0; index < this.cardsPlayedThisTurn.length; index++)
         {
             var currentCard = this.cardsPlayedThisTurn[index];
@@ -275,7 +280,8 @@ function Game(io)
                     currentCard.votedForBy = [];
 
                 currentCard.votedForBy.push(voteObject.playerNumber);
-                console.log(currentCard);
+                console.log(this.cardsPlayedThisTurn);
+                console.log("---------------------------");
 
                 //set player's vote to true
                 var player = this.FindPlayerByNumber(voteObject.playerNumber);

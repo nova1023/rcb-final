@@ -24,6 +24,19 @@ socket.on("relayCards", startVoting);
 // receive who voted for what players total points if game is over.
 socket.on("turnResults", displayResults)
 
+//FOR TESTING receving nextTurn data
+socket.on("nextTurn", function(data)
+{
+    console.log(data);
+});
+
+//FOR TESTING receiving gameOver data
+socket.on("gameOver", function(data)
+{
+    console.log("received game over");
+    console.log(data);
+});
+
 function fillHand(cardsDealt) {
   console.log("fillHand", cardsDealt);
   playerNumber = cardsDealt.playerNumber;
@@ -107,7 +120,34 @@ class App extends Component {
       name: '',
       clue: '',
       card: '',
-      vote: ''
+      vote: '',
+      players: {
+        1:{
+          name: '',
+          isStoryTeller: false,
+          isDone: false,
+          isMe: true,
+
+        },
+        2:{
+          name: '',
+          isStoryTeller: false,
+          isDone: false,
+          isMe: false,
+        },
+        3:{
+          name: '',
+          isStoryTeller: false,
+          isDone: false,
+          isMe: false,
+        },
+        4:{
+          name: '',
+          isStoryTeller: false,
+          isDone: false,
+          isMe: false,
+        }
+      }
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -117,6 +157,7 @@ class App extends Component {
     this.sendName = this.sendName.bind(this);
     this.handleChangeClue = this.handleChangeClue.bind(this);
     this.handleSubmitClue = this.handleSubmitClue.bind(this);
+    this.handleSubmitCard = this.handleSubmitCard.bind(this);
     this.handleChangeCard = this.handleChangeCard.bind(this);
     this.submitStoryTellerRes = this.submitStoryTellerRes.bind(this);
     this.submitCard = this.submitCard.bind(this);
@@ -292,7 +333,7 @@ class App extends Component {
           
           <div className='row'>
             <div className='col-xs-12'>
-              <GameRoom />
+              <GameRoom players={this.state.players}/>
             </div>
           </div>
 
