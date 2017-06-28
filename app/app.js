@@ -107,7 +107,29 @@ class App extends Component {
       name: '',
       clue: '',
       card: '',
-      vote: ''
+      vote: '',
+      players: {
+        1:{
+          name: '',
+          isStoryTeller: false,
+          isDone: false
+        },
+        2:{
+          name: '',
+          isStoryTeller: false,
+          isDone: false
+        },
+        3:{
+          name: '',
+          isStoryTeller: false,
+          isDone: false
+        },
+        4:{
+          name: '',
+          isStoryTeller: false,
+          isDone: false
+        }
+      }
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -292,7 +314,7 @@ class App extends Component {
           
           <div className='row'>
             <div className='col-xs-12'>
-              <GameRoom />
+              <GameRoom players={this.state.players}/>
             </div>
           </div>
 
