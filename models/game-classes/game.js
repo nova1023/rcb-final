@@ -252,6 +252,7 @@ function Game(io)
 
     this.HandleSubmitCard = function(cardReceived)
     {
+        console.log("--------- inside HandleSubmitCard ----------");
         var player = this.FindPlayerByNumber(cardReceived.belongsTo);
         var card = player.RemoveCardFromHand(cardReceived.cardID);
 

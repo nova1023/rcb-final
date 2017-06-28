@@ -101,7 +101,6 @@ module.exports = function(server){
         function submitVote(data)
         {
             console.log(" ------- inside socket.js submit vote -------");
-            console.log(data);
 
             game1.HandleSubmitVote(data);
 
