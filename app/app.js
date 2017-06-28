@@ -30,6 +30,13 @@ socket.on("nextTurn", function(data)
     console.log(data);
 });
 
+//FOR TESTING receiving gameOver data
+socket.on("gameOver", function(data)
+{
+    console.log("received game over");
+    console.log(data);
+});
+
 function fillHand(cardsDealt) {
   console.log("fillHand", cardsDealt);
   playerNumber = cardsDealt.playerNumber;
