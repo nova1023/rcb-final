@@ -25,6 +25,14 @@ const PortraitViewWrapper = {
 
 };
 
+const TableStyling = {
+	height: '100%',
+	position: 'absolute',
+	top: '100%',
+	backgroundImage: 'url(/images/avatars/classy-fabric.png), url(/images/avatars/table-2.png)'
+
+};
+
 class TableView4 extends Component {
 
 	constructor(props){
@@ -35,6 +43,8 @@ class TableView4 extends Component {
 
 		this.swipedRight = this.swipedRight.bind(this);
 		this.swipedLeft = this.swipedLeft.bind(this);
+		this.swipedDown = this.swipedDown.bind(this);
+		this.swipedUp = this.swipedUp.bind(this);
 		this.swiping = this.swiping.bind(this);
 		this.swiped = this.swiped.bind(this);
 	}
@@ -76,6 +86,16 @@ class TableView4 extends Component {
     
     }
 
+    swipedDown() {
+    	console.log("Swiped Down");
+    	Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:1000, offset: 345 })
+    }
+
+    swipedUp() {
+    	console.log("Swiped Up");
+    	Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:1000, offset: -345 })
+    }
+
 	render() {
 		return (
 			<div ref='block' style={TableViewSwipeWrapper}>
@@ -85,6 +105,8 @@ class TableView4 extends Component {
         		onSwiped={this.swiped} 
         		onSwipedRight={this.swipedRight} 
         		onSwipedLeft={this.swipedLeft}
+        		onSwipedDown={this.swipedDown}
+        		onSwipedUp={this.swipedUp}
         		className='row' 
         		style={TableViewWrapper}
         		>	
@@ -96,6 +118,8 @@ class TableView4 extends Component {
 					</div>
 					<div ref='p3' className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
 						<PortraitView />
+					</div>
+					<div className='col-xs-12 Table' style={TableStyling}>
 					</div>
 				</Swipeable>
 			</div>		
