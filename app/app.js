@@ -118,7 +118,6 @@ class App extends Component {
     this.handleChangeClue = this.handleChangeClue.bind(this);
     this.handleSubmitClue = this.handleSubmitClue.bind(this);
     this.handleChangeCard = this.handleChangeCard.bind(this);
-    this.handleSubmitCardPlayer = this.handleSubmitCardPlayer.bind(this);
     this.submitStoryTellerRes = this.submitStoryTellerRes.bind(this);
     this.submitCard = this.submitCard.bind(this);
     this.submitVote = this.submitVote.bind(this);
