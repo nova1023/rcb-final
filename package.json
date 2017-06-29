@@ -19,6 +19,7 @@
   "homepage": "https://github.com/dlcNine/rcb-final#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "mongoose": "^4.10.6",
     "react": "^15.6.0",
