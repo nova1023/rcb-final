@@ -30,17 +30,18 @@ router.post("/api/login-guest", function(req, res)
     };
 
     // //create new instance of Guest
-    // var guestEntry = new Guest(guestObject);
+    var guestEntry = new Guest(guestObject);
 
-    // guestEntry.save({}, function(error, doc)
-    // {
-    //     if (error)
-    //         console.log(error.message);
-    //     else
-    //         console.log("new guest saved");
-    // });
+    //save guest into Guest collection 
+    guestEntry.save({}, function(error, doc)
+    {
+        if (error)
+            console.log(error.message);
+        else
+            console.log("new guest saved");
+    });
 
-    res.send({msg: "hopefully guest was saved"});
+    res.send(guestObject);
 });
 
 router.put("/api/logout", function(req, res)
