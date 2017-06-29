@@ -22,10 +22,10 @@ class App extends Component {
       selectedCardID: '',
       turnPhase: '',
       submittedCards: [],
-      p1Score: 0,
-      p2Score: 0,
-      p3Score: 0,
-      p4Score: 0,
+      p1Points: 0,
+      p2Points: 0,
+      p3Points: 0,
+      p4Points: 0,
     };
 
 
@@ -42,6 +42,7 @@ class App extends Component {
     this.displayResults = this.displayResults.bind(this);
     this.handleChangeClue = this.handleChangeClue.bind(this);
     this.handleChangeSelectedCard = this.handleChangeSelectedCard.bind(this);
+    this.nextTurn = this.nextTurn.bind(this);
     
 
     // Socket.io Event Listeners
@@ -56,12 +57,10 @@ class App extends Component {
     socket.on("relayCards", this.startVoting);
 
     // receive who voted for what players total points if game is over.
-    socket.on("turnResults", this.displayResults)
+    socket.on("turnResults", this.displayResults);
 
     //FOR TESTING receving nextTurn data
-    socket.on("nextTurn", function(data){
-          console.log(data);
-      });
+    socket.on("nextTurn", this.nextTurn);
 
     //FOR TESTING receiving gameOver data
     socket.on("gameOver", function(data){
@@ -89,6 +88,15 @@ class App extends Component {
     });
   }
 
+  nextTurn(data){
+    console.log("nextTurn", data);
+    this.setState({
+      whoIsStoryTeller: data.storyTeller,
+      myHand: data.cards,
+      turnPhase: 'storyTellerSubmits'
+    });
+  }
+
   showClue(data){
     console.log("relayClue--", data);
     this.setState({
@@ -108,12 +116,12 @@ class App extends Component {
   displayResults(data){
     console.log("turnResults--", data);
     this.setState({
-      p1Score: data[0].currentScore,
-      p2Score: data[1].currentScore,
-      p3Score: data[2].currentScore,
-      p4Score: data[3].currentScore,
+      p1Points: data[0].currentPoints,
+      p2Points: data[1].currentPoints,
+      p3Points: data[2].currentPoints,
+      p4Points: data[3].currentPoints,
       turnPhase: 'readyForNextTurn'
-    })
+    });
   }
 
   // Sending Data to the server through socket.emit

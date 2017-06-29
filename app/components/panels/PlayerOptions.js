@@ -31,7 +31,7 @@ class PlayerOptions extends Component {
 		} else {
 			//do nothing
 		}
-		console.log("PlayerOptions", this.state);
+		// console.log("PlayerOptions", this.state);
 	}
 
 	render() {
