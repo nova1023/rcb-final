@@ -20,12 +20,10 @@ class App extends Component {
       myHand: [],
       clue: '',
       submittedCards: [],
-      playerScores:{
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0
-      }
+      p1Score: 0,
+      p2Score: 0,
+      p3Score: 0,
+      p4Score: 0,
     };
 
 
@@ -37,6 +35,10 @@ class App extends Component {
     this.submitVote = this.submitVote.bind(this);
     this.sendReadyForNextTurn = this.sendReadyForNextTurn.bind(this);
     this.fillHand = this.fillHand.bind(this);
+    this.showClue = this.showClue.bind(this);
+    this.startVoting = this.startVoting.bind(this);
+    this.displayResults = this.displayResults.bind(this);
+    
 
     // Socket.io Event Listeners
     //----------------------------------------------------------------------------------------
@@ -44,27 +46,25 @@ class App extends Component {
     socket.on("cardsDealt", this.fillHand);
 
     // receive the clue that the storyteller submitted as a text string
-    socket.on("relayClue", showClue);
+    socket.on("relayClue", this.showClue);
 
     // receive an array of cards that everyone played
-    socket.on("relayCards", startVoting);
+    socket.on("relayCards", this.startVoting);
 
     // receive who voted for what players total points if game is over.
-    socket.on("turnResults", displayResults)
+    socket.on("turnResults", this.displayResults)
 
     //FOR TESTING receving nextTurn data
-    socket.on("nextTurn", function(data)
-      {
+    socket.on("nextTurn", function(data){
           console.log(data);
       });
 
     //FOR TESTING receiving gameOver data
-    socket.on("gameOver", function(data)
-      {
+    socket.on("gameOver", function(data){
           console.log("received game over");
           console.log(data);
       });
-    }
+  }
 
   // Sets the player's Number, Hand, and Storyteller from the received data.
   fillHand(cardsDealt){
@@ -86,10 +86,10 @@ class App extends Component {
 
   displayResults(data){
     this.setState({
-      playerScores[1] = data[0].currentScore,
-      playerScores[2] = data[1].currentScore,
-      playerScores[3] = data[2].currentScore,
-      playerScores[4] = data[3].currentScore
+      p1Score: data[0].currentScore,
+      p2Score: data[1].currentScore,
+      p3Score: data[2].currentScore,
+      p4Score: data[3].currentScore,
     })
   }
 
@@ -122,6 +122,14 @@ class App extends Component {
   }
   //===========================================================================================
 
+  componentDidMount(){
+    this.sendName("player1");
+  }
+
+  componentDidUpdate(){
+    console.log(this.state);
+  }
+
   render() {
 
    
@@ -130,7 +138,7 @@ class App extends Component {
           
           <div className='row'>
             <div className='col-xs-12'>
-              <GameRoom players={this.state.players}/>
+              <GameRoom gameState={this.state}/>
             </div>
           </div>
 

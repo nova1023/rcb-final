@@ -27,17 +27,19 @@ class GameRoom extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			players: {},
+			gameState: {},
 
 		}
 	}
 
 	componentDidUpdate() {
-		if(this.state.players !== this.props.players){
-			this.setState({players: this.props.players})
+		console.log("GameRoom Component Updated");
+		if(this.state.gameState !== this.props.gameState){
+			this.setState({gameState: this.props.gameState})
 		} else {
 			//do nothing
 		}	
+		console.log("GameRoom", this.state);
 	}
 
 	render() {
@@ -45,8 +47,8 @@ class GameRoom extends Component {
 		return(
 			<div className='row' style={GameRoomStyling}>
 				<div className="col-xs-12 ViewPort" style={ViewPortStyling}>
-					<TableView4 />
-					<PlayerOptions />
+					<TableView4 gameState={this.state.gameState} />
+					<PlayerOptions gameState={this.state.gameState} />
 				</div>
 				<div className="col-xs-12 Chat" style={ChatStyling}>
 					<ChatView />

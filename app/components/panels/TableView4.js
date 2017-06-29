@@ -71,7 +71,13 @@ class TableView4 extends Component {
     }
 
     componentDidUpdate() {
-    	console.log("Component Updated");
+    	console.log("TableView Component Updated");
+    	if(this.state.gameState !== this.props.gameState){
+			this.setState({gameState: this.props.gameState})
+		} else {
+			//do nothing
+		}
+		console.log("TableView", this.state);	
     }
 
     swipedRight() {
