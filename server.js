@@ -48,6 +48,7 @@ db.once("open", function()
 require("./models/socket")(server);
 
 //Routing =============================================================
+app.use(require("./controllers/login-routes.js"));
 app.get("/", function(req, res)
 {
     res.sendFile("./index.html");
