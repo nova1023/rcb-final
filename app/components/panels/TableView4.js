@@ -5,6 +5,7 @@ import Velocity from 'velocity-animate';
 import GiveClue from './panelsChildren/GiveClue';
 import SubmitCard from './panelsChildren/SubmitCard';
 import SubmitVote from './panelsChildren/SubmitVote';
+import ReadyUp from './panelsChildren/ReadyUp';
 
 const TableViewSwipeWrapper = {
 	height: '90%',
@@ -129,6 +130,15 @@ class TableView4 extends Component {
                 	/>;
 	    		console.log("Sending Prompt", prompt);
 	    		return prompt;
+
+	    		// If the turn phase is on 'readyForNextTurn'
+	    		} else if(this.state.gameState.turnPhase === 'readyForNextTurn') {
+    				let prompt = 
+    				<ReadyUp
+    					sendReadyForNextTurn={this.props.sendReadyForNextTurn}
+    				/>
+    				console.log("Sent Prompt", prompt);
+    				return prompt;
 	    		
 	    		// else it is not time for the storyTeller to give a response
 	    		} else {
@@ -164,6 +174,15 @@ class TableView4 extends Component {
     				console.log("Sent Prompt", prompt);
     				return prompt;
     			
+    			// If the turn phase is on 'readyForNextTurn'
+    			} else if(this.state.gameState.turnPhase === 'readyForNextTurn') {
+    				let prompt = 
+    				<ReadyUp
+    					sendReadyForNextTurn={this.props.sendReadyForNextTurn}
+    				/>
+    				console.log("Sent Prompt", prompt);
+    				return prompt;
+
     			// If the turn phase is NOT any of the above
     			} else {
     				console.log("NOT on a player phase");

@@ -112,6 +112,7 @@ class App extends Component {
       p2Score: data[1].currentScore,
       p3Score: data[2].currentScore,
       p4Score: data[3].currentScore,
+      turnPhase: 'readyForNextTurn'
     })
   }
 
@@ -158,8 +159,8 @@ class App extends Component {
 
   submitVote(event) {
     event.preventDefault();
-    let cardID = this.selectedCardID;
-    let playerNumber = this.playerNumber;
+    let cardID = this.state.selectedCardID;
+    let playerNumber = this.state.myPlayerNumber;
 
     socket.emit("submitVote", {cardID: cardID, playerNumber: playerNumber});
     console.log("Sent Player's vote choice");
@@ -169,7 +170,11 @@ class App extends Component {
   }
 
   sendReadyForNextTurn() {
-    socket.emit("nextTurn", "readyForNextTurn");
+    console.log("Sent readyForNextTurn");
+    this.setState({
+      turnPhase: 'sentReady'
+    });
+    socket.emit("nextTurn", true);
   }
   //===========================================================================================
 
@@ -196,6 +201,7 @@ class App extends Component {
                 submitStoryTellerRes={this.submitStoryTellerRes}
                 submitCard={this.submitCard}
                 submitVote={this.submitVote}
+                sendReadyForNextTurn={this.sendReadyForNextTurn}
               />
             </div>
           </div>
