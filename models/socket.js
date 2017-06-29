@@ -11,7 +11,7 @@ const Game = require("./game-classes/game");
 const Player = require("./game-classes/player");
 
 //ALL players in a room/game
-var users = []; //used to look up name/id/room/game
+var users = []; //used to look up name/socketid/room/game
 
 // Test variables used used for single room/game
 var playersInGame = 0;     // tracks number of players who are pushed to game1.players    
@@ -40,6 +40,8 @@ module.exports = function(server){
         socket.on("nextTurn", nextTurn);
         socket.on("sendMessage", sendMessage);
         socket.on("disconnect", disconnect);
+        socket.on("joinGame", joinGame);
+        socket.on("exitGame", exitGame);
 
         
         //event callback functions
@@ -135,7 +137,34 @@ module.exports = function(server){
             else
                 console.log('User not found!');
         }
+        //--------------------------------------
+        
+        function joinGame()
+        {
+            /*
+                put user on playerQueue.
+                
 
+
+            */
+        }
+
+         //--------------------------------------
+        
+        function exitGame()
+        {
+            /*
+                remove player from game room
+                rejoin player to main room
+
+                somehow check if game has any players.(add property to game)
+                if game.players === 0;
+                    re add to availible games array
+                
+
+
+            */
+        }
         //--------------------------------------
         
         function disconnect()
