@@ -6,8 +6,8 @@ const portraitStyling = {
 
 const decorationStyling = {
 	backgroundImage: 'url(/images/avatars/classy-fabric.png), url(/images/avatars/table-1.png)',
-	minHeight: '20%',
-	maxHeight: '20%',
+	minHeight: '10%',
+	maxHeight: '10%',
 	width: '300%',
 	position: 'absolute',
 	bottom: '0',
@@ -15,10 +15,10 @@ const decorationStyling = {
 }
 
 const avatarStyling = {
-	width: '50%',
-	minWidth: '100px',
+	width: '70%',
+	marginLeft: '15%',
 	position: 'absolute',
-	bottom: '20%',
+	bottom: '10%',
 	left: '0'
 }
 
