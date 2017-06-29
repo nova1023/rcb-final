@@ -12,7 +12,9 @@ const User = require("../models/user.js"),
 //Routing ========================================================
 router.post("/api/register", function(req, res)
 {
-
+    //check if userName is already taken
+    //if username !taken 
+        //register the new user
 });
 
 router.post("/api/login", function(req, res)
@@ -41,7 +43,12 @@ router.post("/api/login-guest", function(req, res)
             console.log("new guest saved");
     });
 
-    res.send(guestObject);
+    //send token cookie to client
+    res.cookie("token", guestObject.token);
+
+    //send client to lobby page
+    res.send({msg: "to the lobby!"});
+    // res.redirect("/lobby");
 });
 
 router.put("/api/logout", function(req, res)
