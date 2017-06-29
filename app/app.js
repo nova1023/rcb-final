@@ -98,10 +98,15 @@ class App extends Component {
   }
 
   startVoting(data){
-    this.setState({submittedCards: data});
+    console.log("relayCards--", data);
+    this.setState({
+      submittedCards: data,
+      turnPhase: 'playersSubmitVotes'
+    });
   }
 
   displayResults(data){
+    console.log("turnResults--", data);
     this.setState({
       p1Score: data[0].currentScore,
       p2Score: data[1].currentScore,
@@ -146,10 +151,21 @@ class App extends Component {
 
     socket.emit("submitCard", {cardID:cardID, belongsTo:playerNumber});
     console.log("Sent Player's card choice.");
+    this.setState({
+      turnPhase: 'sentCard'
+    });
   }
 
-  submitVote(cardID, playerNumber) {
+  submitVote(event) {
+    event.preventDefault();
+    let cardID = this.selectedCardID;
+    let playerNumber = this.playerNumber;
+
     socket.emit("submitVote", {cardID: cardID, playerNumber: playerNumber});
+    console.log("Sent Player's vote choice");
+    this.setState({
+      turnPhase: 'sentVote'
+    });
   }
 
   sendReadyForNextTurn() {
@@ -179,6 +195,7 @@ class App extends Component {
                 handleChangeSelectedCard={this.handleChangeSelectedCard}
                 submitStoryTellerRes={this.submitStoryTellerRes}
                 submitCard={this.submitCard}
+                submitVote={this.submitVote}
               />
             </div>
           </div>

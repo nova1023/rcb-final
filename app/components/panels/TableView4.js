@@ -4,6 +4,7 @@ import Swipeable from 'react-swipeable';
 import Velocity from 'velocity-animate';
 import GiveClue from './panelsChildren/GiveClue';
 import SubmitCard from './panelsChildren/SubmitCard';
+import SubmitVote from './panelsChildren/SubmitVote';
 
 const TableViewSwipeWrapper = {
 	height: '90%',
@@ -107,12 +108,17 @@ class TableView4 extends Component {
 
     showPrompts(){
     	console.log("showPrompts called");
+    	
+    	// If the gameState is set up
     	if (this.state.gameState !== undefined){
-    		console.log("TableView return GiveClue");
+    		console.log("TableView gameState is defined");
     		
+    		// If the storyTeller's Number matches my player number
+    		//----------------------------------------------------------------------------------------------
     		if (this.state.gameState.whoIsStoryTeller === this.state.gameState.myPlayerNumber){
     			console.log("I am the storyteller");
 
+    			// If the turn phase is on 'storyTellerSubmits' show the storyTeller's prompt
     			if (this.state.gameState.turnPhase === 'storyTellerSubmits'){
     				console.log("storyTellerSubmits phase");
     				let prompt = 
@@ -123,13 +129,20 @@ class TableView4 extends Component {
                 	/>;
 	    		console.log("Sending Prompt", prompt);
 	    		return prompt;
+	    		
+	    		// else it is not time for the storyTeller to give a response
 	    		} else {
+	    			console.log("NOT storyTellerSubmits phase");
 	    			//do nothing
 	    			return;
 	    		}
-    		
+    			
+    		// If the storyTeller's Number does not match my number
+    		//----------------------------------------------------------------------------------------------
     		} else {
-    			console.log("!!this.state.gameState.whoIsStoryTeller === this.state.gameState.myPlayerNumber");
+    			console.log("I am not the storyTeller");
+
+    			// If the turn phase is on 'playersSubmitCards'
     			if (this.state.gameState.turnPhase === 'playersSubmitCards'){
     				let prompt = 
     				<SubmitCard 
@@ -138,14 +151,29 @@ class TableView4 extends Component {
                 	/>;
     				console.log("sent prompt", prompt);
     				return prompt;
+    			
+    			// If the turn phase is on 'playersSubmitVotes'
+    			} else if(this.state.gameState.turnPhase === 'playersSubmitVotes'){
+    				let prompt = 
+    				<SubmitVote
+    					handleChangeSelectedCard={this.props.handleChangeSelectedCard}
+    					submitVote={this.props.submitVote}
+    					cardChoices={this.state.gameState.submittedCards}
+    				/>;
+    				console.log("Checking submittedCards", this.state.gameState.submittedCards);
+    				console.log("Sent Prompt", prompt);
+    				return prompt;
+    			
+    			// If the turn phase is NOT any of the above
     			} else {
-    				console.log("this.state.gameState.turnPhase !== playersSubmitCards");
+    				console.log("NOT on a player phase");
     				// do nothing
     				return;
     			}
     		
     		}
     	
+    	// If the gameState is undefined
     	} else {
     		console.log("TableView return nothing");
     		// do nothing
