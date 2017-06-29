@@ -18,53 +18,23 @@ class App extends Component {
       whoIsStoryTeller: 0,
       myPlayerNumber: 0,
       myHand: [],
-      value: '',
-      name: '',
       clue: '',
-      card: '',
-      vote: '',
-      players: {
-        1:{
-          name: '',
-          isStoryTeller: false,
-          isDone: false,
-          isMe: true,
-
-        },
-        2:{
-          name: '',
-          isStoryTeller: false,
-          isDone: false,
-          isMe: false,
-        },
-        3:{
-          name: '',
-          isStoryTeller: false,
-          isDone: false,
-          isMe: false,
-        },
-        4:{
-          name: '',
-          isStoryTeller: false,
-          isDone: false,
-          isMe: false,
-        }
+      submittedCards: [],
+      playerScores:{
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0
       }
     };
 
 
     // [handleChange, handleSubmit, handleChangeName, handleSubmitName, ]
     //   .each((elem) => this[elem] = this[elem].bind(this))
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSubmitName = this.handleSubmitName.bind(this);
     this.sendName = this.sendName.bind(this);
-    this.handleSubmitClue = this.handleSubmitClue.bind(this);
-    this.handleSubmitCard = this.handleSubmitCard.bind(this);
     this.submitStoryTellerRes = this.submitStoryTellerRes.bind(this);
     this.submitCard = this.submitCard.bind(this);
     this.submitVote = this.submitVote.bind(this);
-    this.handleSubmitVote = this.handleSubmitVote.bind(this);
-    this.buttonReadyNextTurn = this.buttonReadyNextTurn.bind(this);
     this.sendReadyForNextTurn = this.sendReadyForNextTurn.bind(this);
     this.fillHand = this.fillHand.bind(this);
 
@@ -72,9 +42,6 @@ class App extends Component {
     //----------------------------------------------------------------------------------------
     // receive an array of strings with the card numbers
     socket.on("cardsDealt", this.fillHand);
-
-    // receive a player number string, EG player1
-    socket.on("storyTellerSet", storyTellerSet);
 
     // receive the clue that the storyteller submitted as a text string
     socket.on("relayClue", showClue);
@@ -109,6 +76,25 @@ class App extends Component {
     });
   }
 
+  showClue(data){
+    this.setState({clue: data});
+  }
+
+  startVoting(data){
+    this.setState({submittedCards: data});
+  }
+
+  displayResults(data){
+    this.setState({
+      playerScores[1] = data[0].currentScore,
+      playerScores[2] = data[1].currentScore,
+      playerScores[3] = data[2].currentScore,
+      playerScores[4] = data[3].currentScore
+    })
+  }
+
+  // Sending Data to the server through socket.emit
+  //--------------------------------------------------------------------------------
   sendName(name){
     socket.emit("playerJoined", name);
     console.log("sent name");
@@ -134,21 +120,7 @@ class App extends Component {
   sendReadyForNextTurn() {
     socket.emit("nextTurn", "readyForNextTurn");
   }
-
-  storyTellerSet(storyTellerSet) {
-  console.log("storyTellerSet", storyTellerSet); 
-  }
-
-  showClue(relayClue) {
-    console.log("showClue", relayClue);
-  }
-
-  startVoting(relayCards) {
-  }
-
-  displayResults(turnResults) {
-    console.log("displayResults", turnResults);
-  }
+  //===========================================================================================
 
   render() {
 
