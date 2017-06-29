@@ -19,6 +19,7 @@ class App extends Component {
       myPlayerNumber: 0,
       myHand: [],
       clue: '',
+      selectedCardID: '',
       submittedCards: [],
       p1Score: 0,
       p2Score: 0,
@@ -38,6 +39,8 @@ class App extends Component {
     this.showClue = this.showClue.bind(this);
     this.startVoting = this.startVoting.bind(this);
     this.displayResults = this.displayResults.bind(this);
+    this.handleChangeClue = this.handleChangeClue.bind(this);
+    this.handleChangeSelectedCard = this.handleChangeSelectedCard.bind(this);
     
 
     // Socket.io Event Listeners
@@ -64,6 +67,14 @@ class App extends Component {
           console.log("received game over");
           console.log(data);
       });
+  }
+
+  handleChangeClue(event){
+    this.setState({ clue: event.target.value });
+  }
+
+  handleChangeSelectedCard(event){
+    this.setState({ selectedCardID: event.target.value });
   }
 
   // Sets the player's Number, Hand, and Storyteller from the received data.
@@ -100,7 +111,11 @@ class App extends Component {
     console.log("sent name");
   }
 
-  submitStoryTellerRes(cardID, clueText) {
+  submitStoryTellerRes(event) {
+    event.preventDefault();
+    let cardID = this.state.selectedCardID;
+    let clueText = this.state.clue;
+
     var data = {
       cardID: cardID,
       clueText: clueText
@@ -108,6 +123,15 @@ class App extends Component {
     socket.emit("storyTellerClue", data);
     console.log("sent storyTeller selections");
   }
+
+  // submitStoryTellerRes(cardID, clueText) {
+  //   var data = {
+  //     cardID: cardID,
+  //     clueText: clueText
+  //   };
+  //   socket.emit("storyTellerClue", data);
+  //   console.log("sent storyTeller selections");
+  // }
 
   submitCard(cardID, player) {
     socket.emit("submitCard", {cardID:cardID, belongsTo:player});
@@ -138,7 +162,12 @@ class App extends Component {
           
           <div className='row'>
             <div className='col-xs-12'>
-              <GameRoom gameState={this.state}/>
+              <GameRoom 
+                gameState={this.state}
+                handleChangeClue={this.handleChangeClue}
+                handleChangeSelectedCard={this.handleChangeSelectedCard}
+                submitStoryTellerRes={this.submitStoryTellerRes}
+              />
             </div>
           </div>
 

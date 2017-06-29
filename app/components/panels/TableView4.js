@@ -109,7 +109,12 @@ class TableView4 extends Component {
     	if (this.state.gameState !== undefined){
     		console.log("TableView return GiveClue");
     		if (this.state.gameState.whoIsStoryTeller === this.state.gameState.myPlayerNumber){
-    			let prompt = <GiveClue />;
+    			let prompt = 
+    				<GiveClue 
+    					handleChangeClue={this.props.handleChangeClue}
+                		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
+                		submitStoryTellerRes={this.props.submitStoryTellerRes} 
+                	/>;
 	    		console.log("Sending Prompt", prompt);
 	    		return prompt;
     		} else {

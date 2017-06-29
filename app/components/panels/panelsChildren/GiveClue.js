@@ -19,6 +19,39 @@ const HideBulletPoints = {
 }
 
 class GiveClue extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      clue:'',
+      selectedCardID:'',
+
+    }
+
+    // this.submitStoryTellerRes = this.submitStoryTellerRes.bind(this);
+    // this.handleChangeClue = this.handleChangeClue.bind(this);
+    // this.handleChangeSelectedCard = this.handleChangeSelectedCard.bind(this);
+  }
+
+  // handleChangeClue(event){
+  //   this.setState({ clue: event.target.value });
+  // }
+
+  // handleChangeSelectedCard(event){
+  //   this.setState({ selectedCardID: event.target.value });
+  // }
+
+  // submitStoryTellerRes(event) {
+  //   event.preventDefault();
+  //   let cardID = this.state.selectedCardID;
+  //   let clueText = this.state.clue;
+
+  //   var data = {
+  //     cardID: cardID,
+  //     clueText: clueText
+  //   };
+  //   socket.emit("storyTellerClue", data);
+  //   console.log("sent storyTeller selections");
+  // }
   
   render() {
     return (
@@ -37,7 +70,14 @@ class GiveClue extends Component {
           
               <div className="modal-body">
               
-               <h1>GiveClue</h1>
+                <form onSubmit={this.props.submitStoryTellerRes}>
+                  <label>
+                    Enter Clue:
+                    <input type="text" value={this.props.clue} onChange={this.props.handleChangeClue} />
+                  </label>
+                  <input type="text" value={this.props.selectedCardID} onChange={this.props.handleChangeSelectedCard} />
+                </form>
+                <button onClick={this.props.submitStoryTellerRes}>Submit</button>
      
               </div>
 

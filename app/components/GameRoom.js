@@ -47,7 +47,11 @@ class GameRoom extends Component {
 		return(
 			<div className='row' style={GameRoomStyling}>
 				<div className="col-xs-12 ViewPort" style={ViewPortStyling}>
-					<TableView4 gameState={this.state.gameState} />
+					<TableView4 gameState={this.state.gameState} 
+						handleChangeClue={this.props.handleChangeClue}
+                		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
+                		submitStoryTellerRes={this.props.submitStoryTellerRes}
+                	/>
 					<PlayerOptions gameState={this.state.gameState} />
 				</div>
 				<div className="col-xs-12 Chat" style={ChatStyling}>
