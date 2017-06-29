@@ -27,32 +27,35 @@ class GameRoom extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			players: {},
+			gameState: {},
 
 		}
 	}
 
-	componentWillUpdate() {
-		this.setState({players: this.props.players})
+	componentDidUpdate() {
+		console.log("GameRoom Component Updated");
+		if(this.state.gameState !== this.props.gameState){
+			this.setState({gameState: this.props.gameState})
+		} else {
+			//do nothing
+		}	
+		console.log("GameRoom", this.state);
 	}
 
 	render() {
-		// this.numberOfTables;
-
-		// if (numberOfPlayers === 4) {
-		// 	this.numberOfTables = <TableView4 />			
-		// } else {
-		// 	this.numberOfTables = <TableView5 />
-		// }
-
 
 		return(
 			<div className='row' style={GameRoomStyling}>
 				<div className="col-xs-12 ViewPort" style={ViewPortStyling}>
-					{/*this.numberOfTables*/}
-					<TableView4 />
-					<PlayerOptions />
-
+					<TableView4 gameState={this.state.gameState} 
+						handleChangeClue={this.props.handleChangeClue}
+                		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
+                		submitStoryTellerRes={this.props.submitStoryTellerRes}
+                		submitCard={this.props.submitCard}
+                		submitVote={this.props.submitVote}
+                		sendReadyForNextTurn={this.props.sendReadyForNextTurn}
+                	/>
+					<PlayerOptions gameState={this.state.gameState} />
 				</div>
 				<div className="col-xs-12 Chat" style={ChatStyling}>
 					<ChatView />

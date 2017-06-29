@@ -1,7 +1,8 @@
 //Dependenciess =======================================================
 const Express = require("express"),
     Mongoose = require("mongoose"),
-    BodyParser = require("body-parser");
+    BodyParser = require("body-parser"),
+    CookieParser = require("cookie-parser");
 
 //Setup ===============================================================
 var app = Express();
@@ -13,6 +14,9 @@ app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 app.use(BodyParser.text());
 app.use(BodyParser.json({ type: "application/vnd.api+json" }));
+
+//CookieParser setup ---------------------------------------------
+app.use(CookieParser());
 
 //set public folder as static ------------------------------------
 app.use(Express.static("public"));
@@ -44,11 +48,13 @@ db.once("open", function()
 require("./models/socket")(server);
 
 //Routing =============================================================
+app.use(require("./controllers/login-routes.js"));
 app.get("/", function(req, res)
 {
     res.sendFile("./index.html");
     // res.send({msg: "Hello world"});
 });
+
 
 //Start Listening =====================================================
 server.listen(port, function()

@@ -135,7 +135,7 @@ function Game(io)
     {
         for (var index = 0; index < this.players.length; index++)
         {
-            if (this.players[index].currentPoints > 29)
+            if (this.players[index].currentPoints > 9)
                 return true;
         }
 
@@ -240,11 +240,11 @@ function Game(io)
             console.log("player " + this.players[index].playerNumber + "'s refilled hand.");
             console.log(this.players[index].cardsInHand);
 
-            //emit new card and StoryTeller
+            //emit players newly refilled hand and StoryTeller
             io.to(this.players[index].socketID).emit("nextTurn",
             {
                 belongsTo: this.players[index].playerNumber,
-                cardID: newCard,
+                cards: this.players[index].cardsInHand,
                 storyTeller: this.storyTeller.playerNumber
             });
         }
