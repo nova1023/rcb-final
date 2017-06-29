@@ -183,7 +183,7 @@ class App extends Component {
   }
 
   componentDidUpdate(){
-    console.log(this.state);
+    console.log("App.js state--", this.state);
   }
 
   render() {
