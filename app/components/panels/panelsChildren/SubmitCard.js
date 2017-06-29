@@ -70,14 +70,13 @@ class SubmitCard extends Component {
           
               <div className="modal-body">
               
-                <form onSubmit={this.props.submitStoryTellerRes}>
+                <form>
                   <label>
-                    Enter Clue:
-                    <input type="text" value={this.props.clue} onChange={this.props.handleChangeClue} />
+                    Enter Card:
+                    <input type="text" value={this.props.selectedCardID} onChange={this.props.handleChangeSelectedCard} />
                   </label>
-                  <input type="text" value={this.props.selectedCardID} onChange={this.props.handleChangeSelectedCard} />
                 </form>
-                <button onClick={this.props.submitStoryTellerRes}>Submit</button>
+                <button data-dismiss="modal" onClick={this.props.submitCard}>Submit</button>
      
               </div>
 

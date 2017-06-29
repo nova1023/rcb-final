@@ -51,6 +51,7 @@ class GameRoom extends Component {
 						handleChangeClue={this.props.handleChangeClue}
                 		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
                 		submitStoryTellerRes={this.props.submitStoryTellerRes}
+                		submitCard={this.props.submitCard}
                 	/>
 					<PlayerOptions gameState={this.state.gameState} />
 				</div>

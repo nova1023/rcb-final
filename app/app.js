@@ -139,8 +139,13 @@ class App extends Component {
   //   console.log("sent storyTeller selections");
   // }
 
-  submitCard(cardID, player) {
-    socket.emit("submitCard", {cardID:cardID, belongsTo:player});
+  submitCard(event) {
+    event.preventDefault();
+    let cardID = this.state.selectedCardID;
+    let playerNumber = this.state.myPlayerNumber;
+
+    socket.emit("submitCard", {cardID:cardID, belongsTo:playerNumber});
+    console.log("Sent Player's card choice.");
   }
 
   submitVote(cardID, playerNumber) {
@@ -173,6 +178,7 @@ class App extends Component {
                 handleChangeClue={this.handleChangeClue}
                 handleChangeSelectedCard={this.handleChangeSelectedCard}
                 submitStoryTellerRes={this.submitStoryTellerRes}
+                submitCard={this.submitCard}
               />
             </div>
           </div>

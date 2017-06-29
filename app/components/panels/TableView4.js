@@ -133,9 +133,8 @@ class TableView4 extends Component {
     			if (this.state.gameState.turnPhase === 'playersSubmitCards'){
     				let prompt = 
     				<SubmitCard 
-    					handleChangeClue={this.props.handleChangeClue}
                 		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
-                		submitStoryTellerRes={this.props.submitStoryTellerRes} 
+                		submitCard={this.props.submitCard}
                 	/>;
     				console.log("sent prompt", prompt);
     				return prompt;
