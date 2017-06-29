@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PortraitView from './panelsChildren/PortraitView';
 import Swipeable from 'react-swipeable';
 import Velocity from 'velocity-animate';
+import GiveClue from './panelsChildren/GiveClue';
 
 const TableViewSwipeWrapper = {
 	height: '90%',
@@ -47,6 +48,7 @@ class TableView4 extends Component {
 		this.swipedUp = this.swipedUp.bind(this);
 		this.swiping = this.swiping.bind(this);
 		this.swiped = this.swiped.bind(this);
+		this.showPrompts = this.showPrompts.bind(this);
 	}
 
 	swiping(e, deltaX, deltaY, absX, absY, velocity) {
@@ -102,7 +104,29 @@ class TableView4 extends Component {
     	Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:1000, offset: -345 })
     }
 
+    showPrompts(){
+    	console.log("showPrompts called");
+    	if (this.state.gameState !== undefined){
+    		console.log("TableView return GiveClue");
+    		if (this.state.gameState.whoIsStoryTeller === this.state.gameState.myPlayerNumber){
+    			let prompt = <GiveClue />;
+	    		console.log("Sending Prompt", prompt);
+	    		return prompt;
+    		} else {
+    			// do nothing
+    			return;
+    		}
+    	} else {
+    		console.log("TableView return nothing");
+    		// do nothing
+    		return;
+    	}
+    }
+
 	render() {
+
+		let prompt = this.showPrompts();
+
 		return (
 			<div ref='block' style={TableViewSwipeWrapper}>
 				<Swipeable 
@@ -126,6 +150,7 @@ class TableView4 extends Component {
 						<PortraitView />
 					</div>
 					<div className='col-xs-12 Table' style={TableStyling}>
+						{prompt}
 					</div>
 				</Swipeable>
 			</div>		
