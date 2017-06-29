@@ -16,7 +16,7 @@ app.use(BodyParser.text());
 app.use(BodyParser.json({ type: "application/vnd.api+json" }));
 
 //CookieParser setup ---------------------------------------------
-app.use(CookieParser);
+app.use(CookieParser());
 
 //set public folder as static ------------------------------------
 app.use(Express.static("public"));
