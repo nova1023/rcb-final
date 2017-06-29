@@ -107,7 +107,7 @@ class TableView4 extends Component {
         		onSwipedLeft={this.swipedLeft}
         		onSwipedDown={this.swipedDown}
         		onSwipedUp={this.swipedUp}
-        		className='row' 
+        		className='row SwipeContainer' 
         		style={TableViewWrapper}
         		>	
 					<div ref='p1' className="col-xs-4 PortraitView" style={PortraitViewWrapper}>

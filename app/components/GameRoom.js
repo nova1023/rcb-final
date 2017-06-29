@@ -32,27 +32,21 @@ class GameRoom extends Component {
 		}
 	}
 
-	componentWillUpdate() {
-		this.setState({players: this.props.players})
+	componentDidUpdate() {
+		if(this.state.players !== this.props.players){
+			this.setState({players: this.props.players})
+		} else {
+			//do nothing
+		}	
 	}
 
 	render() {
-		// this.numberOfTables;
-
-		// if (numberOfPlayers === 4) {
-		// 	this.numberOfTables = <TableView4 />			
-		// } else {
-		// 	this.numberOfTables = <TableView5 />
-		// }
-
 
 		return(
 			<div className='row' style={GameRoomStyling}>
 				<div className="col-xs-12 ViewPort" style={ViewPortStyling}>
-					{/*this.numberOfTables*/}
 					<TableView4 />
 					<PlayerOptions />
-
 				</div>
 				<div className="col-xs-12 Chat" style={ChatStyling}>
 					<ChatView />
