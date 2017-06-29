@@ -3,6 +3,7 @@ import PortraitView from './panelsChildren/PortraitView';
 import Swipeable from 'react-swipeable';
 import Velocity from 'velocity-animate';
 import GiveClue from './panelsChildren/GiveClue';
+import SubmitCard from './panelsChildren/SubmitCard';
 
 const TableViewSwipeWrapper = {
 	height: '90%',
@@ -108,8 +109,13 @@ class TableView4 extends Component {
     	console.log("showPrompts called");
     	if (this.state.gameState !== undefined){
     		console.log("TableView return GiveClue");
+    		
     		if (this.state.gameState.whoIsStoryTeller === this.state.gameState.myPlayerNumber){
-    			let prompt = 
+    			console.log("I am the storyteller");
+
+    			if (this.state.gameState.turnPhase === 'storyTellerSubmits'){
+    				console.log("storyTellerSubmits phase");
+    				let prompt = 
     				<GiveClue 
     					handleChangeClue={this.props.handleChangeClue}
                 		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
@@ -117,10 +123,30 @@ class TableView4 extends Component {
                 	/>;
 	    		console.log("Sending Prompt", prompt);
 	    		return prompt;
+	    		} else {
+	    			//do nothing
+	    			return;
+	    		}
+    		
     		} else {
-    			// do nothing
-    			return;
+    			console.log("!!this.state.gameState.whoIsStoryTeller === this.state.gameState.myPlayerNumber");
+    			if (this.state.gameState.turnPhase === 'playersSubmitCards'){
+    				let prompt = 
+    				<SubmitCard 
+    					handleChangeClue={this.props.handleChangeClue}
+                		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
+                		submitStoryTellerRes={this.props.submitStoryTellerRes} 
+                	/>;
+    				console.log("sent prompt", prompt);
+    				return prompt;
+    			} else {
+    				console.log("this.state.gameState.turnPhase !== playersSubmitCards");
+    				// do nothing
+    				return;
+    			}
+    		
     		}
+    	
     	} else {
     		console.log("TableView return nothing");
     		// do nothing

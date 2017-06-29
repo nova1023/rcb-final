@@ -33,15 +33,15 @@ class Hand extends Component {
   }
 
   componentDidUpdate(){
-    console.log("Hand Component Updated");
+    // console.log("Hand Component Updated");
     if(this.state.gameState !== this.props.gameState){
-      console.log("Hand Updated state with gameState");
+      // console.log("Hand Updated state with gameState");
       this.setState({gameState: this.props.gameState})
     } else {
-      console.log("Hand did not update state with gameState");
+      // console.log("Hand did not update state with gameState");
       //do nothing
       if (this.state.gameState !== undefined){
-        console.log("Hand this.gameState !== undefined");
+        // console.log("Hand this.gameState !== undefined");
         if (this.state.myHand !== this.state.gameState.myHand){
           this.setState({
             card1: this.state.gameState.myHand[0] + '.png',
@@ -57,7 +57,7 @@ class Hand extends Component {
         }
       } else {
         // do nothing
-        console.log("Hand this,gameState does = undefined");
+        // console.log("Hand this,gameState does = undefined");
       }
     }
     console.log("Hand", this.state);

@@ -18,7 +18,7 @@ const HideBulletPoints = {
 
 }
 
-class GiveClue extends Component {
+class SubmitCard extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -64,7 +64,7 @@ class GiveClue extends Component {
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
-                  <div className="pull-left">Scoreboard</div>
+                  <div className="pull-left">SubmitCard</div>
                     <button type="button" className="close" data-dismiss="modal" title="Close"> <span className="glyphicon glyphicon-remove"></span></button>
                 </div>
           
@@ -77,7 +77,7 @@ class GiveClue extends Component {
                   </label>
                   <input type="text" value={this.props.selectedCardID} onChange={this.props.handleChangeSelectedCard} />
                 </form>
-                <button data-dismiss="modal" onClick={this.props.submitStoryTellerRes}>Submit</button>
+                <button onClick={this.props.submitStoryTellerRes}>Submit</button>
      
               </div>
 
@@ -95,4 +95,4 @@ class GiveClue extends Component {
   }
 }
 
-export default GiveClue;
+export default SubmitCard;

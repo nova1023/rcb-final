@@ -20,6 +20,7 @@ class App extends Component {
       myHand: [],
       clue: '',
       selectedCardID: '',
+      turnPhase: '',
       submittedCards: [],
       p1Score: 0,
       p2Score: 0,
@@ -83,12 +84,17 @@ class App extends Component {
     this.setState({
       whoIsStoryTeller: cardsDealt.storyTeller,
       myPlayerNumber: cardsDealt.playerNumber,
-      myHand: cardsDealt.cards
+      myHand: cardsDealt.cards,
+      turnPhase: 'storyTellerSubmits'
     });
   }
 
   showClue(data){
-    this.setState({clue: data});
+    console.log("relayClue--", data);
+    this.setState({
+      clue: data,
+      turnPhase: 'playersSubmitCards'
+    });
   }
 
   startVoting(data){
