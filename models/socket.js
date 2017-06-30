@@ -5,8 +5,7 @@ const Player = require("./game-classes/player");
 
 //ALL players in a room/game
 var users = []; //used to look up name/socketid/room/game
-var numPlayers = 4;        
-var room = "Main";
+const NumPlayers = 4;        
 var gamesMap = new Map();
 var playersQueue = [];
 var runningGamesCount = 0;        
@@ -45,26 +44,22 @@ module.exports = function(server){
         function playerJoined(userName)
         {
             socket.join("Main");
-            playersInGame++;
+            //playersInGame++;
             
             var newPlayer = new Player(socket.id);
             newPlayer.userName = userName;
             newPlayer.room = "Main";
-            newPlayer.game = "game1";
+            //newPlayer.game = "game1";
             newPlayer.playerNumber = playersInGame;
         
             users.push(newPlayer);
             //Line below for TESTING
             console.log("a player joined: " + newPlayer.userName);
 
-            if(playersInGame <= numPlayers)
+            if(playersInGame <= NumPlayers)
                 game1.players.push(newPlayer);
 
-            if(playersInGame === numPlayers)
-            {
-                game1.ShuffleCardDeck();
-                game1.DealCards();
-            }            
+                 
         }
 
         //---------------------------------------
@@ -108,14 +103,30 @@ module.exports = function(server){
         //---------------------------------------
 
         function nextTurn(data)
-        {
-            nextTurnCheck++;
+        {           
+            // gets game from user.
+            var game = gamesMap.get(getUserById(socket.id).game);
 
-            if(nextTurnCheck === numPlayers)
+            //tracks when users submit.
+            game.nextTurnCount++;
+
+            //checks if all players sumbitted 'nextTurn' 
+            if (game.nextTurnCount.length === NumPlayers)
             {
-                game1.StartNextTurn();
-                nextTurnCheck = 0;
-            }    
+                if(game.gameStarted === false)
+                {
+                    game.gameStarted = true;
+                    game.ShuffleCardDeck();
+                    game.DealCards();                    
+                }
+                else
+                {
+                    game.StartNextTurn();
+                }
+
+                // resets to zero
+                game.nextTurnCount = 0;
+            }         
         }
 
         //-------------------------------------
