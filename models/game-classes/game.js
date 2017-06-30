@@ -16,6 +16,7 @@ function Game(io)
     this.connectedPlayerCount = 0;  // tracks players exit/disconnect game.
     this.gameStarted = false;       // tracks if game has started.
     this.nextTurnCount = 0;         // tracks players who submit nextTurn event
+    this.room = "";                 // socket room associated with game instance.                
     this.storyTeller = 
     {
         id: "",
@@ -298,7 +299,7 @@ function Game(io)
         //check if game is over.
         //TODO: check for a tie
         if (this.cardDeck.length < this.players.length || this.CheckForWinner())
-            io.emit("gameOver", this.GetTurnResultsArray());
+            io.in(room).emit("gameOver", this.GetTurnResultsArray());
         else
         {
             //move cards played this turn to dead pile
