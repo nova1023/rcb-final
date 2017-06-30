@@ -5,12 +5,11 @@ const Player = require("./game-classes/player");
 
 //ALL players in a room/game
 var users = []; //used to look up name/socketid/room/game
-
-// Test variables used used for single room/game
-var playersInGame = 0;     // tracks number of players who are pushed to game1.players    
-var numPlayers = 4;        // sets number of players in game
-var nextTurnCheck = 0;    // tracks number of players who submitted 'nextTurn' event
-var room = "Main";        
+var numPlayers = 4;        
+var room = "Main";
+var gamesMap = new Map();
+var playersQueue = [];
+var runningGamesCount = 0;        
 
 
 module.exports = function(server){
