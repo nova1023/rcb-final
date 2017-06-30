@@ -1,10 +1,3 @@
-/*
-    Dev notes: 
-
-    array of users global minimum {socket.id, room, name, game}
-    later - array of rooms/games
-*/    
-
 //Dependencies
 const SocketIO = require("socket.io");
 const Game = require("./game-classes/game");
