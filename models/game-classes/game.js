@@ -13,6 +13,9 @@ function Game(io)
     this.cardDeck = CardDeck(50);    //returns array ['1', '2', ...]
     this.cardsPlayedThisTurn = [];
     this.deadPile = [];
+    this.connectedPlayerCount = 0;  // tracks players exit/disconnect game.
+    this.gameStarted = false;       // tracks if game has started.
+    this.nextTurnCount = 0;         // tracks players who submit nextTurn event
     this.storyTeller = 
     {
         id: "",
