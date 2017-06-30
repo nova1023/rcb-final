@@ -9,7 +9,7 @@ function Player(socketID)
     this.hasVoted = false;
     this.currentPoints = 0;
     this.game;
-    this.room;
+    this.room;    
 
 
     //Looks for card of cardID in players cardsInHand.
