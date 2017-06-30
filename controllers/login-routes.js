@@ -39,13 +39,7 @@ Passport.deserializeUser(function(user, done)
 });
 
 //Routing ========================================================
-router.post("/api/register", function(req, res)
-{
-    //check if userName is already taken
-    //if username !taken 
-        //register the new user
-});
-
+//for testing --------
 router.get("/success", function(req, res)
 {
     res.send({msg: "success"});
@@ -55,11 +49,21 @@ router.get("/failure", function(req, res)
 {
     res.send({msg: "failure"});
 });
+//end for testing ---------
+
+router.post("/api/register", function(req, res)
+{
+    //check if userName is already taken
+    //if username !taken 
+        //register the new user
+});
 
 router.post("/api/login", Passport.authenticate("local", 
 { 
-    // successRedirect: '/success',
-    // failureRedirect: '/failure'
+    // successRedirect: '/lobby',
+    successRedirect: "/success",
+    // failureRedirect: '/landing'
+    failureRedirect: "/failure"
 }));
 
 router.post("/api/login-guest", function(req, res)
