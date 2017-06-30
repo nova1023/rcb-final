@@ -4,12 +4,12 @@ const Mongoose = require("mongoose");
 //Create user Schema ==========================================
 var userSchema = new Mongoose.Schema(
 {
-    userName: 
+    username: 
     {
         type: String,
         trim: true,
         unique: true,
-        required: "A username is required"
+        required: "Username is required"
     },
     password: 
     {

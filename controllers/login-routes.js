@@ -1,5 +1,7 @@
 // Dependenciess =================================================
 const Express = require("express"),
+    Passport = require("passport"),
+    LocalStrategy = require("passport-local").Strategy,
     GenerateToken = require("./helper-code/token-generator.js");
 
 // Variables =====================================================
@@ -9,6 +11,33 @@ var router = Express.Router();
 const User = require("../models/user.js"),
     Guest = require("../models/guest.js");
 
+//Passport login configuration =========================================
+Passport.use(new LocalStrategy(function(username, password, done)
+{
+    User.find({username: username}, function(error, user)
+    {
+        console.log(user);
+        if (error)
+        {
+            console.log("There was an error");
+            return done(error);
+        }
+        if (!user)
+        {
+            console.log("No user that matches that name");
+            return done(null, false, {message: "Incorrect username."});
+        }
+        if (user[0].password !== password)
+        {
+            console.log("Wrong password");
+            return done(null, false, {message: "Incorrect password."});
+        }
+
+        // console.log(user);
+        return done(null, user);
+    });
+}));
+
 //Routing ========================================================
 router.post("/api/register", function(req, res)
 {
@@ -17,39 +46,54 @@ router.post("/api/register", function(req, res)
         //register the new user
 });
 
-router.post("/api/login", function(req, res)
-{
+// router.post("/api/login", function(req, res)
+// {
 
+// });
+router.get("/success", function(req, res)
+{
+    res.send({msg: "success"});
 });
 
-router.post("/api/login-guest", function(req, res)
+router.get("/failure", function(req, res)
 {
-    //build object to turn into model instance
-    var guestObject = 
-    {
-        userName: req.body.userName,
-        token: GenerateToken()
-    };
-
-    // //create new instance of Guest
-    var guestEntry = new Guest(guestObject);
-
-    //save guest into Guest collection 
-    guestEntry.save({}, function(error, doc)
-    {
-        if (error)
-            console.log(error.message);
-        else
-            console.log("new guest saved");
-    });
-
-    //send token cookie to client
-    res.cookie("token", guestObject.token);
-
-    //send client to lobby page
-    res.send({msg: "to the lobby!"});
-    // res.redirect("/lobby");
+    res.send({msg: "failure"});
 });
+
+router.post("/api/login", Passport.authenticate("local", 
+{ 
+    successRedirect: '/success',
+    failureRedirect: '/failure'
+}));
+
+// router.post("/api/login-guest", function(req, res)
+// {
+//     //build object to turn into model instance
+//     var guestObject = 
+//     {
+//         username: req.body.username,
+//         token: GenerateToken()
+//     };
+
+//     // //create new instance of Guest
+//     var guestEntry = new Guest(guestObject);
+
+//     //save guest into Guest collection 
+//     guestEntry.save({}, function(error, doc)
+//     {
+//         if (error)
+//             console.log(error.message);
+//         else
+//             console.log("new guest saved");
+//     });
+
+//     //send token cookie to client
+//     res.cookie("token", guestObject.token);
+
+//     //send client to lobby page
+//     res.send({msg: "to the lobby!"});
+//     // res.redirect("/lobby");
+// });
 
 router.put("/api/logout", function(req, res)
 {

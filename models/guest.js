@@ -4,11 +4,11 @@ const Mongoose = require("mongoose");
 //Create Schema ====================================================
 var guestSchema = new Mongoose.Schema(
 {
-    userName: 
+    username: 
     {
         type: String,
         trim: true,
-        required: "Must have a userName"
+        required: "Must have a username"
     },
     token:
     {

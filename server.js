@@ -2,7 +2,8 @@
 const Express = require("express"),
     Mongoose = require("mongoose"),
     BodyParser = require("body-parser"),
-    CookieParser = require("cookie-parser");
+    CookieParser = require("cookie-parser"),
+    Passport = require("passport");
 
 //Setup ===============================================================
 var app = Express();
@@ -18,10 +19,13 @@ app.use(BodyParser.json({ type: "application/vnd.api+json" }));
 //CookieParser setup ---------------------------------------------
 app.use(CookieParser());
 
+//Passport setup -------------------------------------------------
+app.use(Passport.initialize());
+
 //set public folder as static ------------------------------------
 app.use(Express.static("public"));
 
-//Mongoose database setup
+//Mongoose database setup ----------------------------------------
 //If running on Heroku
 if(process.env.MONGODB_URI)
 {
