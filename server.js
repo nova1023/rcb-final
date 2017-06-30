@@ -21,6 +21,7 @@ app.use(CookieParser());
 
 //Passport setup -------------------------------------------------
 app.use(Passport.initialize());
+app.use(Passport.session());
 
 //set public folder as static ------------------------------------
 app.use(Express.static("public"));
