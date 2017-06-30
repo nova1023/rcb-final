@@ -29,6 +29,7 @@ module.exports = function(server){
 
     IO.on("connection", function(socket)
     {
+        socket.removeAllListeners()
         console.log("user connected", socket.id);
 
         //Socket events
@@ -86,18 +87,12 @@ module.exports = function(server){
 
         function submitCard(data)
         {
-            var player = game1.FindPlayerByNumber(data.belongsTo);     
-
-            data.belongsTo = player.playerNumber;
             game1.HandleSubmitCard(data);
-
-            game1.cardsPlayedThisTurn.push(data);            
-            player.hasSubmittedCard = true;
 
             if(game1.CheckAllPlayersSubmittedCards())
             {    
                 game1.ShuffleCardDeck(1, game1.cardsPlayedThisTurn);
-                IO.sockets.in("Main").emit("relayCards", game1.cardsPlayedThisTurn);
+                IO.sockets.in("Main").emit("relayCards", game1.GetCardsPlayedIDS());
             }    
         }
 
@@ -105,20 +100,13 @@ module.exports = function(server){
 
         function submitVote(data)
         {
-            //gets card object from owner of card voted on.
-            var card = game1.FindPlayersCard(data.belongsTo);
-            
-            if(!card.hasOwnProperty("votedForBy"))
-            {    
-                card.votedForBy = [];
-            }
-            // playerNumber of player submitting vote
-            card.votedForBy.push(data.playerNumber);
+            console.log(" ------- inside socket.js submit vote -------");
+
+            game1.HandleSubmitVote(data);
 
             if(game1.CheckAllPlayersVoted())
             {
                 game1.CalculateResults();
-                 
                 IO.sockets.in("Main").emit("turnResults", game1.GetTurnResultsArray());
             }    
         }
@@ -132,6 +120,7 @@ module.exports = function(server){
             if(nextTurnCheck === numPlayers)
             {
                 game1.StartNextTurn();
+                nextTurnCheck = 0;
             }    
         }
 
