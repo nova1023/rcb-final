@@ -29,7 +29,7 @@ function Player(socketID)
         }
 
          return false;
-    }
+    };
 
 }
 
