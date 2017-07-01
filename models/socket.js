@@ -49,7 +49,7 @@ module.exports = function(server){
             allPlayersMap.set(socket.id, newPlayer);
             
 console.log("a player joined: " + newPlayer.userName);//TEST CODE
-console.log("allPlayersMap", allPlayersMap);                
+               
         }
 
         //--------------------------------------
@@ -60,7 +60,7 @@ console.log("allPlayersMap", allPlayersMap);
         {
             //enqueues player
             playersQueue.unshift(allPlayersMap.get(socket.id));
-console.log("in joinGame");//TEST CODE
+console.log("\nin joinGame");//TEST CODE
 console.log("playersQueue", playersQueue);//TEST CODE
             //if enough players for game, instantiates a new game and poplulates with players.
             if(playersQueue >= GameSize)
