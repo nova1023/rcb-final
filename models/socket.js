@@ -188,14 +188,23 @@ module.exports = function(server){
             socket.emit("exitGame");
 
             if(game.connectedPlayerCount === 0)
-                gamesMap.remove(game.room)  // room is same name as game.    
+                gamesMap.remove(game.room)      // room is also game name.    
         }
        
         //--------------------------------------
         
+        // When user disconnects, removes from game and allPlayersMap
         function disconnect()
         {
             console.log("user disconnected");
+
+            var game = allPlayersMap.get(socket.id).game;
+            game.connectedPlayerCount--;
+
+            if(game.connectedPlayerCount === 0)
+                gamesMap.remove(game.room)      // room is also game name.    
+
+            allPlayersMap.remove(socket.id);
         }
 
      });
