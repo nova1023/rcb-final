@@ -97,10 +97,13 @@ module.exports = function(server){
         //---------------------------------------
 
         function storyTellerClue(data)
-        {            
-            data.belongsTo = game1.storyTeller.playerNumber;
-            game1.HandleSubmitCard(data);
-            IO.sockets.in("Main").emit("relayClue", data.clueText);
+        {   
+            // gets game from player.
+            var game = allPlayersMap.get(socket.id).game
+
+            data.belongsTo = game.storyTeller.playerNumber;            
+            game.HandleSubmitCard(data);
+            IO.sockets.in(game.room).emit("relayClue", data.clueText);
         }
 
         //---------------------------------------
@@ -163,7 +166,7 @@ module.exports = function(server){
         }
 
         //-------------------------------------
-
+        // Handles player chat messages
         function sendMessage(message)
         {
             var player = allPlayersMap.get(socket.id);           
