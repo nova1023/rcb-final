@@ -127,14 +127,15 @@ module.exports = function(server){
 
         function submitVote(data)
         {
-            console.log(" ------- inside socket.js submit vote -------");
+            // gets game from player.
+            var game = allPlayersMap.get(socket.id).game
 
-            game1.HandleSubmitVote(data);
+            game.HandleSubmitVote(data);
 
-            if(game1.CheckAllPlayersVoted())
+            if(game.CheckAllPlayersVoted())
             {
-                game1.CalculateResults();
-                IO.sockets.in("Main").emit("turnResults", game1.GetTurnResultsArray());
+                game.CalculateResults();
+                IO.sockets.in(game.room).emit("turnResults", game.GetTurnResultsArray());
             }    
         }
 
