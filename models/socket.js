@@ -5,11 +5,10 @@ const Player = require("./game-classes/player");
 
 //ALL players in a room/game
 var allPlayersMap = new Map(); //used to look up player by socket.id
-const NumPlayers = 4;        
+const GameSize = 4;        
 var gamesMap = new Map();
 var playersQueue = [];
 var runningGamesCount = 0;        
-
 
 module.exports = function(server){
 
@@ -32,8 +31,7 @@ module.exports = function(server){
         socket.on("sendMessage", sendMessage);
         socket.on("disconnect", disconnect);      
         socket.on("exitGame", exitGame);
-
-        
+      
         //event callback functions
         //==============================================
         
@@ -60,14 +58,40 @@ module.exports = function(server){
         // instantiates a new game with players and stores game in 'gamesMap' 
         function joinGame()
         {
+            //enqueues player
+            playersQueue.unshift(allPlayersMap.get(socket.id));
 
-            newPlayer.playerNumber = playersInGame;
-            /*
-                put user on playerQueue.
+            //if enough players for game, instantiates a new game and poplulates with players.
+            if(playersQueue >= GameSize)
+            {
+                runningGamesCount++;
+
+                // creates name for new game based on number of games (e.g. game1, game2,...)
+                var gameName = "game" + runningGamesCount;
                 
+                // instantiates new game and assigns room
+                var newGame = new Game(IO)
+                newGame.room = gameName;
 
+                // Creates key-value pair of gameName-newGame
+                gamesMap.set(gameName, newGame);
 
-            */
+                // populates game with players
+                for (var i = 0; i < GameSize; i++)
+                {   
+                    var player = playersQueue.pop();
+                    player.game = gameName; //game name and room name are same
+                    player.room = gameName;
+                    player.playerNumber = i+1;
+
+                    newGame.players.push(player);
+
+                    socket.leave("Main"); 
+                    socket.join(gameName);
+                }
+              
+                IO.sockets.in(gameName).emit('joinGame'); 
+            }
         }
 
         //---------------------------------------
@@ -119,7 +143,7 @@ module.exports = function(server){
             game.nextTurnCount++;
 
             //checks if all players sumbitted 'nextTurn' 
-            if(game.nextTurnCount.length === NumPlayers)
+            if(game.nextTurnCount.length === GameSize)
             {
                 // start game if not started
                 if(game.gameStarted === false)
