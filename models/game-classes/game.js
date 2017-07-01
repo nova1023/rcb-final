@@ -15,7 +15,6 @@ function Game(io)
     this.deadPile = [];
     this.connectedPlayerCount = 0;  // tracks players exit/disconnect game.
     this.gameStarted = false;       // tracks if game has started.
-    this.nextTurnCount = 0;         // tracks players who submit nextTurn event
     this.room = "";                 // socket room associated with game instance.                
     this.storyTeller = 
     {
@@ -318,6 +317,31 @@ function Game(io)
 
             this.RefillPlayersCardHand();
         }
+    };
+
+    // If all players have submitted 'nextTurn' returns true, else returns false.
+    this.CheckPlayersNextTurn()
+    {
+        var flag = false;     
+
+        for (var index = 0; index < this.players.length; index++)
+        {
+            if (this.players[index].nextTurnSubmitted)
+                flag = true;
+        }
+
+        if(flag)
+        {
+           // resets property value to false 
+           for (var index = 0; index < this.players.length; index++)
+            {
+                this.players[index].nextTurnSubmitted = false;               
+            }            
+            
+            return true; 
+        }
+
+        return false;
     };
 }
 
