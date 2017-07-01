@@ -60,22 +60,23 @@ console.log("allPlayersMap", allPlayersMap);
         {
             //enqueues player
             playersQueue.unshift(allPlayersMap.get(socket.id));
-
+console.log("in joinGame");//TEST CODE
+console.log("playersQueue", playersQueue);//TEST CODE
             //if enough players for game, instantiates a new game and poplulates with players.
             if(playersQueue >= GameSize)
             {
                 runningGamesCount++;
-
+console.log("runningGamesCount:", runningGamesCount);//TEST CODE
                 // creates name for new game based on number of games (e.g. game1, game2,...)
                 var gameName = "game" + runningGamesCount;
-                
+console.log("gameName:", gameName);//TEST CODE                
                 // instantiates new game and assigns room
                 var newGame = new Game(IO)
                 newGame.room = gameName;
 
                 // Creates key-value pair of gameName-newGame
                 gamesMap.set(gameName, newGame);
-
+console.log("gamesMap:", gamesMap);//TEST CODE
                 // populates game with players
                 for (var i = 0; i < GameSize; i++)
                 {   
@@ -89,7 +90,7 @@ console.log("allPlayersMap", allPlayersMap);
                     socket.leave("Main"); 
                     socket.join(gameName);
                 }
-              
+console.log("players added to game:", newGame.players);//TEST CODE              
                 IO.sockets.in(gameName).emit('joinGame'); 
             }
         }
@@ -202,11 +203,7 @@ console.log("allPlayersMap", allPlayersMap);
         // When user disconnects, removes from game and allPlayersMap
         function disconnect()
         {
-            console.log("user disconnected");
-
-            var game = allPlayersMap.get(socket.id).game;
-
-console.log("disconnect game", game);// TEST CODE         
+            var game = allPlayersMap.get(socket.id).game;     
             
             if(game)
             {
@@ -220,7 +217,6 @@ console.log("disconnect game", game);// TEST CODE
         }
 
      });
-
 
 }//END module.exports
 
