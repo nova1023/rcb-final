@@ -322,12 +322,12 @@ function Game(io)
     // If all players have submitted 'nextTurn' returns true, else returns false.
     this.CheckPlayersNextTurn = function()
     {
-        var flag = false;     
+        var flag = true;     
 
         for (var index = 0; index < this.players.length; index++)
         {
-            if (this.players[index].nextTurnSubmitted)
-                flag = true;
+            if (!this.players[index].nextTurnSubmitted)
+                flag = false;
         }
 
         if(flag)
