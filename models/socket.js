@@ -13,25 +13,24 @@ var runningGamesCount = 0;
 
 module.exports = function(server){
 
+    // Dependencies
     const IO = SocketIO(server);
     const Chat = require("./chat")(IO);
 
-    var game1 = new Game(IO); //Creates game instance.
-
     IO.on("connection", function(socket)
     {
-        socket.removeAllListeners()
+        socket.removeAllListeners();
         console.log("user connected", socket.id);
 
         //Socket events
         socket.on("playerJoined", playerJoined);
+        socket.on("joinGame", joinGame);
         socket.on("storyTellerClue", storyTellerClue);
         socket.on("submitCard", submitCard);
         socket.on("submitVote", submitVote);
         socket.on("nextTurn", nextTurn);
         socket.on("sendMessage", sendMessage);
-        socket.on("disconnect", disconnect);
-        socket.on("joinGame", joinGame);
+        socket.on("disconnect", disconnect);      
         socket.on("exitGame", exitGame);
 
         
@@ -40,26 +39,35 @@ module.exports = function(server){
         
         // joins player to room 
         // creates instance of player and sets player properties
-        // pushes to game.players array
         function playerJoined(userName)
         {
+            // joins player to 'Main' chat room in lobby
             socket.join("Main");
-            //playersInGame++;
             
             var newPlayer = new Player(socket.id);
             newPlayer.userName = userName;
             newPlayer.room = "Main";
-            //newPlayer.game = "game1";
-            newPlayer.playerNumber = playersInGame;
-        
+                
             users.push(newPlayer);
+            
             //Line below for TESTING
-            console.log("a player joined: " + newPlayer.userName);
+            console.log("a player joined: " + newPlayer.userName);               
+        }
 
-            if(playersInGame <= NumPlayers)
-                game1.players.push(newPlayer);
+        //--------------------------------------
+        
+        // Enqueues user to 'playerQueue'. If enough user in 'playerQueue' for a game,
+        // instantiates a new game with players and stores game in 'gamesMap' 
+        function joinGame()
+        {
 
-                 
+            newPlayer.playerNumber = playersInGame;
+            /*
+                put user on playerQueue.
+                
+
+
+            */
         }
 
         //---------------------------------------
@@ -111,8 +119,9 @@ module.exports = function(server){
             game.nextTurnCount++;
 
             //checks if all players sumbitted 'nextTurn' 
-            if (game.nextTurnCount.length === NumPlayers)
+            if(game.nextTurnCount.length === NumPlayers)
             {
+                // start game if not started
                 if(game.gameStarted === false)
                 {
                     game.gameStarted = true;
@@ -140,17 +149,7 @@ module.exports = function(server){
             else
                 console.log('User not found!');
         }
-        //--------------------------------------
         
-        function joinGame()
-        {
-            /*
-                put user on playerQueue.
-                
-
-
-            */
-        }
 
          //--------------------------------------
         
