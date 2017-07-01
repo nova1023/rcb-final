@@ -94,6 +94,7 @@ class Landing extends Component {
 
 				      <h1><Link to="/lobby">Lobby Link</Link></h1>
 				      <h1><Link to="/gameroom">GameRoom Link</Link></h1>
+				      <h1><Link to="/testingPage">Testing Page</Link></h1>
 
 						</div>
 					</div>

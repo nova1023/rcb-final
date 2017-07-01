@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-const PlayerButtonsStyling = {
-  border: '1px solid red',
+const PlayerButtonsStyh4ng = {
+  border: '1px soh4d red',
   width: '100%',
   height: '100%',
 
@@ -12,17 +12,14 @@ const PlayerButtonWrapper = {
 
 }
 
-const HideBulletPoints = {
-	listStyleType: 'none',
 
-}
 
 class Score extends Component {
 	
 	render() {
 		return (
 			<div  className='row' style={PlayerButtonWrapper}>
-        <div className='col-xs-12' data-toggle="modal" data-target="#scoreBoard" style={PlayerButtonsStyling}>
+        <div className='col-xs-12' data-toggle="modal" data-target="#scoreBoard" style={PlayerButtonsStyh4ng}>
         	S
         </div>
 
@@ -34,14 +31,14 @@ class Score extends Component {
                     <button type="button" className="close" data-dismiss="modal" title="Close"> <span className="glyphicon glyphicon-remove"></span></button>
                 </div>
           
-              <div className="modal-body">
+              <div className="modal-body text-center">
               
-                <ul style={HideBulletPoints}>
-                	<li>Player 1: Score-Here</li>
-                	<li>Player 2: Score-Here</li>
-                	<li>Player 3: Score-Here</li>
-                	<li>Player 4: Score-Here</li>
-               	</ul>
+                
+                	<h4>Player 1: Score-Here</h4>
+                	<h4>Player 2: Score-Here</h4>
+                	<h4>Player 3: Score-Here</h4>
+                	<h4>Player 4: Score-Here</h4>
+               	
      
               </div>
 
