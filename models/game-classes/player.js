@@ -11,7 +11,6 @@ function Player(socketID)
     this.game;
     this.room;    
 
-
     //Looks for card of cardID in players cardsInHand.
     // If found removes card and returns card
     // If not found returns false
