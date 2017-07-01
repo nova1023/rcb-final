@@ -40,7 +40,7 @@ module.exports = function(server){
         function playerJoined(userName)
         {
             // joins player to 'Main' chat room in lobby
-            socket.join("Main");
+            socket.join("Main");           
             
             var newPlayer = new Player(socket.id);
             newPlayer.userName = userName;
@@ -48,8 +48,8 @@ module.exports = function(server){
                 
             allPlayersMap.set(socket.id, newPlayer);
             
-            //Line below for TESTING
-            console.log("a player joined: " + newPlayer.userName);               
+console.log("a player joined: " + newPlayer.userName);//TEST CODE
+console.log("allPlayersMap", allPlayersMap);                
         }
 
         //--------------------------------------
@@ -190,7 +190,7 @@ module.exports = function(server){
             socket.emit("exitGame");
 
             if(game.connectedPlayerCount === 0)
-                gamesMap.remove(game.room)      // room is also game name.    
+                gamesMap.delete(game.room)      // room is also game name.    
         }
        
         //--------------------------------------
@@ -201,12 +201,18 @@ module.exports = function(server){
             console.log("user disconnected");
 
             var game = allPlayersMap.get(socket.id).game;
-            game.connectedPlayerCount--;
 
-            if(game.connectedPlayerCount === 0)
-                gamesMap.remove(game.room)      // room is also game name.    
+console.log("disconnect game", game);         
+            
+            if(game)
+            {
+                game.connectedPlayerCount--;
 
-            allPlayersMap.remove(socket.id);
+                if(game.connectedPlayerCount === 0)
+                    gamesMap.delete(game.room)      // room is also game name.    
+            }
+            
+            allPlayersMap.delete(socket.id);
         }
 
      });
