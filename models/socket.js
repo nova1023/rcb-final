@@ -111,12 +111,15 @@ module.exports = function(server){
 
         function submitCard(data)
         {
-            game1.HandleSubmitCard(data);
+            // gets game from player.
+            var game = allPlayersMap.get(socket.id).game
 
-            if(game1.CheckAllPlayersSubmittedCards())
+            game.HandleSubmitCard(data);
+
+            if(game.CheckAllPlayersSubmittedCards())
             {    
-                game1.ShuffleCardDeck(1, game1.cardsPlayedThisTurn);
-                IO.sockets.in("Main").emit("relayCards", game1.GetCardsPlayedIDS());
+                game.ShuffleCardDeck(1, game.cardsPlayedThisTurn);
+                IO.sockets.in(game.room).emit("relayCards", game.GetCardsPlayedIDS());
             }    
         }
 
