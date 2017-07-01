@@ -4,7 +4,7 @@ const Game = require("./game-classes/game");
 const Player = require("./game-classes/player");
 
 //ALL players in a room/game
-var users = []; //used to look up name/socketid/room/game
+var allPlayersMap = new Map(); //used to look up player by socket.id
 const NumPlayers = 4;        
 var gamesMap = new Map();
 var playersQueue = [];
@@ -48,7 +48,7 @@ module.exports = function(server){
             newPlayer.userName = userName;
             newPlayer.room = "Main";
                 
-            users.push(newPlayer);
+            allPlayersMap.set(socket.id, newPlayer);
             
             //Line below for TESTING
             console.log("a player joined: " + newPlayer.userName);               
@@ -113,7 +113,7 @@ module.exports = function(server){
         function nextTurn(data)
         {           
             // gets game from user.
-            var game = gamesMap.get(getUserById(socket.id).game);
+            var game = allPlayersMap.get(socket.id).game
 
             //tracks when users submit.
             game.nextTurnCount++;
@@ -142,7 +142,7 @@ module.exports = function(server){
 
         function sendMessage(message)
         {
-            var currentUser = getUserByID(socket.id);
+            var currentUser = allPlayersMap.get(socket.id);
             
             if(currentUser !== false)
                 Chat.relayMessage(currentUser.userName, message, currentUser.room);
@@ -179,14 +179,3 @@ module.exports = function(server){
 
 }//END module.exports
 
-//Searches users array for user by socketID. If found returns user in users array else returns false.
-function getUserById(socketID)
-{
-    for(var i = 0; i < users.length; i++)
-    {
-        if(users[i].socketID == socketID)
-            return users[i];
-    }    
-    
-    return false;
-}
