@@ -166,12 +166,8 @@ module.exports = function(server){
 
         function sendMessage(message)
         {
-            var currentUser = allPlayersMap.get(socket.id);
-            
-            if(currentUser !== false)
-                Chat.relayMessage(currentUser.userName, message, currentUser.room);
-            else
-                console.log('User not found!');
+            var player = allPlayersMap.get(socket.id);           
+            Chat.relayMessage(player.userName, message, player.room);         
         }
         
         //--------------------------------------
