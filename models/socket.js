@@ -181,16 +181,20 @@ console.log("allPlayersMap", allPlayersMap);
         // Removes player from game when exits. If game has no player removes game from 'gameMap'.
         function exitGame()
         {
-            var game = allPlayersMap.get(socket.id).game;
+            var player =  allPlayersMap.get(socket.id);
+            var game = player.game;
+                
             game.connectedPlayerCount--;
+
+            if(game.connectedPlayerCount === 0)
+                gamesMap.delete(game.room)      // room is also game name.
 
             socket.leave(game.room);
             socket.join("Main");
+            player.room = "Main";
+            player.game = null;
            
             socket.emit("exitGame");
-
-            if(game.connectedPlayerCount === 0)
-                gamesMap.delete(game.room)      // room is also game name.    
         }
        
         //--------------------------------------
@@ -202,7 +206,7 @@ console.log("allPlayersMap", allPlayersMap);
 
             var game = allPlayersMap.get(socket.id).game;
 
-console.log("disconnect game", game);         
+console.log("disconnect game", game);// TEST CODE         
             
             if(game)
             {
