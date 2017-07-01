@@ -144,13 +144,14 @@ module.exports = function(server){
         function nextTurn(data)
         {           
             // gets game from user.
-            var game = allPlayersMap.get(socket.id).game
+            var player =  allPlayersMap.get(socket.id);
+            var game = player.game;
 
             //tracks when users submit.
-            game.nextTurnCount++;
+            player.nextTurnSubmitted = true;
 
             //checks if all players sumbitted 'nextTurn' 
-            if(game.nextTurnCount.length === GameSize)
+            if(game.CheckPlayersNextTurn())
             {
                 // start game if not started
                 if(game.gameStarted === false)
@@ -163,13 +164,11 @@ module.exports = function(server){
                 {
                     game.StartNextTurn();
                 }
-
-                // resets to zero
-                game.nextTurnCount = 0;
             }         
         }
 
         //-------------------------------------
+        
         // Handles player chat messages
         function sendMessage(message)
         {
