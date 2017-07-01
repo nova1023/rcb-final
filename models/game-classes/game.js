@@ -320,7 +320,7 @@ function Game(io)
     };
 
     // If all players have submitted 'nextTurn' returns true, else returns false.
-    this.CheckPlayersNextTurn()
+    this.CheckPlayersNextTurn = function()
     {
         var flag = false;     
 
