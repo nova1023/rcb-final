@@ -6,6 +6,7 @@ function Player(socketID)
     this.playerNumber;
     this.cardsInHand = [];
     this.hasSubmittedCard = false;
+    this.nextTurnSubmitted = false;
     this.hasVoted = false;
     this.currentPoints = 0;
     this.game;
