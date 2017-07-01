@@ -174,23 +174,23 @@ module.exports = function(server){
                 console.log('User not found!');
         }
         
-
-         //--------------------------------------
+        //--------------------------------------
         
+        // Removes player from game when exits. If game has no player removes game from 'gameMap'.
         function exitGame()
         {
-            /*
-                remove player from game room
-                rejoin player to main room
+            var game = allPlayersMap.get(socket.id).game;
+            game.connectedPlayerCount--;
 
-                somehow check if game has any players.(add property to game)
-                if game.players === 0;
-                    re add to availible games array
-                
+            socket.leave(game.room);
+            socket.join("Main");
+           
+            socket.emit("exitGame");
 
-
-            */
+            if(game.connectedPlayerCount === 0)
+                gamesMap.remove(game.room)  // room is same name as game.    
         }
+       
         //--------------------------------------
         
         function disconnect()
