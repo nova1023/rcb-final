@@ -5,7 +5,7 @@ const Player = require("./game-classes/player");
 
 //ALL players in a room/game
 var allPlayersMap = new Map(); //used to look up player by socket.id
-const GameSize = 4;        
+const GameSize = 2;        
 var gamesMap = new Map();
 var playersQueue = [];
 var runningGamesCount = 0;        
@@ -61,10 +61,11 @@ console.log("a player joined: " + newPlayer.userName);//TEST CODE
             //enqueues player
             playersQueue.unshift(allPlayersMap.get(socket.id));
 console.log("\nin joinGame");//TEST CODE
-console.log("playersQueue", playersQueue);//TEST CODE
+
             //if enough players for game, instantiates a new game and poplulates with players.
-            if(playersQueue >= GameSize)
+            if(playersQueue.length >= GameSize)
             {
+console.log("Game Created");//TEST CODE 
                 runningGamesCount++;
 console.log("runningGamesCount:", runningGamesCount);//TEST CODE
                 // creates name for new game based on number of games (e.g. game1, game2,...)
@@ -157,6 +158,7 @@ console.log("players added to game:", newGame.players);//TEST CODE
                 // start game if not started
                 if(game.gameStarted === false)
                 {
+console.log(game.name, "STARTED");
                     game.gameStarted = true;
                     game.ShuffleCardDeck();
                     game.DealCards();                    
