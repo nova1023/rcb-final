@@ -151,7 +151,6 @@ console.log("gamesMap size:", gamesMap.size);//TEST CODE
             // gets game from user.
             var player =  allPlayersMap.get(socket.id);
             var gameName = player.game;
-
             var game = gamesMap.get(gameName);
 
             //tracks when users submit.
@@ -190,8 +189,7 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
         function exitGame()
         {
             var player =  allPlayersMap.get(socket.id);
-            var gameName = player.game;
-            
+            var gameName = player.game;            
             var game = gamesMap.get(gameName);
 
             game.connectedPlayerCount--;
@@ -213,6 +211,7 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
         function disconnect()
         {            
             var player = allPlayersMap.get(socket.id);
+            removeFromPlayersQueue(socket.id);
 
             // If 'player' not 'undefined'.
             // This is need because player may be connected but not have 'joinPlayed'
@@ -238,3 +237,15 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
 
 }//END module.exports
 
+//Removes player by socketID from playersQueue
+function removeFromPlayersQueue(socketID)
+{
+    for(var i = 0; i < playersQueue.length; i++)
+    {
+        if(playersQueue[i].socketID == socketID)
+        {
+            playersQueue.splice(i,1);
+            return;
+        }    
+    }    
+}
