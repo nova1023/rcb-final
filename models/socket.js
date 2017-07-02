@@ -3,8 +3,8 @@ const SocketIO = require("socket.io");
 const Game = require("./game-classes/game");
 const Player = require("./game-classes/player");
 
-//ALL players in a room/game
-var allPlayersMap = new Map(); //used to look up player by socket.id
+//Global Variables
+var allPlayersMap = new Map(); //Stores all players.  Used to look up player game/room by socket.id.
 const GameSize = 2;        
 var gamesMap = new Map();
 var playersQueue = [];       
