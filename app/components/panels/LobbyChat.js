@@ -5,7 +5,8 @@ import ChatInput from './ChatInput';
 const LobbyChatStyling = {
 	height: '40%',
 	width: '100%',
-	
+    backgroundImage: 'url(/images/avatars/classy-fabric.png), url(/images/avatars/table-2.png)',
+
 }
 
 class LobbyChat extends Component {

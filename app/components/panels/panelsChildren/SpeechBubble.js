@@ -6,7 +6,8 @@ const SpeechBubbleStyling = {
    top: '10%',
    zIndex: '100',
    width: '42%',
-
+   opacity: '0',
+   
 }
 
 class SpeechBubble extends Component {
