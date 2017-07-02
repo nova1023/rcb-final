@@ -60,12 +60,11 @@ console.log("a player joined: " + newPlayer.userName);//TEST CODE
         {
             //enqueues player
             playersQueue.unshift(allPlayersMap.get(socket.id));
-console.log("\nin joinGame");//TEST CODE
 
             //if enough players for game, instantiates a new game and poplulates with players.
             if(playersQueue.length >= GameSize)
             {
-console.log("Game Created");//TEST CODE 
+console.log("\nGame Created");//TEST CODE 
                 runningGamesCount++;
 console.log("runningGamesCount:", runningGamesCount);//TEST CODE
                 // creates name for new game based on number of games (e.g. game1, game2,...)
@@ -77,7 +76,7 @@ console.log("gameName:", gameName);//TEST CODE
 
                 // Creates key-value pair of gameName-newGame
                 gamesMap.set(gameName, newGame);
-console.log("gamesMap:", gamesMap);//TEST CODE
+console.log("gamesMap size:", gamesMap.size);//TEST CODE
                 // populates game with players
                 for (var i = 0; i < GameSize; i++)
                 {   
@@ -87,11 +86,12 @@ console.log("gamesMap:", gamesMap);//TEST CODE
                     player.playerNumber = i+1;
 
                     newGame.players.push(player);
+                    newGame.connectedPlayerCount++;
 
                     socket.leave("Main"); 
                     socket.join(gameName);
                 }
-console.log("players added to game:", newGame.players);//TEST CODE              
+
                 IO.sockets.in(gameName).emit('joinGame'); 
             }
         }
@@ -101,7 +101,8 @@ console.log("players added to game:", newGame.players);//TEST CODE
         function storyTellerClue(data)
         {   
             // gets game from player.
-            var game = allPlayersMap.get(socket.id).game
+            var gameName = allPlayersMap.get(socket.id).game
+            var game = gamesMap.get(gameName);
 
             data.belongsTo = game.storyTeller.playerNumber;            
             game.HandleSubmitCard(data);
@@ -114,7 +115,8 @@ console.log("players added to game:", newGame.players);//TEST CODE
         function submitCard(data)
         {
             // gets game from player.
-            var game = allPlayersMap.get(socket.id).game
+            var gameName = allPlayersMap.get(socket.id).game
+            var game = gamesMap.get(gameName);
 
             game.HandleSubmitCard(data);
 
@@ -130,8 +132,9 @@ console.log("players added to game:", newGame.players);//TEST CODE
         function submitVote(data)
         {
             // gets game from player.
-            var game = allPlayersMap.get(socket.id).game
-
+            var gameName = allPlayersMap.get(socket.id).game
+            var game = gamesMap.get(gameName);
+            
             game.HandleSubmitVote(data);
 
             if(game.CheckAllPlayersVoted())
@@ -147,7 +150,9 @@ console.log("players added to game:", newGame.players);//TEST CODE
         {           
             // gets game from user.
             var player =  allPlayersMap.get(socket.id);
-            var game = player.game;
+            var gameName = player.game;
+
+            var game = gamesMap.get(gameName);
 
             //tracks when users submit.
             player.nextTurnSubmitted = true;
@@ -158,7 +163,7 @@ console.log("players added to game:", newGame.players);//TEST CODE
                 // start game if not started
                 if(game.gameStarted === false)
                 {
-console.log(game.name, "STARTED");
+console.log("\n", game.room, "STARTED\n");//TEST CODE
                     game.gameStarted = true;
                     game.ShuffleCardDeck();
                     game.DealCards();                    
@@ -185,8 +190,10 @@ console.log(game.name, "STARTED");
         function exitGame()
         {
             var player =  allPlayersMap.get(socket.id);
-            var game = player.game;
-                
+            var gameName = player.game;
+            
+            var game = gamesMap.get(gameName);
+
             game.connectedPlayerCount--;
 
             if(game.connectedPlayerCount === 0)
@@ -204,21 +211,31 @@ console.log(game.name, "STARTED");
         
         // When user disconnects, removes from game and allPlayersMap
         function disconnect()
-        {
-            var game = allPlayersMap.get(socket.id).game;     
-            
-            if(game)
-            {
-                game.connectedPlayerCount--;
+        {            
+            var player = allPlayersMap.get(socket.id);
 
-                if(game.connectedPlayerCount === 0)
-                    gamesMap.delete(game.room)      // room is also game name.    
-            }
+            // If 'player' not 'undefined'.
+            // This is need because player may be connected but not have 'joinPlayed'
+            // and be in 'allPlayersMap' resulting in player being 'undefined'.
+            if(player)
+            {       
+                var gameName = player.game;     
+                var game = gamesMap.get(gameName);
+
+                if(game)
+                {                   
+                    game.connectedPlayerCount--;
+
+                    if(game.connectedPlayerCount === 0) 
+                        gamesMap.delete(game.room)      // room is also game name. 
+                }
             
-            allPlayersMap.delete(socket.id);
+                allPlayersMap.delete(socket.id);
+                console.log("allPlayersMap Size:", allPlayersMap.size);
+            }         
         }
 
-     });
+    });// IO.on
 
 }//END module.exports
 
