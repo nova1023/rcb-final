@@ -7,8 +7,7 @@ const Player = require("./game-classes/player");
 var allPlayersMap = new Map(); //used to look up player by socket.id
 const GameSize = 2;        
 var gamesMap = new Map();
-var playersQueue = [];
-var runningGamesCount = 0;        
+var playersQueue = [];       
 
 module.exports = function(server){
 
@@ -48,7 +47,7 @@ module.exports = function(server){
                 
             allPlayersMap.set(socket.id, newPlayer);
             
-console.log("a player joined: " + newPlayer.userName);//TEST CODE
+console.log("a player joined: " + newPlayer.userName, socket.id);//TEST CODE
                
         }
 
@@ -64,11 +63,11 @@ console.log("a player joined: " + newPlayer.userName);//TEST CODE
             //if enough players for game, instantiates a new game and poplulates with players.
             if(playersQueue.length >= GameSize)
             {
+
 console.log("\nGame Created");//TEST CODE 
-                runningGamesCount++;
-console.log("runningGamesCount:", runningGamesCount);//TEST CODE
+
                 // creates name for new game based on number of games (e.g. game1, game2,...)
-                var gameName = "game" + runningGamesCount;
+                var gameName = "game" + (gamesMap.size + 1);
 console.log("gameName:", gameName);//TEST CODE                
                 // instantiates new game and assigns room
                 var newGame = new Game(IO)
@@ -76,7 +75,7 @@ console.log("gameName:", gameName);//TEST CODE
 
                 // Creates key-value pair of gameName-newGame
                 gamesMap.set(gameName, newGame);
-console.log("gamesMap size:", gamesMap.size);//TEST CODE
+
                 // populates game with players
                 for (var i = 0; i < GameSize; i++)
                 {   
