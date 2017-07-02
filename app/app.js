@@ -32,9 +32,6 @@ class App extends Component {
     // [handleChange, handleSubmit, handleChangeName, handleSubmitName, ]
     //   .each((elem) => this[elem] = this[elem].bind(this))
     this.sendName = this.sendName.bind(this);
-    this.handleChangeClue = this.handleChangeClue.bind(this);
-    // this.handleSubmitClue = this.handleSubmitClue.bind(this);
-    // this.handleChangeCard = this.handleChangeCard.bind(this);
     this.submitStoryTellerRes = this.submitStoryTellerRes.bind(this);
     this.submitCard = this.submitCard.bind(this);
     this.submitVote = this.submitVote.bind(this);
@@ -190,6 +187,7 @@ class App extends Component {
   //===========================================================================================
 
   componentDidMount(){
+    console.log("App.js has mounted.")
     this.sendName("player1");
   }
 
