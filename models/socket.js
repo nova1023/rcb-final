@@ -231,7 +231,6 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
                 }
             
                 allPlayersMap.delete(socket.id);
-                console.log("allPlayersMap Size:", allPlayersMap.size);
             }         
         }
 
