@@ -1,6 +1,7 @@
 //Player class
 function Player(socketID)
 {
+    this.socket;
     this.socketID = socketID;
     this.userName;
     this.playerNumber;
