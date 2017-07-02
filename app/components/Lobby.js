@@ -5,7 +5,8 @@ import LobbyChat from './panels/LobbyChat';
 const LobbyContainerStyling = {
 	height: '100vh',
 	width: '100vw',
-
+	overflow: 'hidden',
+	
 }
 
 class Lobby extends Component {

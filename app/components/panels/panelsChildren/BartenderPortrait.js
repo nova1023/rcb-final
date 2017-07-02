@@ -5,12 +5,14 @@ const BartenderPortraitStyling = {
     height: '100%',
     backgroundImage: 'url(/images/avatars/bar-bg-2.png)',
     backgroundSize: '180%',
-	    
+    border: '2px solid black',
+
 }
 
 const BartenderAvatarStyling = {
 	position: 'absolute',
 	bottom: '20%',
+	left: '-4%',
 
 }
 

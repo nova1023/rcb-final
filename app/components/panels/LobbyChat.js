@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
+import ChatView from './ChatView';
+import ChatInput from './ChatInput';
 
-const LobbyContainerStyling = {
-	height: '100vh',
-	width: '100vw',
+const LobbyChatStyling = {
+	height: '40%',
+	width: '100%',
 	
 }
 
 class LobbyChat extends Component {
     render() {
         return (
-            <div className="col-xs-12">
-                LobbyChat
+            <div className="col-xs-12" style={LobbyChatStyling}>
+                <ChatView />
+                <ChatInput />
             </div>
 		)  
     }
