@@ -162,7 +162,9 @@ console.log("gamesMap size:", gamesMap.size);//TEST CODE
                 // start game if not started
                 if(game.gameStarted === false)
                 {
+
 console.log("\n", game.room, "STARTED\n");//TEST CODE
+
                     game.gameStarted = true;
                     game.ShuffleCardDeck();
                     game.DealCards();                    
