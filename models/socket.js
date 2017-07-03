@@ -30,7 +30,7 @@ module.exports = function(server){
         socket.on("sendMessage", sendMessage);
         socket.on("disconnect", disconnect);      
         socket.on("exitGame", exitGame);
-      
+
         //event callback functions
         //==============================================
         
@@ -42,6 +42,7 @@ module.exports = function(server){
             socket.join("Main");           
             
             var newPlayer = new Player(socket.id);
+            newPlayer.socket = socket;
             newPlayer.userName = userName;
             newPlayer.room = "Main";
                 
@@ -87,11 +88,11 @@ console.log("gameName:", gameName);//TEST CODE
                     newGame.players.push(player);
                     newGame.connectedPlayerCount++;
 
-                    socket.leave("Main"); 
-                    socket.join(gameName);
+                    player.socket.leave("Main"); 
+                    player.socket.join(gameName);      
                 }
 
-                IO.sockets.in(gameName).emit('joinGame'); 
+                IO.sockets.in(gameName).emit('joinGame');
             }
         }
 
@@ -105,12 +106,12 @@ console.log("gameName:", gameName);//TEST CODE
 
             data.belongsTo = game.storyTeller.playerNumber;            
             game.HandleSubmitCard(data);
+
             IO.sockets.in(game.room).emit("relayClue", data.clueText);
         }
 
         //---------------------------------------
        
-
         function submitCard(data)
         {
             // gets game from player.
@@ -132,8 +133,7 @@ console.log("gameName:", gameName);//TEST CODE
         {
             // gets game from player.
             var gameName = allPlayersMap.get(socket.id).game
-            var game = gamesMap.get(gameName);
-            
+            var game = gamesMap.get(gameName);          
             game.HandleSubmitVote(data);
 
             if(game.CheckAllPlayersVoted())
