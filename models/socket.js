@@ -180,7 +180,7 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
         // Handles player chat messages
         function sendMessage(message)
         {
-            var player = allPlayersMap.get(socket.id);           
+            var player = allPlayersMap.get(socket.id);                       
             Chat.relayMessage(player.userName, message, player.room);         
         }
         
@@ -210,7 +210,8 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
         
         // When user disconnects, removes from game and allPlayersMap
         function disconnect()
-        {            
+        { 
+            console.log("user disconnected", socket.id);           
             var player = allPlayersMap.get(socket.id);
             removeFromPlayersQueue(socket.id);
 
