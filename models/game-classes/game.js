@@ -298,7 +298,7 @@ function Game(io)
         //check if game is over.
         //TODO: check for a tie
         if (this.cardDeck.length < this.players.length || this.CheckForWinner())
-            io.in(room).emit("gameOver", this.GetTurnResultsArray());
+            io.in(this.room).emit("gameOver", this.GetTurnResultsArray());
         else
         {
             //move cards played this turn to dead pile
