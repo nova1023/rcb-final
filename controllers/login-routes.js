@@ -154,8 +154,21 @@ router.post("/api/login-guest", function(req, res)
 
 router.put("/api/logout", function(req, res)
 {
-    //clear their cookie
+    //find user based on cookie
+    User.update({token: req.cookies.token}, {$set: {token: ""}}, function(error, user)
+    {
+        if (error)
+            console.log(error.message);
+        else
+            console.log("user logged out");
+    });
+
+    //remove cookie from client
+    res.clearCookie("token");
+
     //send them to landing page
+    res.send({msg: "to the landing page"});
+    // res.redirect('/');
 });
 
 //Export router ==================================================
