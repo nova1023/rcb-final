@@ -1,3 +1,10 @@
+/*
+TODO: 
+    - User can create an account
+    - User can sign into an existing account
+    - User can log out
+    - User can sign in using a guest account
+*/
 // Dependenciess =================================================
 const Express = require("express"),
     Passport = require("passport"),
@@ -12,11 +19,11 @@ const User = require("../models/user.js"),
     Guest = require("../models/guest.js");
 
 //Passport login configuration =========================================
-Passport.use(new LocalStrategy(function(username, password, done)
+Passport.use("sign-in", new LocalStrategy(function(username, password, done)
 {
     User.findOne({username: username}, function(error, user)
     {
-        // console.log(user);
+        console.log(user);
         if (error)
             return done(error);
         if (!user)
@@ -24,18 +31,22 @@ Passport.use(new LocalStrategy(function(username, password, done)
         if (user.password !== password)
             return done(null, false, {message: "Incorrect password."});
 
+        //user exists and passwords match
         return done(null, user);
     });
 }));
 
 Passport.serializeUser(function(user, done)
 {
-    done(null, user);
+    done(null, user._id);
 });
 
-Passport.deserializeUser(function(user, done)
+Passport.deserializeUser(function(userID, done)
 {
-    done(null, user);
+    User.findOne({_id: userID}, function(error, user)
+    {
+        done(null, user);
+    });
 });
 
 //Routing ========================================================
@@ -53,12 +64,35 @@ router.get("/failure", function(req, res)
 
 router.post("/api/register", function(req, res)
 {
+    console.log(req.body);
+
     //check if userName is already taken
-    //if username !taken 
-        //register the new user
+    User.findOne({username: req.body.username}, function(error, data)
+    {
+        //username is available for registration
+        if (data === null)
+        {
+            console.log("username is available for registration");
+            //check that passwords match
+            if (req.body.password === req.body.passwordConfirm)
+            {
+                console.log("passwords match");
+                //register the new user
+
+            }
+                
+            else
+                console.log("passwords do not match");
+
+        }
+        else
+        {
+            console.log("Name is already taken");
+        }
+    });
 });
 
-router.post("/api/login", Passport.authenticate("local", 
+router.post("/api/login", Passport.authenticate("sign-in", 
 { 
     // successRedirect: '/lobby',
     successRedirect: "/success",

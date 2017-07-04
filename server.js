@@ -57,7 +57,6 @@ app.use(require("./controllers/login-routes.js"));
 app.get("/", function(req, res)
 {
     res.sendFile("./index.html");
-    // res.send({msg: "Hello world"});
 });
 
 
