@@ -64,30 +64,53 @@ router.get("/failure", function(req, res)
 
 router.post("/api/register", function(req, res)
 {
-    console.log(req.body);
-
+    // console.log(req.body);
     //check if userName is already taken
     User.findOne({username: req.body.username}, function(error, data)
     {
-        //username is available for registration
+        //if username is available for registration
         if (data === null)
         {
-            console.log("username is available for registration");
             //check that passwords match
             if (req.body.password === req.body.passwordConfirm)
             {
-                console.log("passwords match");
-                //register the new user
+                var token = GenerateToken();
 
+                //create instance of User model
+                var userEntry = new User(
+                {
+                    username: req.body.username,
+                    password: req.body.password,
+                    token: token
+                });
+
+                //save new user into database
+                userEntry.save({}, function(error, doc)
+                {
+                    if (error)
+                        console.log(error.message);
+                    else
+                        console.log("new user saved");
+                });
+
+                //write cookie 
+                res.cookie("token", token);
+
+                //send user to lobby
+                res.send({msg: "to the lobby!"});
+                //res.redirect("/lobby");
             }
-                
             else
+            {
                 console.log("passwords do not match");
-
+                //redirect back to landing
+                res.redirect('/');
+            }
         }
         else
         {
             console.log("Name is already taken");
+            res.redirect('/');
         }
     });
 });
