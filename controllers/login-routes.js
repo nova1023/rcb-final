@@ -62,7 +62,7 @@ router.post("/api/login", Passport.authenticate("local",
 { 
     // successRedirect: '/lobby',
     successRedirect: "/success",
-    // failureRedirect: '/landing'
+    // failureRedirect: '/'
     failureRedirect: "/failure"
 }));
 
