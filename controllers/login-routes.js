@@ -31,7 +31,6 @@ Passport.use("sign-in", new LocalStrategy(function(username, password, done)
         if (user.password !== password)
             return done(null, false, {message: "Incorrect password."});
 
-        //user exists and passwords match
         return done(null, user);
     });
 }));
@@ -122,6 +121,55 @@ router.post("/api/login", Passport.authenticate("sign-in",
     // failureRedirect: '/'
     failureRedirect: "/failure"
 }));
+
+// //NON PASSPORT ALTERNATIVE
+// router.post("/api/login", function(req, res)
+// {
+//     User.findOne({username: req.body.username}, function(error, user)
+//     {
+//         //if user exists
+//         if (user !== null)
+//         {
+//             console.log("user exists");
+
+//             //check passwords match
+//             if (req.body.password === user.password)
+//             {
+//                 var token = GenerateToken();
+
+//                 //store token on user model
+//                 User.update({username: user.username}, {$set: {token: token}}, function(error, user)
+//                 {
+//                     if (error)
+//                         console.log(error.message);
+//                     else
+//                         console.log("user signed in to existing account");
+//                 });
+
+//                 //store token on client
+//                 res.cookie("token", token);
+
+//                 //redirect to lobby
+//                 res.send({msg: "to the lobby"});
+//                 // res.redirect("/lobby");
+//             }
+//             else //passwords don't match
+//             {
+//                 //redirect to landing
+//                 console.log("passwords do not match");
+//                 res.send({msg: "passwords don't match"});
+//                 // res.redirect('/');
+//             }
+//         }
+//         else //no such user exists
+//         {
+//             console.log("That user does not exist in database");
+//             //redirect to landing
+//             res.send({msg: "That user doesn't exist"});
+//             // res.redirect('/');
+//         }
+//     });
+// });
 
 router.post("/api/login-guest", function(req, res)
 {
