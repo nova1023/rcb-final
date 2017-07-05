@@ -13,6 +13,9 @@ function Game(io)
     this.cardDeck = CardDeck(50);    //returns array ['1', '2', ...]
     this.cardsPlayedThisTurn = [];
     this.deadPile = [];
+    this.connectedPlayerCount = 0;  // tracks players exit/disconnect game.
+    this.gameStarted = false;       // tracks if game has started.
+    this.room = "";                 // socket room associated with game instance.                
     this.storyTeller = 
     {
         id: "",
@@ -295,7 +298,7 @@ function Game(io)
         //check if game is over.
         //TODO: check for a tie
         if (this.cardDeck.length < this.players.length || this.CheckForWinner())
-            io.emit("gameOver", this.GetTurnResultsArray());
+            io.in(this.room).emit("gameOver", this.GetTurnResultsArray());
         else
         {
             //move cards played this turn to dead pile
@@ -314,6 +317,31 @@ function Game(io)
 
             this.RefillPlayersCardHand();
         }
+    };
+
+    // If all players have submitted 'nextTurn' returns true, else returns false.
+    this.CheckPlayersNextTurn = function()
+    {
+        var flag = true;     
+
+        for (var index = 0; index < this.players.length; index++)
+        {
+            if (!this.players[index].nextTurnSubmitted)
+                flag = false;
+        }
+
+        if(flag)
+        {
+           // resets property value to false 
+           for (var index = 0; index < this.players.length; index++)
+            {
+                this.players[index].nextTurnSubmitted = false;               
+            }            
+            
+            return true; 
+        }
+
+        return false;
     };
 }
 
