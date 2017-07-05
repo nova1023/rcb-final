@@ -12,8 +12,8 @@ class LobbyView extends Component {
     render() {
         return (
             <div className="col-xs-12" style={LobbyViewStyling}>
-                <BartenderChoices />
                 <BartenderPortrait />
+                <BartenderChoices />
             </div>		
         )  
     }

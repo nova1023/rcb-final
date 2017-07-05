@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import SpeechBubble from './SpeechBubble';
 
 const BartenderPortraitStyling = {
-    height: '100%',
+    height: '80%',
     backgroundImage: 'url(/images/avatars/bar-bg-2.png)',
-    backgroundSize: '180%',
-    border: '2px solid black',
+    backgroundSize: '120%',
+    backgroundPosition: '10% 32%',
 
 }
 
 const BartenderAvatarStyling = {
 	position: 'absolute',
 	bottom: '20%',
-	left: '-4%',
+	left: '15%',
 
 }
 
@@ -26,7 +26,7 @@ const CounterStyling = {
 class BartenderPortrait extends Component {
     render() {
         return (
-            <div className="col-xs-7" style={BartenderPortraitStyling}>
+            <div className="col-xs-12" style={BartenderPortraitStyling}>
             	<SpeechBubble />
                 <img src='/images/avatars/complete/Candace-1.png' style={BartenderAvatarStyling} />
                 <img src='/images/avatars/complete/Wood-Bar-3.png' style={CounterStyling} />

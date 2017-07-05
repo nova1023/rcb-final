@@ -100,6 +100,7 @@ class TableView4 extends Component {
     swipedDown() {
     	console.log("Swiped Down");
     	Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:1000, offset: 345 })
+        Velocity(this.refs.p1, "scroll", { axis:'x', container:this.refs.block, duration:1000, offset: 360, queue:false })
     }
 
     swipedUp() {
