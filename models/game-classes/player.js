@@ -1,16 +1,17 @@
 //Player class
 function Player(socketID)
 {
+    this.socket;
     this.socketID = socketID;
     this.userName;
     this.playerNumber;
     this.cardsInHand = [];
     this.hasSubmittedCard = false;
+    this.nextTurnSubmitted = false;
     this.hasVoted = false;
     this.currentPoints = 0;
-    this.game;
-    this.room;
-
+    this.game = null;
+    this.room;    
 
     //Looks for card of cardID in players cardsInHand.
     // If found removes card and returns card
@@ -29,7 +30,7 @@ function Player(socketID)
         }
 
          return false;
-    }
+    };
 
 }
 

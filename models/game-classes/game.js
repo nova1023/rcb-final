@@ -13,6 +13,9 @@ function Game(io)
     this.cardDeck = CardDeck(50);    //returns array ['1', '2', ...]
     this.cardsPlayedThisTurn = [];
     this.deadPile = [];
+    this.connectedPlayerCount = 0;  // tracks players exit/disconnect game.
+    this.gameStarted = false;       // tracks if game has started.
+    this.room = "";                 // socket room associated with game instance.                
     this.storyTeller = 
     {
         id: "",
@@ -28,8 +31,6 @@ function Game(io)
             if (this.cardsPlayedThisTurn[card].belongsTo === playerNumber)
                 return this.cardsPlayedThisTurn[card];
         }
-        //only reached if there is no card from that player
-        return false;
     };
 
     this.FindPlayerByNumber = function(playerNumber = this.storyTeller.playerNumber)
@@ -121,12 +122,15 @@ function Game(io)
     {
         for (var index = 0; index < this.players.length; index++)
         {
+            //storyTeller does not vote
+            if (this.players[index].playerNumber === this.storyTeller.playerNumber)
+                continue;
             //if current player has not voted
-            if (!this.players[index].hasVoted)
+            else if (!this.players[index].hasVoted)
                 return false;
         }
 
-        //only reached if all players have voted
+        //only reached if all non storytellers have voted
         return true;
     };
 
@@ -134,7 +138,7 @@ function Game(io)
     {
         for (var index = 0; index < this.players.length; index++)
         {
-            if (this.players[index].currentPoints > 29)
+            if (this.players[index].currentPoints > 9)
                 return true;
         }
 
@@ -202,9 +206,18 @@ function Game(io)
         }
     };
 
-    //Might just send game.players array instead of using this function
+    this.GetCardsPlayedIDS = function()
+    {
+        var cards = this.cardsPlayedThisTurn.map(function(currentCard)
+        {
+            return { cardID: currentCard.cardID };
+        });
+        return cards;
+    };
+
     this.GetTurnResultsArray = function()
     {
+        console.log("sending turn results");
         var turnResults = [];
 
         for (var index = 0; index < this.players.length; index++)
@@ -227,11 +240,14 @@ function Game(io)
             //store card in hand
             this.players[index].cardsInHand.push(newCard);
 
-            //emit new card and StoryTeller
+            console.log("player " + this.players[index].playerNumber + "'s refilled hand.");
+            console.log(this.players[index].cardsInHand);
+
+            //emit players newly refilled hand and StoryTeller
             io.to(this.players[index].socketID).emit("nextTurn",
             {
                 belongsTo: this.players[index].playerNumber,
-                cardID: newCard,
+                cards: this.players[index].cardsInHand,
                 storyTeller: this.storyTeller.playerNumber
             });
         }
@@ -239,32 +255,50 @@ function Game(io)
 
     this.HandleSubmitCard = function(cardReceived)
     {
-        // console.log(this.players[0].cardsInHand);
-        // console.log(this.cardsPlayedThisTurn);
-        console.log("card received: ");
-        for (var prop in cardReceived)
-        {
-            console.log(prop + ": " + cardReceived[prop]);
-            console.log("typeof: " + typeof cardReceived[prop]);
-        }
-
+        console.log("--------- inside HandleSubmitCard ----------");
         var player = this.FindPlayerByNumber(cardReceived.belongsTo);
         var card = player.RemoveCardFromHand(cardReceived.cardID);
 
-        console.log(this.players[player.playerNumber - 1].cardsInHand);
-
         if (card !== false)
+        {
             this.cardsPlayedThisTurn.push(cardReceived);
+            player.hasSubmittedCard = true;
+        }
 
         console.log(this.cardsPlayedThisTurn);
         console.log("--------------------------------");
     };
 
+    this.HandleSubmitVote = function(voteObject)
+    {   
+        for (var index = 0; index < this.cardsPlayedThisTurn.length; index++)
+        {
+            var currentCard = this.cardsPlayedThisTurn[index];
+
+            //find the matching card in cardsPlayedThisTurn
+            if (currentCard.cardID === voteObject.cardID)
+            {
+                //if it doesnt' have a .votedForBy property, initialize it
+                if (currentCard.votedForBy === undefined)
+                    currentCard.votedForBy = [];
+
+                currentCard.votedForBy.push(voteObject.playerNumber);
+                console.log(this.cardsPlayedThisTurn);
+                console.log("---------------------------");
+
+                //set player's vote to true
+                var player = this.FindPlayerByNumber(voteObject.playerNumber);
+                player.hasVoted = true;
+            }
+        }
+    };
+
     this.StartNextTurn = function()
     {
-        //check if game is over. TODO: check for a tie
+        //check if game is over.
+        //TODO: check for a tie
         if (this.cardDeck.length < this.players.length || this.CheckForWinner())
-            io.emit("gameOver", this.GetTurnResultsArray());
+            io.in(this.room).emit("gameOver", this.GetTurnResultsArray());
         else
         {
             //move cards played this turn to dead pile
@@ -281,9 +315,33 @@ function Game(io)
                 this.players[index].hasVoted = false;
             }
 
-            //refill players hands
             this.RefillPlayersCardHand();
         }
+    };
+
+    // If all players have submitted 'nextTurn' returns true, else returns false.
+    this.CheckPlayersNextTurn = function()
+    {
+        var flag = true;     
+
+        for (var index = 0; index < this.players.length; index++)
+        {
+            if (!this.players[index].nextTurnSubmitted)
+                flag = false;
+        }
+
+        if(flag)
+        {
+           // resets property value to false 
+           for (var index = 0; index < this.players.length; index++)
+            {
+                this.players[index].nextTurnSubmitted = false;               
+            }            
+            
+            return true; 
+        }
+
+        return false;
     };
 }
 

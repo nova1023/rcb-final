@@ -3,198 +3,145 @@ import './App.css';
 
 import GameRoom from './components/GameRoom.js';
 
-import IO from 'socket.io-client';  
-const socket = IO() ;
-
-let playerNumber = 0;
-
-// receive an array of strings with the card numbers
-socket.on("cardsDealt", fillHand);
-
-// receive a player number string, EG player1
-socket.on("storyTellerSet", storyTellerSet);
-
-// receive the clue that the storyteller submitted as a text string
-socket.on("relayClue", showClue);
-
-
-// receive an array of cards that everyone played
-socket.on("relayCards", startVoting);
-
-// receive who voted for what players total points if game is over.
-socket.on("turnResults", displayResults)
-
-function fillHand(cardsDealt) {
-  console.log("fillHand", cardsDealt);
-  playerNumber = cardsDealt.playerNumber;
-  // var handDiv = $("<div>");
-  // handDiv.addClass("col-xs-12 handDiv");
-  // for(var i = 0; i < cardsDealt.cards.length; i++) {
-  //   var card = $("<div>");
-  //   card.addClass("col-xs-2 card");
-  //   card.html(cardsDealt.cards[i]);
-
-  //   $(".handDiv").append(card);
-  // }
-}
-
-function storyTellerSet(storyTellerSet) {
-  console.log("storyTellerSet", storyTellerSet);
-  // var storyTellerDiv = $("<div>");
-  // storyTellerDiv.addClass("col-xs-12 storyTellerDiv");
-  // if (playerNumber === storyTellerSet) {
-  //   var storyTellerText = $("<h2>");
-  //   storyTellerText.addClass("text-center");
-  //   storyTellerText.html("Player " + storyTellerSet + " is the storyteller for this round.");
-
-  //   $(".storyTellerDiv").append(storyTellerText);
-  // }
-}
-
-function showClue(relayClue) {
-  console.log("showClue", relayClue);
-  // var clueDiv = $("<div>");
-  // clueDiv.addClass("col-xs-12 clueDiv");
-  // if (relayClue) {
-  //   var clueString = $("<h2>");
-  //   clueString.addClass("text-center");
-  //   clueString.html("The storyteller's clue is " + relayClue + ".");
-
-  //   $(".clueDiv").append(clueString);
-  // }
-}
-
-function startVoting(relayCards) {
-  console.log("startVoting", relayCards);
-  // var votingHand = $("<div>");
-  // votingHand.addClass("col-xs-12 votingHand");
-  // for (var i = 0; i < relayCards.length; i++) {
-  //   var pleaseVote = $("<h3>");
-  //   pleaseVote.html("Please choose the card that belongs to the storyteller.");
-  //   $(".votingHand").prepend(pleaseVote);
-  //   var votingCards = $("<div>");
-  //   votingCards.addClass("col-xs-2 votingCards");
-  //   votingCards.html(relayCards[i].cardID)
-
-  //   $(".votingHand").append(votingCards);
-  // }
-}
-
-function displayResults(turnResults) {
-  console.log("displayResults", turnResults);
-  // var turnResultsDiv = $("<div>");
-  // turnResultsDiv.addClass("col-xs-12 turnResultsDiv");
-  // for (var i = 0; i < turnResults.length; i++) {
-  //   var pointsDiv = $("<h3>");
-  //   pointsDiv.html("Player " + turnResults[i].playerNumber + " has " + turnResultsDiv[i].currentPoints + ".");
-
-  //   $(".turnResultsDiv").append(pointsDiv);
-  // }
-}
+// import IO from 'socket.io-client';  
+// const socket = IO() ;
 
 const AppContainerStyling = {
   height:'100vh',
   width: '100vw',
-
 }
-
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
-      name: '',
+      whoIsStoryTeller: 0,
+      myPlayerNumber: 0,
+      myHand: [],
       clue: '',
-      card: '',
-      vote: ''
+      selectedCardID: '',
+      turnPhase: '',
+      submittedCards: [],
+      p1Points: 0,
+      p2Points: 0,
+      p3Points: 0,
+      p4Points: 0,
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleSubmitName = this.handleSubmitName.bind(this);
+
+
+    // [handleChange, handleSubmit, handleChangeName, handleSubmitName, ]
+    //   .each((elem) => this[elem] = this[elem].bind(this))
     this.sendName = this.sendName.bind(this);
-    this.handleChangeClue = this.handleChangeClue.bind(this);
-    this.handleSubmitClue = this.handleSubmitClue.bind(this);
-    this.handleChangeCard = this.handleChangeCard.bind(this);
     this.submitStoryTellerRes = this.submitStoryTellerRes.bind(this);
     this.submitCard = this.submitCard.bind(this);
     this.submitVote = this.submitVote.bind(this);
-    this.handleChangeVote = this.handleChangeVote.bind(this);
-    this.handleSubmitVote = this.handleSubmitVote.bind(this);
-    this.buttonReadyNextTurn = this.buttonReadyNextTurn.bind(this);
     this.sendReadyForNextTurn = this.sendReadyForNextTurn.bind(this);
+    this.fillHand = this.fillHand.bind(this);
+    this.showClue = this.showClue.bind(this);
+    this.startVoting = this.startVoting.bind(this);
+    this.displayResults = this.displayResults.bind(this);
+    this.handleChangeClue = this.handleChangeClue.bind(this);
+    this.handleChangeSelectedCard = this.handleChangeSelectedCard.bind(this);
+    this.nextTurn = this.nextTurn.bind(this);
+    
+    let socket = this.props.socket;
+    console.log('Props', this.props);
+    console.log('socket var',socket);
+    // Socket.io Event Listeners
+    //----------------------------------------------------------------------------------------
+    // receive an array of strings with the card numbers
+    socket.on("cardsDealt", this.fillHand);
 
+    // receive the clue that the storyteller submitted as a text string
+    socket.on("relayClue", this.showClue);
+
+    // receive an array of cards that everyone played
+    socket.on("relayCards", this.startVoting);
+
+    // receive who voted for what players total points if game is over.
+    socket.on("turnResults", this.displayResults);
+
+    //FOR TESTING receving nextTurn data
+    socket.on("nextTurn", this.nextTurn);
+
+    //FOR TESTING receiving gameOver data
+    socket.on("gameOver", function(data){
+          console.log("received game over");
+          console.log(data);
+      });
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
+  handleChangeClue(event){
+    this.setState({ clue: event.target.value });
   }
 
-  handleChangeName(event) {
-    this.setState({name: event.target.value});
+  handleChangeSelectedCard(event){
+    this.setState({ selectedCardID: event.target.value });
   }
 
-  handleChangeClue(event) {
-    this.setState({clue: event.target.value});
+  // Sets the player's Number, Hand, and Storyteller from the received data.
+  fillHand(cardsDealt){
+    console.log("fillHand", cardsDealt);
+    this.setState({
+      whoIsStoryTeller: cardsDealt.storyTeller,
+      myPlayerNumber: cardsDealt.playerNumber,
+      myHand: cardsDealt.cards,
+      turnPhase: 'storyTellerSubmits'
+    });
   }
 
-  handleChangeCard(event) {
-    this.setState({card: event.target.value});
+  nextTurn(data){
+    console.log("nextTurn", data);
+    this.setState({
+      whoIsStoryTeller: data.storyTeller,
+      myHand: data.cards,
+      turnPhase: 'storyTellerSubmits'
+    });
   }
 
-  handleChangeVote(event) {
-    this.setState({vote: event.target.value});
+  showClue(data){
+    console.log("relayClue--", data);
+    this.setState({
+      clue: data,
+      turnPhase: 'playersSubmitCards'
+    });
   }
 
-  handleSubmit(event) {
-    console.log('A name was submitted: ' + this.state.value);
-    event.preventDefault();
-  }
-  
-  handleSubmitName(event) {
-    this.sendName(this.state.name);
-    console.log('A name was submitted: ' + this.state.name);
-    event.preventDefault();
+  startVoting(data){
+    console.log("relayCards--", data);
+    this.setState({
+      submittedCards: data,
+      turnPhase: 'playersSubmitVotes'
+    });
   }
 
-  handleSubmitClue(event) {
-    console.log('A clue was submitted: ' + this.state.clue);
-    console.log('A card was submitted: ' + this.state.card);
-    this.submitStoryTellerRes(this.state.card, this.state.clue);
-    event.preventDefault();
+  displayResults(data){
+    console.log("turnResults--", data);
+    this.setState({
+      p1Points: data[0].currentPoints,
+      p2Points: data[1].currentPoints,
+      p3Points: data[2].currentPoints,
+      p4Points: data[3].currentPoints,
+      turnPhase: 'readyForNextTurn'
+    });
   }
 
-  handleSubmitCard(event) {
-    this.submitCard(this.state.card, playerNumber);
-    console.log('A card was submitted: ' + this.state.card);
-    this.submitCard(this.state.value, playerNumber);
-    event.preventDefault();
-  }
-
-  handleSubmitVote(event) {
-    this.submitVote(this.state.value);
-    console.log('A vote was submitted: ' + this.state.vote);
-    event.preventDefault();
-  }
-
-  buttonClick()   {
-     socket.emit("test", "hello button Clicked");
-     console.log("button clicked");
-  }
-
-  buttonReadyNextTurn() {
-    this.sendReadyForNextTurn();
-    console.log("sent ready for next turn.")
-  }
-
+  // Sending Data to the server through socket.emit
+  //--------------------------------------------------------------------------------
   sendName(name){
+    let socket = this.props.socket;
     socket.emit("playerJoined", name);
+    socket.emit("joinGame");
     console.log("sent name");
   }
 
-  submitStoryTellerRes(cardID, clueText) {
+  submitStoryTellerRes(event) {
+    event.preventDefault();
+    let socket = this.props.socket;
+    let cardID = this.state.selectedCardID;
+    let clueText = this.state.clue;
+
     var data = {
       cardID: cardID,
       clueText: clueText
@@ -203,96 +150,79 @@ class App extends Component {
     console.log("sent storyTeller selections");
   }
 
-  submitCard(cardID, player) {
-    socket.emit("submitCard", {cardID:cardID, belongsTo:player});
+  // submitStoryTellerRes(cardID, clueText) {
+  //   var data = {
+  //     cardID: cardID,
+  //     clueText: clueText
+  //   };
+  //   socket.emit("storyTellerClue", data);
+  //   console.log("sent storyTeller selections");
+  // }
+
+  submitCard(event) {
+    event.preventDefault();
+    let socket = this.props.socket;
+    let cardID = this.state.selectedCardID;
+    let playerNumber = this.state.myPlayerNumber;
+
+    socket.emit("submitCard", {cardID:cardID, belongsTo:playerNumber});
+    console.log("Sent Player's card choice.");
+    this.setState({
+      turnPhase: 'sentCard'
+    });
   }
 
-  submitVote(cardID) {
-    socket.emit("submitVote", {cardID: cardID});
+  submitVote(event) {
+    event.preventDefault();
+    let socket = this.props.socket;
+    let cardID = this.state.selectedCardID;
+    let playerNumber = this.state.myPlayerNumber;
+
+    socket.emit("submitVote", {cardID: cardID, playerNumber: playerNumber});
+    console.log("Sent Player's vote choice");
+    this.setState({
+      turnPhase: 'sentVote'
+    });
   }
 
   sendReadyForNextTurn() {
-    socket.emit("nextTurn", "readyForNextTurn");
+    let socket = this.props.socket;
+    console.log("Sent readyForNextTurn");
+    this.setState({
+      turnPhase: 'sentReady'
+    });
+    socket.emit("nextTurn", true);
+  }
+  //===========================================================================================
+
+  componentDidMount(){
+    console.log("App.js has mounted.")
+    // this.sendName("player1");
+    this.sendReadyForNextTurn();
+  }
+
+  componentDidUpdate(){
+    console.log("App.js state--", this.state);
   }
 
   render() {
 
    
     return (
-      <div className="App container-fluid" style={AppContainerStyling}>
-          
-          <div className="row">
-            <div className="col-xs-12">
-              
-
-              <div className="App-header">
-                <h2>Welcome to React</h2>
-              </div>
-              
-              <p className="App-intro">
-                To get started, edit <code>src/App.js</code> and save to reload.
-              </p>
-              
-              <button onClick={this.buttonClick}>socket test</button>
-              
-              <hr />
-              
-              <form onSubmit={this.handleSubmitName}>
-                <label>
-                  Name:
-                  <input type="text" value={this.state.name} onChange={this.handleChangeName} />
-                </label>
-                <input type="submit" value="Submit" />
-              </form>
-
-              <hr />
-
-              <form onSubmit={this.handleSubmitClue}>
-                <h3>Story Teller's Submissions</h3>
-                <label>
-                  Clue:
-                  <input type="text" value={this.state.clue} onChange={this.handleChangeClue} />
-                </label>
-                <label>
-                  Card:
-                  <input type="text" value={this.state.card} onChange={this.handleChangeCard} />
-                </label>
-                <input type="submit" value="Submit" />
-              </form>
-
-              <hr />
-
-              <form onSubmit={this.handleSubmitCardPlayer}>
-              <h3>Player's Submissions</h3>
-                <label>
-                  Card:
-                  <input type="text" value={this.state.card} onChange={this.handleChangeCard} />
-                </label>
-                <input type="submit" value="Submit" />
-              </form>
-              
-              <form onSubmit={this.handleSubmitVote}>
-                <label>
-                  Vote:
-                  <input type="text" value={this.state.vote} onChange={this.handleChangeVote} />
-                </label>
-                <input type="submit" value="Submit" />
-              </form>
-
-              <button onClick={this.buttonReadyNextTurn}>sendReadyForNextTurn</button>
-            
-
-            </div>
-          </div>
-
-          <hr />
-          <hr />
-          <hr />
-
+      <div className="App container-fluid" style={AppContainerStyling}>        
           
           <div className='row'>
             <div className='col-xs-12'>
-              <GameRoom />
+              <GameRoom 
+                gameState={this.state}
+                handleChangeClue={this.handleChangeClue}
+                handleChangeSelectedCard={this.handleChangeSelectedCard}
+                submitStoryTellerRes={this.submitStoryTellerRes}
+                submitCard={this.submitCard}
+                submitVote={this.submitVote}
+                sendReadyForNextTurn={this.sendReadyForNextTurn}
+                socket={this.props.socket}
+              />
             </div>
           </div>
 
