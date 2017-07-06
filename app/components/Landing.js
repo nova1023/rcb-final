@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import GameInfo from './panels/GameInfo';
 // import PlayNowAlias from './panels/PlayNowAlias';
-import { Route, Link, Redirect } from 'react-router-dom';
+import { Route, Link, Redirect, NavLink } from 'react-router-dom';
 
 class Landing extends Component {
 	constructor(props) {

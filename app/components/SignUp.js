@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Route, Link, Redirect } from 'react-router-dom';
 
 
 class SignUp extends Component {
@@ -8,7 +8,8 @@ class SignUp extends Component {
     this.state = {
     	name: '',
     	password: '',
-    	confirmPassword: ''
+    	confirmPassword: '',
+      fireRedirect: false
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -30,8 +31,13 @@ class SignUp extends Component {
   }
 
   handleSubmit(event) {
-    console.log('A name was submitted: ' + this.state.name);
-    console.log('Password was submitted: ' + this.state.password);
+    event.preventDefault();
+    // console.log('A name was submitted: ' + this.state.name);
+    // console.log('Password was submitted: ' + this.state.password);
+    
+    let socket = this.props.socket;
+    this.setState({fireRedirect: true});
+
     if (this.state.password === this.state.confirmPassword){
     	console.log('Both passwords match: ' + this.state.password + ' & ' + this.state.confirmPassword);
 
@@ -50,45 +56,48 @@ class SignUp extends Component {
         data: userInfo
       }).done(function(response)
       {
-        console.log("in the response");
+        socket.emit("playerJoined", this.state.name);
+        console.log(this.state.name);
       });
     }
     else {
     	console.log('Please make sure both password inputs are identical');
     }
-    event.preventDefault();
+    
   }
 
 	render() {
-		return (
-			<div className="row">
+    if (this.state.fireRedirect === true) {
+      return <Redirect to="/lobby" />
+    }
+    else {
+  		return (
+  			<div className="row">
+  				<div className="col-xs-12 sign-in-form" id="sign-in-form">
+  						<h3>Sign Up</h3>
+  						<form action="/api/register" method="POST" onSubmit={this.handleSubmit}>
+  							<label htmlFor="userName">
+  								Name:
+  								<input type="text" name="username" value={this.state.name} onChange={this.handleNameChange} />
+  							</label>
+  							<label htmlFor="signInPassword">
+  								Password:
+  								<input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange}  />
+  							</label>
+  							<label htmlFor="signInPassword">
+  								Confirm Password:
+  								<input type="password" name="passwordConfirm" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} />
+  							</label>
+  							
+  							<input type="submit" value="Submit" />
 
-					<div className="col-xs-12 sign-in-form" id="sign-in-form">
-							<h3>Sign Up</h3>
-							<form action="/api/register" method="POST" onSubmit={this.handleSubmit}>
-								<label htmlFor="userName">
-									Name:
-									<input type="text" name="username" value={this.state.name} onChange={this.handleNameChange} />
-								</label>
-								<label htmlFor="signInPassword">
-									Password:
-									<input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange}  />
-								</label>
-								<label htmlFor="signInPassword">
-									Confirm Password:
-									<input type="password" name="passwordConfirm" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} />
-								</label>
-								
-								<input type="submit" value="Submit" />
+  						</form>
+  				</div>
+  			</div>
 
-							</form>
-					</div>
-
-						
-
-				</div>
-		)
-	}
+		  )
+    }
+  }
 }
 
 export default SignUp;
