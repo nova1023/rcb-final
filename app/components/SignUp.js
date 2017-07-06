@@ -34,6 +34,24 @@ class SignUp extends Component {
     console.log('Password was submitted: ' + this.state.password);
     if (this.state.password === this.state.confirmPassword){
     	console.log('Both passwords match: ' + this.state.password + ' & ' + this.state.confirmPassword);
+
+      //build data to send to back end
+      var userInfo = {};
+      userInfo.username = this.state.name;
+      userInfo.password = this.state.password;
+      userInfo.passwordConfirm = this.state.confirmPassword;
+      console.log("data object built");
+
+      //Make post request to register new user
+      $.ajax(
+      {
+        url: "/api/register",
+        method: "POST",
+        data: userInfo
+      }).done(function(response)
+      {
+        console.log("in the response");
+      });
     }
     else {
     	console.log('Please make sure both password inputs are identical');

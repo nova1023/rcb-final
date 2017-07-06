@@ -1,9 +1,8 @@
 /*
 TODO: 
-    - User can create an account
-    - User can sign into an existing account
-    - User can log out
-    - User can sign in using a guest account
+    - Check for null when logging out and handle appropriately. 
+    - Refactor code to only remove cookies and redirect if database query is
+          successful. 
 */
 // Dependenciess =================================================
 const Express = require("express"),
@@ -64,6 +63,8 @@ router.get("/failure", function(req, res)
 router.post("/api/register", function(req, res)
 {
     // console.log(req.body);
+    console.log("registering a new user");
+
     //check if userName is already taken
     User.findOne({username: req.body.username}, function(error, data)
     {
@@ -96,8 +97,8 @@ router.post("/api/register", function(req, res)
                 res.cookie("token", token);
 
                 //send user to lobby
-                res.send({msg: "to the lobby!"});
-                //res.redirect("/lobby");
+                // res.redirect("/lobby");
+                res.send({msg: "To the lobby"});
             }
             else
             {
@@ -209,6 +210,10 @@ router.put("/api/logout", function(req, res)
         {
             console.log(error);
             console.log("That person doens't exist in the User collection");
+        }
+        else if (user === null)
+        {
+            console.log("that user isn't in this collection");
         }
         else
             console.log("user logged out");
