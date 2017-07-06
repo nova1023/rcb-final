@@ -114,62 +114,62 @@ router.post("/api/register", function(req, res)
     });
 });
 
-router.post("/api/login", Passport.authenticate("sign-in", 
-{ 
-    // successRedirect: '/lobby',
-    successRedirect: "/success",
-    // failureRedirect: '/'
-    failureRedirect: "/failure"
-}));
+// router.post("/api/login", Passport.authenticate("sign-in", 
+// { 
+//     // successRedirect: '/lobby',
+//     successRedirect: "/success",
+//     // failureRedirect: '/'
+//     failureRedirect: "/failure"
+// }));
 
-// //NON PASSPORT ALTERNATIVE
-// router.post("/api/login", function(req, res)
-// {
-//     User.findOne({username: req.body.username}, function(error, user)
-//     {
-//         //if user exists
-//         if (user !== null)
-//         {
-//             console.log("user exists");
+//NON PASSPORT ALTERNATIVE
+router.post("/api/login", function(req, res)
+{
+    User.findOne({username: req.body.username}, function(error, user)
+    {
+        //if user exists
+        if (user !== null)
+        {
+            console.log("user exists");
 
-//             //check passwords match
-//             if (req.body.password === user.password)
-//             {
-//                 var token = GenerateToken();
+            //check passwords match
+            if (req.body.password === user.password)
+            {
+                var token = GenerateToken();
 
-//                 //store token on user model
-//                 User.update({username: user.username}, {$set: {token: token}}, function(error, user)
-//                 {
-//                     if (error)
-//                         console.log(error.message);
-//                     else
-//                         console.log("user signed in to existing account");
-//                 });
+                //store token on user model
+                User.update({username: user.username}, {$set: {token: token}}, function(error, user)
+                {
+                    if (error)
+                        console.log(error.message);
+                    else
+                        console.log("user signed in to existing account");
+                });
 
-//                 //store token on client
-//                 res.cookie("token", token);
+                //store token on client
+                res.cookie("token", token);
 
-//                 //redirect to lobby
-//                 res.send({msg: "to the lobby"});
-//                 // res.redirect("/lobby");
-//             }
-//             else //passwords don't match
-//             {
-//                 //redirect to landing
-//                 console.log("passwords do not match");
-//                 res.send({msg: "passwords don't match"});
-//                 // res.redirect('/');
-//             }
-//         }
-//         else //no such user exists
-//         {
-//             console.log("That user does not exist in database");
-//             //redirect to landing
-//             res.send({msg: "That user doesn't exist"});
-//             // res.redirect('/');
-//         }
-//     });
-// });
+                //redirect to lobby
+                res.send({msg: "to the lobby"});
+                // res.redirect("/lobby");
+            }
+            else //passwords don't match
+            {
+                //redirect to landing
+                console.log("passwords do not match");
+                res.send({msg: "passwords don't match"});
+                // res.redirect('/');
+            }
+        }
+        else //no such user exists
+        {
+            console.log("That user does not exist in database");
+            //redirect to landing
+            res.send({msg: "That user doesn't exist"});
+            // res.redirect('/');
+        }
+    });
+});
 
 router.post("/api/login-guest", function(req, res)
 {
@@ -202,11 +202,14 @@ router.post("/api/login-guest", function(req, res)
 
 router.put("/api/logout", function(req, res)
 {
-    //find user based on cookie
-    User.update({token: req.cookies.token}, {$set: {token: ""}}, function(error, user)
+    // find user based on cookie
+    User.findOneAndUpdate({token: req.cookies.token}, {$set: {token: ""}}, function(error, user)
     {
         if (error)
-            console.log(error.message);
+        {
+            console.log(error);
+            console.log("That person doens't exist in the User collection");
+        }
         else
             console.log("user logged out");
     });
@@ -215,6 +218,22 @@ router.put("/api/logout", function(req, res)
     res.clearCookie("token");
 
     //send them to landing page
+    res.send({msg: "to the landing page"});
+    // res.redirect('/');
+});
+
+router.delete("/api/logout-guest", function(req, res)
+{
+    Guest.remove({token: req.cookies.token}, function(error, guest)
+    {
+        if (error)
+            console.log(error);
+        else
+            console.log("guest user removed");
+    });
+
+    res.clearCookie("token");
+
     res.send({msg: "to the landing page"});
     // res.redirect('/');
 });
