@@ -32,11 +32,11 @@ class SignUp extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // console.log('A name was submitted: ' + this.state.name);
-    // console.log('Password was submitted: ' + this.state.password);
+    console.log('A name was submitted: ' + this.state.name);
+    console.log('Password was submitted: ' + this.state.password);
     
     let socket = this.props.socket;
-    this.setState({fireRedirect: true});
+    let self = this;
 
     if (this.state.password === this.state.confirmPassword){
     	console.log('Both passwords match: ' + this.state.password + ' & ' + this.state.confirmPassword);
@@ -47,6 +47,7 @@ class SignUp extends Component {
       userInfo.password = this.state.password;
       userInfo.passwordConfirm = this.state.confirmPassword;
       console.log("data object built");
+      console.log(userInfo);
 
       //Make post request to register new user
       $.ajax(
@@ -56,8 +57,14 @@ class SignUp extends Component {
         data: userInfo
       }).done(function(response)
       {
-        socket.emit("playerJoined", this.state.name);
-        console.log(this.state.name);
+        if (response.success) {
+          socket.emit("playerJoined", self.state.name);
+          self.setState({fireRedirect: true});
+          console.log(self.state.name);
+        }
+        else {
+          alert("Player did not sign up");
+        }
       });
     }
     else {
