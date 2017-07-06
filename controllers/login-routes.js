@@ -97,22 +97,22 @@ router.post("/api/register", function(req, res)
                         res.cookie("token", token);
 
                         //send user to lobby
-                        // res.redirect("/lobby");
-                        res.send({msg: "To the lobby"});
+                        res.send({success: true});
                     }
                 });
             }
             else
             {
                 console.log("passwords do not match");
-                //redirect back to landing
-                res.redirect('/');
+                //indiate failure
+                res.send({success: false});
             }
         }
         else
         {
             console.log("Name is already taken");
-            res.redirect('/');
+            //indicate failure
+            res.send({success: false});
         }
     });
 });
@@ -153,8 +153,7 @@ router.post("/api/login", function(req, res)
                         res.cookie("token", token);
 
                         //redirect to lobby
-                        res.send({msg: "to the lobby"});
-                        // res.redirect("/lobby");
+                        res.send({success: true});
                     }
                 });
             }
@@ -162,16 +161,15 @@ router.post("/api/login", function(req, res)
             {
                 //redirect to landing
                 console.log("passwords do not match");
-                res.send({msg: "passwords don't match"});
-                // res.redirect('/');
+                //indicate failure
+                res.send({success: false});
             }
         }
         else //no such user exists
         {
             console.log("That user does not exist in database");
-            //redirect to landing
-            res.send({msg: "That user doesn't exist"});
-            // res.redirect('/');
+            //indicate failure
+            res.send({success: false});
         }
     });
 });
@@ -201,8 +199,7 @@ router.post("/api/login-guest", function(req, res)
             res.cookie("token", guestObject.token);
 
             //send client to lobby page
-            res.send({msg: "to the lobby!"});
-            // res.redirect("/lobby");
+            res.send({success: true});
         }
     });
 });
@@ -218,8 +215,8 @@ router.put("/api/logout", function(req, res)
         {
             console.log("that user isn't in this collection");
 
-            //send back to lobby
-            res.redirect("/lobby");
+            //indicate failure
+            res.send({success: false});
         }
         else
         {
@@ -228,9 +225,8 @@ router.put("/api/logout", function(req, res)
             //remove cookie from client
             res.clearCookie("token");
 
-            //send them to landing page
-            res.send({msg: "to the landing page"});
-            // res.redirect('/');
+            //redirect to lobby via front end
+            res.send({success: true});
         }
     });
 });
@@ -245,8 +241,8 @@ router.delete("/api/logout-guest", function(req, res)
         {
             console.log("That guest isn't in the collection");
 
-            //send back to lobby
-            res.redirect("/lobby");
+            //indicate failure
+            res.send({success: false});
         }
         else
         {
@@ -254,8 +250,8 @@ router.delete("/api/logout-guest", function(req, res)
 
             res.clearCookie("token");
 
-            res.send({msg: "to the landing page"});
-            // res.redirect('/');
+            //redirect to lobby via front end
+            res.send({success: true});
         }
     });
 });
