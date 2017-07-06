@@ -3,9 +3,6 @@ import React, { Component } from 'react';
 // import PlayNowAlias from './panels/PlayNowAlias';
 import { Route, Link, Redirect } from 'react-router-dom';
 
-
-
-
 class Landing extends Component {
 	constructor(props) {
     super(props);
@@ -70,7 +67,7 @@ class Landing extends Component {
 						          <a href="#">Home<span className="sr-only">(current)</span></a>
 						        </li>
 						        <li>
-						        	<a href="#">Sign In</a>
+						        	<NavLink to="/signin">Sign In</NavLink>
 						        </li>
 						        <li>
 						          <a href="#">User Profile</a>
@@ -114,6 +111,8 @@ class Landing extends Component {
 				       <input type="submit" value="Submit" />
 				      </form>
 
+				      <Link to="/signup"><h1>SIGN UP NOW</h1></Link>
+				      <hr />
 				      <h1><Link to="/lobby">Lobby Link</Link></h1>
 				      <h1><Link to="/gameroom">GameRoom Link</Link></h1>
 				      <h1><Link to="/testingPage">Testing Page</Link></h1>
