@@ -3,8 +3,8 @@ import './App.css';
 
 import GameRoom from './components/GameRoom.js';
 
-import IO from 'socket.io-client';  
-const socket = IO() ;
+// import IO from 'socket.io-client';  
+// const socket = IO() ;
 
 const AppContainerStyling = {
   height:'100vh',
@@ -29,6 +29,7 @@ class App extends Component {
     };
 
 
+
     // [handleChange, handleSubmit, handleChangeName, handleSubmitName, ]
     //   .each((elem) => this[elem] = this[elem].bind(this))
     this.sendName = this.sendName.bind(this);
@@ -44,7 +45,9 @@ class App extends Component {
     this.handleChangeSelectedCard = this.handleChangeSelectedCard.bind(this);
     this.nextTurn = this.nextTurn.bind(this);
     
-
+    let socket = this.props.socket;
+    console.log('Props', this.props);
+    console.log('socket var',socket);
     // Socket.io Event Listeners
     //----------------------------------------------------------------------------------------
     // receive an array of strings with the card numbers
@@ -127,12 +130,15 @@ class App extends Component {
   // Sending Data to the server through socket.emit
   //--------------------------------------------------------------------------------
   sendName(name){
+    let socket = this.props.socket;
     socket.emit("playerJoined", name);
+    socket.emit("joinGame");
     console.log("sent name");
   }
 
   submitStoryTellerRes(event) {
     event.preventDefault();
+    let socket = this.props.socket;
     let cardID = this.state.selectedCardID;
     let clueText = this.state.clue;
 
@@ -155,6 +161,7 @@ class App extends Component {
 
   submitCard(event) {
     event.preventDefault();
+    let socket = this.props.socket;
     let cardID = this.state.selectedCardID;
     let playerNumber = this.state.myPlayerNumber;
 
@@ -167,6 +174,7 @@ class App extends Component {
 
   submitVote(event) {
     event.preventDefault();
+    let socket = this.props.socket;
     let cardID = this.state.selectedCardID;
     let playerNumber = this.state.myPlayerNumber;
 
@@ -178,6 +186,7 @@ class App extends Component {
   }
 
   sendReadyForNextTurn() {
+    let socket = this.props.socket;
     console.log("Sent readyForNextTurn");
     this.setState({
       turnPhase: 'sentReady'
@@ -188,7 +197,8 @@ class App extends Component {
 
   componentDidMount(){
     console.log("App.js has mounted.")
-    this.sendName("player1");
+    // this.sendName("player1");
+    this.sendReadyForNextTurn();
   }
 
   componentDidUpdate(){
@@ -211,6 +221,7 @@ class App extends Component {
                 submitCard={this.submitCard}
                 submitVote={this.submitVote}
                 sendReadyForNextTurn={this.sendReadyForNextTurn}
+                socket={this.props.socket}
               />
             </div>
           </div>

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 // import GameInfo from './panels/GameInfo';
 // import PlayNowAlias from './panels/PlayNowAlias';
-import { Route, Link, NavLink } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 
 class Landing extends Component {
 	constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {
+    	value: '',
+		fireRedirect: false,
+
+	};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,14 +21,29 @@ class Landing extends Component {
   }
 
   handleSubmit(event) {
+  	event.preventDefault();
+  	console.log(this.props.socket);
+  	let socket = this.props.socket;
+  	
     console.log('A name was submitted: ' + this.state.value);
-    event.preventDefault();
+    socket.emit("playerJoined", this.state.value);
+    this.setState({fireRedirect: true});
   }
 
 
 	render() {
+
+		if (this.state.fireRedirect === true) {
+			return <Redirect to='/lobby' />
+
+		} else {
+			
+		
+
 		return (
 			<div className="container-fluid">
+
+		
 				<nav className="navbar navbar-default" id="main-nav-bar">
 				  
 				  	<div className="row">
@@ -89,7 +108,7 @@ class Landing extends Component {
 				          Nickname:
 				          <input type="text" value={this.state.value} onChange={this.handleChange} />
 				        </label>
-				        <input type="submit" value="Submit" />
+				       <input type="submit" value="Submit" />
 				      </form>
 
 				      <Link to="/signup"><h1>SIGN UP NOW</h1></Link>
@@ -98,6 +117,8 @@ class Landing extends Component {
 				      <h1><Link to="/gameroom">GameRoom Link</Link></h1>
 				      <h1><Link to="/testingPage">Testing Page</Link></h1>
 
+
+
 						</div>
 					</div>
 				</div>
@@ -105,7 +126,7 @@ class Landing extends Component {
 
 		  
 		)
-	}
+	}}
 }
 export default Landing;
 

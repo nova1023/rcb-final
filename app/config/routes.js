@@ -9,15 +9,16 @@ import SignIn from '../components/Signin';
 import SignUp from '../components/SignUp';
 import App from '../app.js';
 
+import IO from 'socket.io-client';  
+const socket = IO() ;
+
 module.exports = (
 	<Router>
 		<Switch>
-			<Route exact path="/" component={Landing} />
-			<Route path="/lobby" component={Lobby} />
-			<Route path="/gameroom" component={GameRoom} />
-			<Route path="/testingPage" component={App} />
-			<Route path="/signin" component={SignIn} />
-			<Route path="/signup" component={SignUp} />
+			<Route exact path="/" render={(props) => (<Landing socket={socket} />)} />
+			<Route path="/lobby" render={(props) => (<Lobby socket={socket} />)} />
+			<Route path="/gameroom" render={(props) => (<GameRoom socket={socket} />)} />
+			<Route path="/testingPage" render={(props) => (<App socket={socket} />)} />
 		</Switch>
 	</Router>
 );

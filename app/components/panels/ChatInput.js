@@ -20,6 +20,11 @@ class ChatInput extends Component {
 
 		this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
 		this.handleMessageInputChange = this.handleMessageInputChange.bind(this);
+		this.readyForGame = this.readyForGame.bind(this);
+
+		
+
+
 	}
 
 	handleMessageInputChange(event) {
@@ -27,15 +32,22 @@ class ChatInput extends Component {
 	}
 
 	handleMessageSubmit(event) {
+		let socket = this.props.socket;
 		event.preventDefault();
 		console.log("Message Submitted." + this.state.message);
-		//socket.emit("sendMessage", this.state.message);
+		socket.emit("sendMessage", this.state.message);
 		this.setState({message: ""});
+	}
+
+	readyForGame() {
+		console.log("sending ready for game", this.props);
+		let socket = this.props.socket
+		socket.emit("joinGame");
 	}
 
 	render() {
 		return (
-
+			<div>
 			<form onSubmit={this.handleMessageSubmit} id="message-form">
 
 				<input
@@ -48,6 +60,8 @@ class ChatInput extends Component {
 					/>
 				<input type="submit" value="Submit" id="chat-button" />
 			</form>
+			<div onClick={this.readyForGame}>Click To Ready Up</div>
+			</div>
 		)
 	}
 }
