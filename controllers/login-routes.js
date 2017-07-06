@@ -17,7 +17,7 @@ var router = Express.Router();
 const User = require("../models/user.js"),
     Guest = require("../models/guest.js");
 
-//Passport login configuration =========================================
+//Passport login configuration ===================================
 Passport.use("sign-in", new LocalStrategy(function(username, password, done)
 {
     User.findOne({username: username}, function(error, user)
@@ -90,15 +90,17 @@ router.post("/api/register", function(req, res)
                     if (error)
                         console.log(error.message);
                     else
+                    {
                         console.log("new user saved");
+
+                        //write cookie 
+                        res.cookie("token", token);
+
+                        //send user to lobby
+                        // res.redirect("/lobby");
+                        res.send({msg: "To the lobby"});
+                    }
                 });
-
-                //write cookie 
-                res.cookie("token", token);
-
-                //send user to lobby
-                // res.redirect("/lobby");
-                res.send({msg: "To the lobby"});
             }
             else
             {
@@ -144,15 +146,17 @@ router.post("/api/login", function(req, res)
                     if (error)
                         console.log(error.message);
                     else
+                    {
                         console.log("user signed in to existing account");
+
+                        //store token on client
+                        res.cookie("token", token);
+
+                        //redirect to lobby
+                        res.send({msg: "to the lobby"});
+                        // res.redirect("/lobby");
+                    }
                 });
-
-                //store token on client
-                res.cookie("token", token);
-
-                //redirect to lobby
-                res.send({msg: "to the lobby"});
-                // res.redirect("/lobby");
             }
             else //passwords don't match
             {
@@ -190,15 +194,17 @@ router.post("/api/login-guest", function(req, res)
         if (error)
             console.log(error.message);
         else
+        {
             console.log("new guest saved");
+
+            //send token cookie to client
+            res.cookie("token", guestObject.token);
+
+            //send client to lobby page
+            res.send({msg: "to the lobby!"});
+            // res.redirect("/lobby");
+        }
     });
-
-    //send token cookie to client
-    res.cookie("token", guestObject.token);
-
-    //send client to lobby page
-    res.send({msg: "to the lobby!"});
-    // res.redirect("/lobby");
 });
 
 router.put("/api/logout", function(req, res)
@@ -207,40 +213,51 @@ router.put("/api/logout", function(req, res)
     User.findOneAndUpdate({token: req.cookies.token}, {$set: {token: ""}}, function(error, user)
     {
         if (error)
-        {
             console.log(error);
-            console.log("That person doens't exist in the User collection");
-        }
         else if (user === null)
         {
             console.log("that user isn't in this collection");
+
+            //send back to lobby
+            res.redirect("/lobby");
         }
         else
+        {
             console.log("user logged out");
+
+            //remove cookie from client
+            res.clearCookie("token");
+
+            //send them to landing page
+            res.send({msg: "to the landing page"});
+            // res.redirect('/');
+        }
     });
-
-    //remove cookie from client
-    res.clearCookie("token");
-
-    //send them to landing page
-    res.send({msg: "to the landing page"});
-    // res.redirect('/');
 });
 
 router.delete("/api/logout-guest", function(req, res)
 {
-    Guest.remove({token: req.cookies.token}, function(error, guest)
+    Guest.findOneAndRemove({token: req.cookies.token}, function(error, guest)
     {
         if (error)
             console.log(error);
+        else if (guest === null)
+        {
+            console.log("That guest isn't in the collection");
+
+            //send back to lobby
+            res.redirect("/lobby");
+        }
         else
+        {
             console.log("guest user removed");
+
+            res.clearCookie("token");
+
+            res.send({msg: "to the landing page"});
+            // res.redirect('/');
+        }
     });
-
-    res.clearCookie("token");
-
-    res.send({msg: "to the landing page"});
-    // res.redirect('/');
 });
 
 //Export router ==================================================
