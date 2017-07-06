@@ -60,7 +60,7 @@ class ChatInput extends Component {
 					/>
 				<input type="submit" value="Submit" id="chat-button" />
 			</form>
-			<div onClick={this.readyForGame}>Click To Ready Up</div>
+			
 			</div>
 		)
 	}
