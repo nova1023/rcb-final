@@ -17,6 +17,7 @@ class LobbyView extends Component {
                     rulesButtonClicked = {this.props.rulesButtonClicked}
                     originsButtonClicked = {this.props.originsButtonClicked}
                     readyButtonClicked = {this.props.readyButtonClicked}
+                    socket={this.props.socket}
                 />
             </div>		
         )  

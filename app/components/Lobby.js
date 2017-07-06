@@ -16,7 +16,8 @@ class Lobby extends Component {
 		super(props);
 		this.state = {
 			fireRedirect: false,
-
+			messageState: 'none',
+			
 		};
 
 		this.handleRedirect = this.handleRedirect.bind(this);
@@ -36,14 +37,25 @@ class Lobby extends Component {
 
 	rulesButtonClicked(){
 		console.log("rulesButtonClicked");
+		this.setState({messageState: 'rules'})
 	}
 
 	originsButtonClicked(){
 		console.log("originsButtonClicked");
+		this.setState({messageState: 'origins'})
 	}
 
 	readyButtonClicked(){
-			console.log("readyButtonClicked");
+		console.log("readyButtonClicked");
+		this.setState({messageState: 'ready'})
+		console.log("sending ready for game", this.props);
+		let socket = this.props.socket
+		socket.emit("joinGame");
+	}
+
+	componentDidMount(){
+		console.log("Lobby has mounted.");
+		this.setState({messageState: 'welcome'})
 	}
 
   render() {
@@ -58,10 +70,11 @@ class Lobby extends Component {
     				rulesButtonClicked = {this.rulesButtonClicked}
     				originsButtonClicked = {this.originsButtonClicked}
     				readyButtonClicked = {this.readyButtonClicked}
+    				socket={this.props.socket}
     			/>
     			<LobbyChat socket={this.props.socket} />
     			<MessageBox
-    				Message={'Just checking to see if it works!'}
+    				messageState={this.state.messageState}
     			/>
     		</div>
     	</div>
