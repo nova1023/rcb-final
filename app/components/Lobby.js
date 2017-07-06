@@ -20,6 +20,9 @@ class Lobby extends Component {
 		};
 
 		this.handleRedirect = this.handleRedirect.bind(this);
+		this.rulesButtonClicked = this.rulesButtonClicked.bind(this);
+		this.originsButtonClicked = this.originsButtonClicked.bind(this);
+		this.readyButtonClicked = this.readyButtonClicked.bind(this);
 
 		let socket = this.props.socket;
 
@@ -31,6 +34,18 @@ class Lobby extends Component {
 		this.setState({fireRedirect: true})
 	}
 
+	rulesButtonClicked(){
+		console.log("rulesButtonClicked");
+	}
+
+	originsButtonClicked(){
+		console.log("originsButtonClicked");
+	}
+
+	readyButtonClicked(){
+			console.log("readyButtonClicked");
+	}
+
   render() {
   	if (this.state.fireRedirect === true) {
 			return <Redirect to='/testingPage' />
@@ -39,7 +54,11 @@ class Lobby extends Component {
     return (
     	<div className="container-fluid">
     		<div className="LobbyContainer row" style={LobbyContainerStyling}>
-    			<LobbyView />
+    			<LobbyView
+    				rulesButtonClicked = {this.rulesButtonClicked}
+    				originsButtonClicked = {this.originsButtonClicked}
+    				readyButtonClicked = {this.readyButtonClicked}
+    			/>
     			<LobbyChat socket={this.props.socket} />
     			<MessageBox
     				Message={'Just checking to see if it works!'}

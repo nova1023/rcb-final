@@ -13,7 +13,11 @@ class LobbyView extends Component {
         return (
             <div className="col-xs-12" style={LobbyViewStyling}>
                 <BartenderPortrait />
-                <BartenderChoices />
+                <BartenderChoices
+                    rulesButtonClicked = {this.props.rulesButtonClicked}
+                    originsButtonClicked = {this.props.originsButtonClicked}
+                    readyButtonClicked = {this.props.readyButtonClicked}
+                />
             </div>		
         )  
     }

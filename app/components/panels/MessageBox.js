@@ -11,7 +11,7 @@ const MessageBoxStyling = {
     border: '3px solid grey',
     outline: '3px solid black',
     color: 'white',
-    textShadow: '0 0 10px black',
+    textShadow: '-1px 1px 6px black',
     fontSize: '20px',
     paddingLeft: '2%',
     paddingRight: '2%',

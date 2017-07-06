@@ -27,7 +27,6 @@ class BartenderPortrait extends Component {
     render() {
         return (
             <div className="col-xs-12" style={BartenderPortraitStyling}>
-            	<SpeechBubble />
                 <img src='/images/avatars/complete/Candace-1.png' style={BartenderAvatarStyling} />
                 <img src='/images/avatars/complete/Wood-Bar-3.png' style={CounterStyling} />
             </div>		
