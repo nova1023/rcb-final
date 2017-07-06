@@ -5,7 +5,7 @@ const Player = require("./game-classes/player");
 
 //Global Variables
 var allPlayersMap = new Map(); //Stores all players.  Used to look up player game/room by socket.id.
-const GameSize = 2;        
+const GameSize = 4;        
 var gamesMap = new Map();
 var playersQueue = [];       
 

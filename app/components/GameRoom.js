@@ -58,8 +58,8 @@ class GameRoom extends Component {
 					<PlayerOptions gameState={this.state.gameState} />
 				</div>
 				<div className="col-xs-12 Chat" style={ChatStyling}>
-					<ChatView />
-					<ChatInput />
+					<ChatView socket={this.props.socket} />
+					<ChatInput socket={this.props.socket} />
 				</div>
 			</div>
 		)

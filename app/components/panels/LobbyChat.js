@@ -13,8 +13,8 @@ class LobbyChat extends Component {
     render() {
         return (
             <div className="col-xs-12" style={LobbyChatStyling}>
-                <ChatView />
-                <ChatInput />
+                <ChatView socket={this.props.socket} />
+                <ChatInput socket={this.props.socket} />
             </div>
 		)  
     }
