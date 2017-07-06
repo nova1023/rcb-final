@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Landing from '../components/Landing';
 import Lobby from '../components/Lobby';
 import GameRoom from '../components/GameRoom';
+import SignIn from '../components/Signin';
+import SignUp from '../components/SignUp';
 import App from '../app.js';
 
 import IO from 'socket.io-client';  
