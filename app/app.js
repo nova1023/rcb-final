@@ -50,6 +50,7 @@ class App extends Component {
     this.nextTurn = this.nextTurn.bind(this);
     this.exitGame = this.exitGame.bind(this);
     this.backToLobby = this.backToLobby.bind(this);
+    this.gameOver = this.gameOver.bind(this);
     
     let socket = this.props.socket;
     console.log('Props', this.props);
@@ -71,11 +72,8 @@ class App extends Component {
     //FOR TESTING receving nextTurn data
     socket.on("nextTurn", this.nextTurn);
 
-    //FOR TESTING receiving gameOver data
-    socket.on("gameOver", function(data){
-          console.log("received game over");
-          console.log(data);
-      });
+    // when the game is over
+    socket.on("gameOver", this.gameOver);
 
     // when a player disconnects
     socket.on("exitGame", this.exitGame);
@@ -147,6 +145,11 @@ class App extends Component {
     console.log("Going back to lobby");
     this.setState({fireRedirect: true});
     socket.emit("exitGame");
+  }
+
+  gameOver(){
+    this.setState({turnPhase: 'gameOver'});
+    console.log("The game is over, somebody won!");
   }
 
   // Sending Data to the server through socket.emit

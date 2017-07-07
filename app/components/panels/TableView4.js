@@ -244,7 +244,22 @@ class TableView4 extends Component {
                     </div>
     				console.log("Sent Prompt", prompt);
     				return prompt;
-	    		
+
+                } else if(this.props.gameState.turnPhase === 'gameOver') {
+                    let prompt = 
+                    <div>
+                    <TurnPhaseMessage
+                        swipedUp={this.swipedUp}
+                        gameState={this.props.gameState}
+                        message={'Someone won! When you\'re ready, please return to the lobby.'}
+                    />
+                    <BackToLobby
+                        backToLobby={this.props.backToLobby}
+                    />
+                    </div>
+                    console.log("Sent Prompt", prompt);
+                    return prompt;
+
 	    		// else it is not time for the storyTeller to give a response
 	    		} else {
 	    			console.log("NOT storyTellerSubmits phase");
@@ -321,6 +336,21 @@ class TableView4 extends Component {
                     </div>
     				console.log("Sent Prompt", prompt);
     				return prompt;
+
+                } else if(this.props.gameState.turnPhase === 'gameOver') {
+                    let prompt = 
+                    <div>
+                    <TurnPhaseMessage
+                        swipedUp={this.swipedUp}
+                        gameState={this.props.gameState}
+                        message={'Someone won! When you\'re ready, please return to the lobby.'}
+                    />
+                    <BackToLobby
+                        backToLobby={this.props.backToLobby}
+                    />
+                    </div>
+                    console.log("Sent Prompt", prompt);
+                    return prompt;
 
     			// If the turn phase is NOT any of the above
     			} else {
