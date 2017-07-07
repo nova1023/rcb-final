@@ -3,6 +3,47 @@ import React, { Component } from 'react';
 // import PlayNowAlias from './panels/PlayNowAlias';
 import { Route, Link, Redirect, NavLink } from 'react-router-dom';
 
+const LandingPageContainer = {
+	height: '100vh',
+	width: '320px',
+	backgroundImage: 'url(/images/avatars/landing-bg1.png)',
+	backgroundSize: 'cover',
+	backgroundRepeat: 'no-repeat',
+	color: 'white',
+	border: '1px solid'
+}
+
+const NavBarStyling = {
+	backgroundColor: 'black',
+
+}
+
+const LandingEmblem = {
+	margin: '0 auto',
+	width: '50%'
+}
+
+const BrandImg = {
+	position: 'relative',
+	top: '-13px',
+	left: '4px',
+	width: '45px'
+}
+
+const NavBarToggleButton = {
+	position: 'relative',
+	right: '4px'
+}
+
+const GameDescriptionStyling = {
+	paddingLeft: '2%'
+}
+
+const InputStyling = {
+	color: 'black'
+}
+
+
 class Landing extends Component {
 	constructor(props) {
     super(props);
@@ -41,37 +82,37 @@ class Landing extends Component {
 		
 
 		return (
-			<div className="container-fluid">
+			<div className="container-fluid" style={LandingPageContainer}>
 
 		
-				<nav className="navbar navbar-default" id="main-nav-bar">
+				<nav className="navbar navbar-default" id="main-nav-bar" style={NavBarStyling}>
 				  
 				  	<div className="row">
 							<div className="col-xs-12">
 
 						    <div className="navbar-header">
-						      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" style={NavBarToggleButton}>
 						        <span className="sr-only">Toggle navigation</span>
 						        <span className="icon-bar"></span>
 						        <span className="icon-bar"></span>
 						        <span className="icon-bar"></span>
 						      </button>
-						       <a className="navbar-brand" href="">
-						       	<img src="#" alt="Oops!" id=""></img>
-						       </a>
+						       <NavLink className="navbar-brand" to="/">
+						       	<img src={"/images/avatars/emblem.png"} alt="Oops!" style={BrandImg}></img>
+						       </NavLink>
 						    </div>
 
 						    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						      <ul className="nav navbar-nav navbar-right">
 						        <li className="">
-						          <a href="#">Home<span className="sr-only">(current)</span></a>
+						          <NavLink to="/">Home<span className="sr-only">(current)</span></NavLink>
 						        </li>
 						        <li>
 						        	<NavLink to="/signin">Sign In</NavLink>
 						        </li>
-						        <li>
+						        {/*<li>
 						          <a href="#">User Profile</a>
-						        </li>
+						        </li>*/}
 						      </ul>
 						    </div>
 						  </div> 
@@ -81,18 +122,16 @@ class Landing extends Component {
 
 				<div className="col-xs-12">
 					<div className="row">
-						<div className="col-xs-4">
-							<img src={"http://images.uesp.net//1/1e/SR-book-Nightingale.png"} alt="Wrong" className="img-responsive" />
+						<div className="col-xs-12" >
+							<img src={"/images/avatars/emblem.png"} alt="Wrong" className="img-responsive" style={LandingEmblem} />
 						</div>
 
-						<div className="col-xs-8">
-							<div>
-								<h4 id="game-description">Det er et velkjent faktum at lesere distraheres av lesbart innhold på en side når man ser på dens layout. 
+						<div className="row">
+							<div className="col-xs-12">
+								<h4 id="game-description" style={GameDescriptionStyling}>Det er et velkjent faktum at lesere distraheres av lesbart innhold på en side når man ser på dens layout. 
 								Poenget med å bruke Lorem Ipsum er at det har en mer eller mindre normal fordeling av bokstaver i ord, 
 								i motsetning til 'Innhold her, innhold her', og gir inntrykk av å være lesbar tekst. 
-								Mange webside- og sideombrekkingsprogrammer bruker nå Lorem Ipsum som sin standard for provisorisk tekst, 
-								og et søk etter 'Lorem Ipsum' vil avdekke mang en uferdig webside. Ulike versjoner har sprunget frem i senere år, 
-								noen ved rene uhell og andre mer planlagte (med humor o.l.).
+								Mange webside- og sideombrekkingsprogrammer
 								</h4>
 							</div>
 						</div>	
@@ -103,21 +142,15 @@ class Landing extends Component {
 					<div className="row">
 						<div className="col-xs-10 col-xs-offset-1 text-center">
 							<form onSubmit={this.handleSubmit}>
-								<h3>No sign up required!</h3>
+								<h3>Play as a Guest or sign up below!</h3>
 				        <label>
 				          Nickname:
-				          <input type="text" value={this.state.value} onChange={this.handleChange} />
+				          <input type="text" value={this.state.value} onChange={this.handleChange} style={InputStyling}/>
 				        </label>
-				       <input type="submit" value="Submit" />
+				       <input type="submit" value="Submit" style={InputStyling}/>
 				      </form>
 
 				      <Link to="/signup"><h1>SIGN UP NOW</h1></Link>
-				      <hr />
-				      <h1><Link to="/lobby">Lobby Link</Link></h1>
-				      <h1><Link to="/gameroom">GameRoom Link</Link></h1>
-				      <h1><Link to="/testingPage">Testing Page</Link></h1>
-
-
 
 						</div>
 					</div>
