@@ -6,9 +6,10 @@ import { Route, Link, Redirect } from 'react-router-dom';
 
 const LobbyContainerStyling = {
 	height: '100vh',
-	width: '100vw',
+	width: '320px',
 	overflow: 'hidden',
-
+	margin: '0 auto',
+	
 }
 
 class Lobby extends Component {

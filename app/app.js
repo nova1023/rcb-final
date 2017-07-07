@@ -9,6 +9,7 @@ import GameRoom from './components/GameRoom.js';
 const AppContainerStyling = {
   // height:'100vh',
   // width: '100vw',
+  // margin: '0 auto'
 }
 
 class App extends Component {
