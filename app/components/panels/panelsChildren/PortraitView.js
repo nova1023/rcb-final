@@ -27,12 +27,33 @@ const PortraitWrapper = {
 
 }
 
+const playerNameStyling = {
+	color: 'white',
+	backgroundColor: 'blue',
+	position: 'absolute',
+	fontSize: '30px',
+	top: '4%',
+	left: '25%',
+	textAlign: 'center',
+	width: '50%',
+}
+
 class PortraitView extends Component {
+	constructor(props){
+		super(props);
+		this.state = {
+
+		};
+	}
+
 	render() {
+
+		let imgSrc = "/images/avatars/complete/" + this.props.avatar + "-1.png"
+
 		return (
 			<div className='row' style={PortraitWrapper}>
 				<div className="col-xs-12 SinglePortrait" style={portraitStyling}>
-					<img src="/images/avatars/complete/Anankos-2.png" style={avatarStyling}></img>
+					<img src={imgSrc} style={avatarStyling}></img>
 				</div>
 				<div style={decorationStyling}>
 				</div>
