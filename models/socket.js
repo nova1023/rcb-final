@@ -109,14 +109,17 @@ console.log("gameName:", gameName);//TEST CODE
 
         function storyTellerClue(data)
         {   
+            var player = allPlayersMap.get(socket.id);
+
             // gets game from player.
-            var gameName = allPlayersMap.get(socket.id).game
+            var gameName = player.game
             var game = gamesMap.get(gameName);
 
             data.belongsTo = game.storyTeller.playerNumber;            
             game.HandleSubmitCard(data);
 
             IO.sockets.in(game.room).emit("relayClue", data.clueText);
+            Chat.relayMessage("Storyteller Clue", data.clueText, game.room); 
         }
 
         //---------------------------------------
