@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-
+import { Redirect, NavLink } from 'react-router-dom';
 
 const NavBarStyling = {
 	backgroundColor: '#6f510c',
@@ -69,6 +68,7 @@ class NavBar extends Component {
 	    	socket.emit("playerJoined", self.state.name);
 	    	self.setState({fireRedirect: true});
 	    	console.log(self.state.name);
+	    	$(".modal-backdrop").remove();
 	    }
 	    else {
 	    	alert("Player did not join");

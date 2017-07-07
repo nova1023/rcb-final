@@ -133,7 +133,7 @@ class Landing extends Component {
 
 		return (
 			<div className="container-fluid" style={LandingPageContainer}>
-				<NavBar />
+				<NavBar socket={this.props.socket} />
 
 				<div className="col-xs-12">
 					<div className="row">
