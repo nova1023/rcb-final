@@ -15,7 +15,8 @@ function Game(io)
     this.deadPile = [];
     this.connectedPlayerCount = 0;  // tracks players exit/disconnect game.
     this.gameStarted = false;       // tracks if game has started.
-    this.room = "";                 // socket room associated with game instance.                
+    this.room = "";                 // socket room associated with game instance.
+    this.gameOver = false;          // flag to check if game is over from socket.js                
     this.storyTeller = 
     {
         id: "",
@@ -298,7 +299,10 @@ function Game(io)
         //check if game is over.
         //TODO: check for a tie
         if (this.cardDeck.length < this.players.length || this.CheckForWinner())
+        {    
+            this.gameOver = true;
             io.in(this.room).emit("gameOver", this.GetTurnResultsArray());
+        }    
         else
         {
             //move cards played this turn to dead pile
