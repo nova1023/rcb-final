@@ -58,42 +58,51 @@ console.log("a player joined: " + newPlayer.userName, socket.id);//TEST CODE
         // instantiates a new game with players and stores game in 'gamesMap' 
         function joinGame()
         {
-            //enqueues player
-            playersQueue.unshift(allPlayersMap.get(socket.id));
+            var player = allPlayersMap.get(socket.id);
 
-            //if enough players for game, instantiates a new game and poplulates with players.
-            if(playersQueue.length >= GameSize)
-            {
+            //checks if player already submited 'joinGame'. (i.e. player.game is not null )
+            if(!player.game)
+            {    
+                //temporary assignment for above if conditional.
+                player.game = "game pending";
+                
+                //enqueues player
+                playersQueue.unshift(player);
+
+                //if enough players for game, instantiates a new game and poplulates with players.
+                if(playersQueue.length >= GameSize)
+                {
 
 console.log("\nGame Created");//TEST CODE 
 
-                // creates name for new game based on number of games (e.g. game1, game2,...)
-                var gameName = "game" + (gamesMap.size + 1);
+                    // creates name for new game based on number of games (e.g. game1, game2,...)
+                    var gameName = "game" + (gamesMap.size + 1);
 console.log("gameName:", gameName);//TEST CODE                
-                // instantiates new game and assigns room
-                var newGame = new Game(IO)
-                newGame.room = gameName;
+                    // instantiates new game and assigns room
+                    var newGame = new Game(IO)
+                    newGame.room = gameName;
 
-                // Creates key-value pair of gameName-newGame
-                gamesMap.set(gameName, newGame);
+                    // Creates key-value pair of gameName-newGame
+                    gamesMap.set(gameName, newGame);
 
-                // populates game with players
-                for (var i = 0; i < GameSize; i++)
-                {   
-                    var player = playersQueue.pop();
-                    player.game = gameName; //game name and room name are same
-                    player.room = gameName;
-                    player.playerNumber = i+1;
+                    // populates game with players
+                    for (var i = 0; i < GameSize; i++)
+                    {   
+                        var player = playersQueue.pop();
+                        player.game = gameName; //game name and room name are same
+                        player.room = gameName;
+                        player.playerNumber = i+1;
 
-                    newGame.players.push(player);
-                    newGame.connectedPlayerCount++;
+                        newGame.players.push(player);
+                        newGame.connectedPlayerCount++;
 
-                    player.socket.leave("Main"); 
-                    player.socket.join(gameName);      
+                        player.socket.leave("Main"); 
+                        player.socket.join(gameName);      
+                    }
+
+                    IO.sockets.in(gameName).emit('joinGame');
                 }
-
-                IO.sockets.in(gameName).emit('joinGame');
-            }
+            }           
         }
 
         //---------------------------------------
