@@ -15,9 +15,6 @@ const ViewPortStyling = {
 	height: '60%',
 	width: '100%',
 	
-
-
-
 }
 
 const ChatStyling = {
