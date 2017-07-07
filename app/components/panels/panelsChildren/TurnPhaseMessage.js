@@ -42,6 +42,11 @@ class TurnPhaseMessage extends Component {
 
   }
 
+  componentDidMount(){
+    console.log("TurnPhaseMessage has mounted");
+    this.props.swipedUp();
+  }
+
   render() {
 
     let Message = this.props.message;

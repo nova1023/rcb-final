@@ -77,7 +77,9 @@ class App extends Component {
       });
 
     // when a player disconnects
-    socket.on("exitGame", this.exitGame);
+    socket.on("exitGame", function(){
+      console.log("received exitGame")
+    });
   }
 
   handleChangeClue(event){
@@ -143,6 +145,7 @@ class App extends Component {
   backToLobby(){
     console.log("Going back to lobby");
     this.setState({fireRedirect: true});
+    socket.emit("exitGame");
   }
 
   // Sending Data to the server through socket.emit
@@ -250,7 +253,7 @@ class App extends Component {
 
       </div>
     );
-  }
+  }}
 }
 
 export default App;
