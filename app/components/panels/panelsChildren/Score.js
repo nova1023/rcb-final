@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const PlayerButtonsStyh4ng = {
+const PlayerButtonsStylng = {
   border: '1px soh4d red',
   width: '100%',
   height: '100%',
@@ -16,21 +16,28 @@ const ScoreModalPosition = {
   top: '25%'
 }
 
+const ModalXButton = {
+  position: 'relative',
+  top: '5%'
+}
+
 class Score extends Component {
 	
 	render() {
 		return (
 			<div  className='row' style={PlayerButtonWrapper}>
-        <div className='col-xs-12' data-toggle="modal" data-target="#scoreBoard" style={PlayerButtonsStyh4ng}>
+        <div className='col-xs-12' data-toggle="modal" data-target="#scoreBoardModal" style={PlayerButtonsStylng}>
         	S
         </div>
 
-          <div className="modal fade" id="scoreBoard">
+          <div className="modal fade" id="scoreBoardModal">
             <div className="modal-dialog" style={ScoreModalPosition}>
               <div className="modal-content">
                 <div className="modal-header">
-                  <div className="pull-left">Scoreboard</div>
-                    <button type="button" className="close" data-dismiss="modal" title="Close"> <span className="glyphicon glyphicon-remove"></span></button>
+                  <h3 className="modal-title pull-left">Scoreboard</h3>
+                    <button type="button" className="close" data-dismiss="modal" title="Close" style={ModalXButton}> 
+                      <span className="glyphicon glyphicon-remove"></span>
+                    </button>
                 </div>
           
               <div className="modal-body text-center">
