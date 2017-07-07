@@ -7,7 +7,8 @@ import LobbyChat from './panels/LobbyChat';
 
 const GameRoomStyling = {
 	height: '100vh',
-	width: '100vw',
+	width: '320px',
+	margin: '0 auto',
 
 }
 

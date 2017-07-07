@@ -14,7 +14,7 @@ const LandingPageContainer = {
 
 const LandingEmblem = {
 	margin: '0 auto',
-	width: '50%'
+	width: '35%'
 }
 
 const GameDescriptionStyling = {
@@ -71,9 +71,14 @@ class Landing extends Component {
   	console.log(this.props.socket);
   	let socket = this.props.socket;
   	
-    console.log('A name was submitted: ' + this.state.value);
-    socket.emit("playerJoined", this.state.value);
-    this.setState({fireRedirect: true});
+    if (this.state.value === '') {
+    	alert("Please type in a nickname.");
+    }
+    else {
+    	socket.emit("playerJoined", this.state.value);
+    	this.setState({fireRedirect: true});
+    	console.log('A name was submitted: ' + this.state.value);
+    }
   }
 
   handleSignUpSubmit(event) {
@@ -158,17 +163,17 @@ class Landing extends Component {
 						<div className="col-xs-10 col-xs-offset-1 text-center">
 							<form onSubmit={this.handleSubmit}>
 								<h3>Play as a Guest or sign up below!</h3>
-				        <label>
-				          Nickname:
-				          <input type="text" value={this.state.value} onChange={this.handleChange} style={InputStyling}/>
-				        </label>
-				       <input type="submit" value="Submit" style={InputStyling}/>
+								<div className="input-group">
+			          	<input type="text" className="form-control" placeholder="Nickname" value={this.state.value} onChange={this.handleChange} style={InputStyling}/>
+			       			<span className="input-group-btn">
+			       				<button type="submit" value="Submit" className="btn btn-default" style={InputStyling}>Go</button>
+			       			</span>
+			       		</div>
 				      </form>
 
 				      <div className='col-xs-12' data-toggle="modal" data-target="#signUpModal">
 			        	<h1>Sign Up Now!</h1>
 			        </div>
-
 
 			        <div className="modal fade" id="signUpModal">
 	              <div className="modal-dialog" style={SignUpModalStyling}>
