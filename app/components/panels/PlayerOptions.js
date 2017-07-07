@@ -32,7 +32,7 @@ class PlayerOptions extends Component {
 				</div>
 
 				<div className='col-xs-2' style={PlayerButtonStyling}>
-					<Score />
+					<Score gameState={this.props.gameState} />
 				</div>
 
 				<div className='col-xs-4' style={PlayerButtonStyling}>

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 
 const PlayerButtonsStyling = {
   border: '1px solid red',
-  width: '100%',
-  height: '100%',
+  width: '360px',
+  height: '345px',
+  marginLeft: '360px',
+
 
 }
 

@@ -284,13 +284,19 @@ class TableView4 extends Component {
         		style={TableViewWrapper}
         		>	
 					<div ref='p1' className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
-						<PortraitView />
+						<PortraitView
+                            avatar={'Beruka'}
+                         />
 					</div>
 					<div ref='p2' className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
-						<PortraitView />
+						<PortraitView
+                            avatar={'Dwyer'}
+                         />
 					</div>
 					<div ref='p3' className="col-xs-4 PortraitView" style={PortraitViewWrapper}>
-						<PortraitView />
+						<PortraitView
+                            avatar={'Kana'}
+                         />
 					</div>
 					<div className='col-xs-12 Table' style={TableStyling}>
 						{prompt}

@@ -39,12 +39,21 @@ const playerNameStyling = {
 }
 
 class PortraitView extends Component {
+	constructor(props){
+		super(props);
+		this.state = {
+
+		};
+	}
+
 	render() {
+
+		let imgSrc = "/images/avatars/complete/" + this.props.avatar + "-1.png"
+
 		return (
 			<div className='row' style={PortraitWrapper}>
 				<div className="col-xs-12 SinglePortrait" style={portraitStyling}>
-					<p style={playerNameStyling}>Player 1</p>
-					<img src="/images/avatars/complete/Anankos-2.png" style={avatarStyling}></img>
+					<img src={imgSrc} style={avatarStyling}></img>
 				</div>
 				<div style={decorationStyling}>
 				</div>
