@@ -20,19 +20,8 @@ class PlayerOptions extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			gameState: {},
-
-		}
-	}
-
-	componentDidUpdate(){
-		console.log("PlayerOptions Component Updated");
-    	if(this.state.gameState !== this.props.gameState){
-			this.setState({gameState: this.props.gameState})
-		} else {
-			//do nothing
-		}
-		// console.log("PlayerOptions", this.state);
+			
+		};
 	}
 
 	render() {
@@ -51,7 +40,7 @@ class PlayerOptions extends Component {
 				</div>
 
 				<div className='col-xs-2' style={PlayerButtonStyling}>
-					<Hand gameState={this.state.gameState} />
+					<Hand gameState={this.props.gameState} />
 				</div>
 
 				<div className='col-xs-2' style={PlayerButtonStyling}>

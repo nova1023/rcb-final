@@ -42,7 +42,8 @@ class TableView4 extends Component {
 	constructor(props){
 		super(props);
 		this.state={
-
+            cursorLocationVert: 'top',
+            cursorLocationHori: 'p1',
 		}
 
 		this.swipedRight = this.swipedRight.bind(this);
@@ -64,15 +65,13 @@ class TableView4 extends Component {
   	}
 
   	componentDidMount(){
-  		Velocity(this.refs.p2,{ rotateZ: '+=360deg' },1000)
-         .then(e=>console.log('animation complete'))
+  		// Velocity(this.refs.p2,{ rotateZ: '+=360deg' },1000)
+    //      .then(e=>console.log('animation complete'))
         
-        console.log("block", this.refs.block.scrollWidth,);
-        console.log("p1", this.refs.p1.offsetLeft);
-        console.log("p2", this.refs.p2.offsetLeft);
-        console.log("p3", this.refs.p3.offsetLeft);
-
-        
+    //     console.log("block", this.refs.block.scrollWidth,);
+    //     console.log("p1", this.refs.p1.offsetLeft);
+    //     console.log("p2", this.refs.p2.offsetLeft);
+    //     console.log("p3", this.refs.p3.offsetLeft);        
     }
 
     componentDidUpdate() {
@@ -81,41 +80,113 @@ class TableView4 extends Component {
 
     swipedRight() {
     	console.log("Swiped Right");
-    	Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 1000, offset: 360})
+        
+        // if cursor is on the top
+        if (this.state.cursorLocationVert === 'top'){
+    	   
+            //if cursor is on p1
+            if (this.state.cursorLocationHori === 'p3'){
+                Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 500, offset: '-360px'})
+                this.setState({cursorLocationHori:'p2'})
+            // if cursor is on p2 
+            } else if (this.state.cursorLocationHori === 'p2'){
+                Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 500, offset: '-360px'})
+                this.setState({cursorLocationHori:'p1'})
+            // if cursor is on p1 or an error occurs 
+            } else {
+                // Do nothing, do not want to scroll past the window.
+            }
     	
+        // if the cursor is on the bottom
+        } else {
+            // Cant scroll left of right while cursor is on the bottom, only up
+        }
     }
 
     swipedLeft() {
     	console.log("Swiped Left");
-    	Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration:1000, offset: -360})
-    
-    }
-
-    swipedDown() {
-    	console.log("Swiped Down");
-    	Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:1000, offset: 345 })
-        Velocity(this.refs.p1, "scroll", { axis:'x', container:this.refs.block, duration:1000, offset: 360, queue:false })
+       
+        // if cursor is on the top
+        if (this.state.cursorLocationVert === 'top'){
+        
+            //if cursor is on p3
+            if (this.state.cursorLocationHori === 'p1'){
+                Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 500, offset: '360px'})
+                this.setState({cursorLocationHori:'p2'})
+            // if cursor is on p2 
+            } else if (this.state.cursorLocationHori === 'p2'){
+                Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 500, offset: '360px'})
+                this.setState({cursorLocationHori:'p3'})
+            // if cursor is on p3 or an error occurs 
+            } else {
+                // Do nothing, do not want to scroll past the window.
+            }
+        
+        // if the cursor is on the bottom
+        } else {
+            // Cant scroll left of right while cursor is on the bottom, only up
+        }
     }
 
     swipedUp() {
     	console.log("Swiped Up");
-    	Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:1000, offset: -345 })
+    	// Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:1000, offset: 345 })
+     //    Velocity(this.refs.p1, "scroll", { axis:'x', container:this.refs.block, duration:1000, offset: 360, queue:false })
+        // if cursor is on the top
+        if (this.state.cursorLocationVert === 'top'){
+            
+            //if cursor is on p1
+            if (this.state.cursorLocationHori === 'p1'){
+                Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:500, offset: 345 })
+                Velocity(this.refs.p1, "scroll", { axis:'x', container:this.refs.block, duration:500, offset: 360, queue:false })
+                this.setState({cursorLocationHori:'p2', cursorLocationVert:'bottom'})
+            // if cursor is on p2 
+            } else if (this.state.cursorLocationHori === 'p2'){
+                Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:500, offset: 345 })
+                Velocity(this.refs.p1, "scroll", { axis:'x', container:this.refs.block, duration:500, offset: 0, queue:false })
+                this.setState({cursorLocationHori:'p2', cursorLocationVert:'bottom'})
+            // if cursor is on p3 or an error occurs 
+            } else {
+                Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:500, offset: 345 })
+                Velocity(this.refs.p1, "scroll", { axis:'x', container:this.refs.block, duration:500, offset: -360, queue:false })
+                this.setState({cursorLocationHori:'p2', cursorLocationVert:'bottom'})
+            }
+        
+        // if the cursor is on the bottom
+        } else {
+            // Cant scroll down while cursor is on the bottom, only up
+        }
+    }
+
+    swipedDown() {
+    	console.log("Swiped Down");
+    	
+        
+        // if cursor is on the bottom
+        if (this.state.cursorLocationVert === 'bottom'){
+            Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:500, offset: -345 })
+            this.setState({cursorLocationVert:'top'})
+        
+        // if the cursor is on the top
+        } else {
+            // Cant scroll up while cursor is on the top, only down
+        }
     }
 
     showPrompts(){
     	console.log("showPrompts called");
     	
     	// If the gameState is set up
-    	if (this.state.gameState !== undefined){
-    		console.log("TableView gameState is defined");
+    	// if (this.state.gameState !== undefined){
+    	// 	console.log("TableView gameState is defined");
     		
     		// If the storyTeller's Number matches my player number
     		//----------------------------------------------------------------------------------------------
-    		if (this.state.gameState.whoIsStoryTeller === this.state.gameState.myPlayerNumber){
+    		if (this.props.gameState.whoIsStoryTeller === this.props.gameState.myPlayerNumber){
     			console.log("I am the storyteller");
 
     			// If the turn phase is on 'storyTellerSubmits' show the storyTeller's prompt
-    			if (this.state.gameState.turnPhase === 'storyTellerSubmits'){
+    			if (this.props.gameState.turnPhase === 'storyTellerSubmits'){
     				console.log("storyTellerSubmits phase");
     				let prompt = 
     				<GiveClue 
@@ -127,7 +198,7 @@ class TableView4 extends Component {
 	    		return prompt;
 
 	    		// If the turn phase is on 'readyForNextTurn'
-	    		} else if(this.state.gameState.turnPhase === 'readyForNextTurn') {
+	    		} else if(this.props.gameState.turnPhase === 'readyForNextTurn') {
     				let prompt = 
     				<ReadyUp
     					sendReadyForNextTurn={this.props.sendReadyForNextTurn}
@@ -148,7 +219,7 @@ class TableView4 extends Component {
     			console.log("I am not the storyTeller");
 
     			// If the turn phase is on 'playersSubmitCards'
-    			if (this.state.gameState.turnPhase === 'playersSubmitCards'){
+    			if (this.props.gameState.turnPhase === 'playersSubmitCards'){
     				let prompt = 
     				<SubmitCard 
                 		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
@@ -158,7 +229,7 @@ class TableView4 extends Component {
     				return prompt;
     			
     			// If the turn phase is on 'playersSubmitVotes'
-    			} else if(this.state.gameState.turnPhase === 'playersSubmitVotes'){
+    			} else if(this.props.gameState.turnPhase === 'playersSubmitVotes'){
     				let prompt = 
     				<SubmitVote
     					handleChangeSelectedCard={this.props.handleChangeSelectedCard}
@@ -170,7 +241,7 @@ class TableView4 extends Component {
     				return prompt;
     			
     			// If the turn phase is on 'readyForNextTurn'
-    			} else if(this.state.gameState.turnPhase === 'readyForNextTurn') {
+    			} else if(this.props.gameState.turnPhase === 'readyForNextTurn') {
     				let prompt = 
     				<ReadyUp
     					sendReadyForNextTurn={this.props.sendReadyForNextTurn}
@@ -187,12 +258,12 @@ class TableView4 extends Component {
     		
     		}
     	
-    	// If the gameState is undefined
-    	} else {
-    		console.log("TableView return nothing");
-    		// do nothing
-    		return;
-    	}
+    	// // If the gameState is undefined
+    	// } else {
+    	// 	console.log("TableView return nothing");
+    	// 	// do nothing
+    	// 	return;
+    	// }
     }
 
 	render() {
