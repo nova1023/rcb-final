@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 const PlayerButtonsStyling = {
   border: '1px solid red',
-  width: '100%',
-  height: '100%',
+  width: '320px',
+  height: '305px',
+  marginLeft: '320px',
 
 }
 
@@ -26,41 +27,17 @@ class SubmitCard extends Component {
       selectedCardID:'',
 
     }
-
-    // this.submitStoryTellerRes = this.submitStoryTellerRes.bind(this);
-    // this.handleChangeClue = this.handleChangeClue.bind(this);
-    // this.handleChangeSelectedCard = this.handleChangeSelectedCard.bind(this);
   }
 
-  // handleChangeClue(event){
-  //   this.setState({ clue: event.target.value });
-  // }
-
-  // handleChangeSelectedCard(event){
-  //   this.setState({ selectedCardID: event.target.value });
-  // }
-
-  // submitStoryTellerRes(event) {
-  //   event.preventDefault();
-  //   let cardID = this.state.selectedCardID;
-  //   let clueText = this.state.clue;
-
-  //   var data = {
-  //     cardID: cardID,
-  //     clueText: clueText
-  //   };
-  //   socket.emit("storyTellerClue", data);
-  //   console.log("sent storyTeller selections");
-  // }
   
   render() {
     return (
       <div  className='row' style={PlayerButtonWrapper}>
-        <div className='col-xs-12' data-toggle="modal" data-target="#scoreBoard" style={PlayerButtonsStyling}>
-          S
+        <div className='col-xs-12' data-toggle="modal" data-target="#submitCardModal" style={PlayerButtonsStyling}>
+          C
         </div>
 
-          <div className="modal fade" id="scoreBoard">
+          <div className="modal fade" id="submitCardModal">
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">

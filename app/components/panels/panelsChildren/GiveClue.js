@@ -15,11 +15,6 @@ const PlayerButtonWrapper = {
 
 }
 
-const HideBulletPoints = {
-  listStyleType: 'none',
-
-}
-
 class GiveClue extends Component {
   constructor(props){
     super(props);

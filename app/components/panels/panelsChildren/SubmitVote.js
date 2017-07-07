@@ -2,19 +2,15 @@ import React, { Component } from 'react';
 
 const PlayerButtonsStyling = {
   border: '1px solid red',
-  width: '100%',
-  height: '100%',
+  width: '320px',
+  height: '305px',
+  marginLeft: '320px',
 
 }
 
 const PlayerButtonWrapper = {
   height: '100px',
   width: '100px',
-
-}
-
-const HideBulletPoints = {
-  listStyleType: 'none',
 
 }
 
@@ -40,11 +36,11 @@ class SubmitVote extends Component {
   render() {
     return (
       <div  className='row' style={PlayerButtonWrapper}>
-        <div className='col-xs-12' data-toggle="modal" data-target="#submitVote" style={PlayerButtonsStyling}>
+        <div className='col-xs-12' data-toggle="modal" data-target="#submitVoteModal" style={PlayerButtonsStyling}>
           V
         </div>
 
-          <div className="modal fade" id="submitVote">
+          <div className="modal fade" id="submitVoteModal">
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
