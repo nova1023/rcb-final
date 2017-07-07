@@ -202,16 +202,20 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
             var gameName = player.game;            
             var game = gamesMap.get(gameName);
 
-            game.connectedPlayerCount--;
+            if(game)
+            {    
 
-            if(game.connectedPlayerCount === 0)
-                gamesMap.delete(game.room)      // room is also game name.
+                game.connectedPlayerCount--;
 
-            socket.leave(game.room);
-            socket.join("Main");
-            player.room = "Main";
-            player.game = null;
-           
+                if(game.connectedPlayerCount === 0)
+                    gamesMap.delete(game.room)      // room is also game name.
+
+                socket.leave(game.room);
+                socket.join("Main");
+                player.room = "Main";
+                player.game = null;
+           }
+            
             socket.emit("exitGame");
         }
        
