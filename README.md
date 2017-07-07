@@ -1,6 +1,6 @@
 # Mostly Cryptic
 
-Mostly Cryptic in an online multiplayer card game. Players compete with one another to earn the top spot on the leaderboard based on who has the highest profits.
+Mostly Cryptic in an online multiplayer card game. 
 
 ## How to get started
 Sign up and create an account or Sign-in as a guest. 
