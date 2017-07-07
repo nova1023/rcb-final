@@ -40,11 +40,11 @@ class SubmitVote extends Component {
   render() {
     return (
       <div  className='row' style={PlayerButtonWrapper}>
-        <div className='col-xs-12' data-toggle="modal" data-target="#scoreBoard" style={PlayerButtonsStyling}>
-          S
+        <div className='col-xs-12' data-toggle="modal" data-target="#submitVote" style={PlayerButtonsStyling}>
+          V
         </div>
 
-          <div className="modal fade" id="scoreBoard">
+          <div className="modal fade" id="submitVote">
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
