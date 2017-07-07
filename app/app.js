@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Route, Link, Redirect } from 'react-router-dom';
 
 import GameRoom from './components/GameRoom.js';
 
@@ -77,9 +78,7 @@ class App extends Component {
       });
 
     // when a player disconnects
-    socket.on("exitGame", function(){
-      console.log("received exitGame")
-    });
+    socket.on("exitGame", this.exitGame);
   }
 
   handleChangeClue(event){
@@ -138,11 +137,13 @@ class App extends Component {
   }
 
   exitGame(){
-    console.log("Game is ending.");
+    
     this.setState({turnPhase: 'exitGame'});
+    console.log("Game is ending.", this.state.turnPhase);
   }
 
   backToLobby(){
+    let socket=this.props.socket;
     console.log("Going back to lobby");
     this.setState({fireRedirect: true});
     socket.emit("exitGame");

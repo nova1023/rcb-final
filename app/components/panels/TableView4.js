@@ -6,6 +6,7 @@ import GiveClue from './panelsChildren/GiveClue';
 import SubmitCard from './panelsChildren/SubmitCard';
 import SubmitVote from './panelsChildren/SubmitVote';
 import ReadyUp from './panelsChildren/ReadyUp';
+import BackToLobby from './panelsChildren/BackToLobby';
 import TurnPhaseMessage from './panelsChildren/TurnPhaseMessage';
 
 const TableViewSwipeWrapper = {
@@ -178,7 +179,7 @@ class TableView4 extends Component {
     	console.log("showPrompts called");
     	
     	// If the turn phase is not exitGame
-    	if (this.props.turnPhase !== 'exitGame'){
+    	if (this.props.gameState.turnPhase !== 'exitGame'){
     		console.log("exitGame has not been called");
     		
     		// If the storyTeller's Number matches my player number
@@ -336,12 +337,12 @@ class TableView4 extends Component {
             let prompt = 
             <div>
     		<TurnPhaseMessage
-                swipedDown={this.swipedDown}
+                swipedUp={this.swipedUp}
                 gameState={this.props.gameState}
                 message={'Someone has left the game, when you are ready, click to go back tothe lobby.'}
             />
-            <ReadyUp
-                sendReadyForNextTurn={this.props.sendReadyForNextTurn}
+            <BackToLobby
+                backToLobby={this.props.backToLobby}
             />
             </div>
     		return prompt;
