@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
-const PlayerButtonsStylng = {
-  border: '1px soh4d red',
-  width: '100%',
-  height: '100%',
+
+const PlayerButtonsStyling = {
+  // border: '1px solid red',
+  width: '80%',
+  height: '80%',
+  margin: '8% 0 0 10%',
+  backgroundImage: 'url(/images/avatars/Wood-Button.jpg)',
+
 
 }
 
@@ -26,7 +30,8 @@ class Score extends Component {
 	render() {
 		return (
 			<div  className='row' style={PlayerButtonWrapper}>
-        <div className='col-xs-12' data-toggle="modal" data-target="#scoreBoardModal" style={PlayerButtonsStylng}>
+
+        <div className='col-xs-12' data-toggle="modal" data-target="#scoreBoard" style={PlayerButtonsStyling}>
         	S
         </div>
 
@@ -43,10 +48,10 @@ class Score extends Component {
               <div className="modal-body text-center">
               
                 
-                	<h4>Player 1: Score-Here</h4>
-                	<h4>Player 2: Score-Here</h4>
-                	<h4>Player 3: Score-Here</h4>
-                	<h4>Player 4: Score-Here</h4>
+                	<h4>Player 1: {this.props.gameState.p1Points}</h4>
+                	<h4>Player 2: {this.props.gameState.p1Points}</h4>
+                	<h4>Player 3: {this.props.gameState.p1Points}</h4>
+                	<h4>Player 4: {this.props.gameState.p1Points}</h4>
                	
      
               </div>
