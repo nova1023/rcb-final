@@ -35,9 +35,8 @@ class ChatView extends Component {
 	storeRelayedMessage(data){
 		let messageArray = this.state.storedMessages;
 		messageArray.push(data);
-		console.log("Added a new message.", messageArray);
-		this.scrollToBottom();
 		this.setState({storedMessages: messageArray});
+		console.log("Added a new message.", messageArray);		
 	}
 
 	displayMessages(){
@@ -56,10 +55,14 @@ class ChatView extends Component {
 		this.scrollToBottom();
 	}
 
+	componentDidMount(){
+		console.log("ChatView componentDidMount");
+	}
+
 	render() {
 
 		let messagesToDisplay = this.displayMessages();
-		// let storedMessages = this.state.storedMessages;
+		let storedMessages = this.state.storedMessages;
 
 		return (
 

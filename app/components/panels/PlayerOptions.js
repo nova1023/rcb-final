@@ -6,7 +6,8 @@ import Hand from './panelsChildren/Hand';
 import Emotes from './panelsChildren/Emotes';
 
 const PlayerOptionsStyling = {
-	background: 'lightblue',
+	backgroundColor: '#491b10',
+	backgroundImage: 'url(/images/avatars/dark-wood.png)',
 	height: '10%',
 }
 
@@ -19,19 +20,8 @@ class PlayerOptions extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			gameState: {},
-
-		}
-	}
-
-	componentDidUpdate(){
-		console.log("PlayerOptions Component Updated");
-    	if(this.state.gameState !== this.props.gameState){
-			this.setState({gameState: this.props.gameState})
-		} else {
-			//do nothing
-		}
-		// console.log("PlayerOptions", this.state);
+			
+		};
 	}
 
 	render() {
@@ -42,7 +32,7 @@ class PlayerOptions extends Component {
 				</div>
 
 				<div className='col-xs-2' style={PlayerButtonStyling}>
-					<Score />
+					<Score gameState={this.props.gameState} />
 				</div>
 
 				<div className='col-xs-4' style={PlayerButtonStyling}>
@@ -50,7 +40,7 @@ class PlayerOptions extends Component {
 				</div>
 
 				<div className='col-xs-2' style={PlayerButtonStyling}>
-					<Hand gameState={this.state.gameState} />
+					<Hand gameState={this.props.gameState} />
 				</div>
 
 				<div className='col-xs-2' style={PlayerButtonStyling}>

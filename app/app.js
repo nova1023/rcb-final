@@ -7,8 +7,8 @@ import GameRoom from './components/GameRoom.js';
 // const socket = IO() ;
 
 const AppContainerStyling = {
-  height:'100vh',
-  width: '100vw',
+  // height:'100vh',
+  // width: '100vw',
 }
 
 class App extends Component {
@@ -211,8 +211,7 @@ class App extends Component {
     return (
       <div className="App container-fluid" style={AppContainerStyling}>        
           
-          <div className='row'>
-            <div className='col-xs-12'>
+         
               <GameRoom 
                 gameState={this.state}
                 handleChangeClue={this.handleChangeClue}
@@ -223,8 +222,7 @@ class App extends Component {
                 sendReadyForNextTurn={this.sendReadyForNextTurn}
                 socket={this.props.socket}
               />
-            </div>
-          </div>
+           
 
       </div>
     );

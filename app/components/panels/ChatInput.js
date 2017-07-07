@@ -20,10 +20,6 @@ class ChatInput extends Component {
 
 		this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
 		this.handleMessageInputChange = this.handleMessageInputChange.bind(this);
-		this.readyForGame = this.readyForGame.bind(this);
-
-		
-
 
 	}
 
@@ -37,12 +33,6 @@ class ChatInput extends Component {
 		console.log("Message Submitted." + this.state.message);
 		socket.emit("sendMessage", this.state.message);
 		this.setState({message: ""});
-	}
-
-	readyForGame() {
-		console.log("sending ready for game", this.props);
-		let socket = this.props.socket
-		socket.emit("joinGame");
 	}
 
 	render() {
