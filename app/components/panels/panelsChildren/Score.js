@@ -14,7 +14,9 @@ const PlayerButtonWrapper = {
 
 }
 
-
+const ScoreModalPosition = {
+  top: '25%'
+}
 
 class Score extends Component {
 	
@@ -26,7 +28,7 @@ class Score extends Component {
         </div>
 
           <div className="modal fade" id="scoreBoard">
-            <div className="modal-dialog">
+            <div className="modal-dialog" style={ScoreModalPosition}>
               <div className="modal-content">
                 <div className="modal-header">
                   <div className="pull-left">Scoreboard</div>
