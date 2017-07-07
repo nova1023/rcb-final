@@ -77,9 +77,14 @@ class Lobby extends Component {
 		    				readyButtonClicked = {this.readyButtonClicked}
 		    				socket={this.props.socket}
 		    			/>
+
+		    
+
 		    			<MessageBox
 		    				messageState={this.state.messageState}
 		    			/>
+
+		    			
   			
 	    				<LobbyChat socket={this.props.socket} />
 
@@ -90,5 +95,6 @@ class Lobby extends Component {
   	}
 	}
 }
+
 
 export default Lobby;

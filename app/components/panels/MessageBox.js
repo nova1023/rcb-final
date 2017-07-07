@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Velocity from 'velocity-animate';
 
 const MessageBoxStyling = {
-    position: 'absolute',
-    width: '56%',
-    top: '27%',
-    left: '23%',
+    position: 'fixed',
+    width: '55%',
+    top: '35%',
+    left: '22%',
     backgroundColor: 'rgba(0, 0, 20, .9)',
     border: '3px solid grey',
     outline: '3px solid black',
@@ -101,3 +101,6 @@ class MessageBox extends Component {
 }
 
 export default MessageBox;
+
+
+              <div className="col-xs-12" style={MessageBoxWidthCorrection}>
