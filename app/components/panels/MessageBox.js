@@ -4,9 +4,9 @@ import Velocity from 'velocity-animate';
 const MessageBoxStyling = {
     position: 'absolute',
     height: '20%',
-    width: '90%',
+    width: '300px',
     top: '30%',
-    left: '5%',
+    left: '10%',
     backgroundColor: 'rgba(0, 0, 20, .9)',
     border: '3px solid grey',
     outline: '3px solid black',
@@ -16,6 +16,7 @@ const MessageBoxStyling = {
     paddingLeft: '2%',
     paddingRight: '2%',
     opacity: '0',
+    margin: '0 auto',
 
 }
 

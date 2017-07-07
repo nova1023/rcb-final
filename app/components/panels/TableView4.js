@@ -6,6 +6,7 @@ import GiveClue from './panelsChildren/GiveClue';
 import SubmitCard from './panelsChildren/SubmitCard';
 import SubmitVote from './panelsChildren/SubmitVote';
 import ReadyUp from './panelsChildren/ReadyUp';
+import TurnPhaseMessage from './panelsChildren/TurnPhaseMessage';
 
 const TableViewSwipeWrapper = {
 	height: '90%',
@@ -86,11 +87,11 @@ class TableView4 extends Component {
     	   
             //if cursor is on p1
             if (this.state.cursorLocationHori === 'p3'){
-                Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 500, offset: '-360px'})
+                Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 500, offset: '-320px'})
                 this.setState({cursorLocationHori:'p2'})
             // if cursor is on p2 
             } else if (this.state.cursorLocationHori === 'p2'){
-                Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 500, offset: '-360px'})
+                Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 500, offset: '-320px'})
                 this.setState({cursorLocationHori:'p1'})
             // if cursor is on p1 or an error occurs 
             } else {
@@ -111,11 +112,11 @@ class TableView4 extends Component {
         
             //if cursor is on p3
             if (this.state.cursorLocationHori === 'p1'){
-                Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 500, offset: '360px'})
+                Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 500, offset: '320px'})
                 this.setState({cursorLocationHori:'p2'})
             // if cursor is on p2 
             } else if (this.state.cursorLocationHori === 'p2'){
-                Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 500, offset: '360px'})
+                Velocity(this.refs.p1, "scroll", { container: this.refs.block, axis:'x', duration: 500, offset: '320px'})
                 this.setState({cursorLocationHori:'p3'})
             // if cursor is on p3 or an error occurs 
             } else {
@@ -138,7 +139,7 @@ class TableView4 extends Component {
             //if cursor is on p1
             if (this.state.cursorLocationHori === 'p1'){
                 Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:500, offset: 345 })
-                Velocity(this.refs.p1, "scroll", { axis:'x', container:this.refs.block, duration:500, offset: 360, queue:false })
+                Velocity(this.refs.p1, "scroll", { axis:'x', container:this.refs.block, duration:500, offset: 320, queue:false })
                 this.setState({cursorLocationHori:'p2', cursorLocationVert:'bottom'})
             // if cursor is on p2 
             } else if (this.state.cursorLocationHori === 'p2'){
@@ -148,7 +149,7 @@ class TableView4 extends Component {
             // if cursor is on p3 or an error occurs 
             } else {
                 Velocity(this.refs.p1, "scroll", { container:this.refs.block, duration:500, offset: 345 })
-                Velocity(this.refs.p1, "scroll", { axis:'x', container:this.refs.block, duration:500, offset: -360, queue:false })
+                Velocity(this.refs.p1, "scroll", { axis:'x', container:this.refs.block, duration:500, offset: -320, queue:false })
                 this.setState({cursorLocationHori:'p2', cursorLocationVert:'bottom'})
             }
         
@@ -189,11 +190,17 @@ class TableView4 extends Component {
     			if (this.props.gameState.turnPhase === 'storyTellerSubmits'){
     				console.log("storyTellerSubmits phase");
     				let prompt = 
-    				<GiveClue 
+    				<div>
+                    <TurnPhaseMessage
+                        swipedDown={this.swipedDown}
+                        gameState={this.props.gameState}
+                    />
+                    <GiveClue 
     					handleChangeClue={this.props.handleChangeClue}
                 		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
-                		submitStoryTellerRes={this.props.submitStoryTellerRes} 
+                		submitStoryTellerRes={this.props.submitStoryTellerRes}
                 	/>;
+                    </div>
 	    		console.log("Sending Prompt", prompt);
 	    		return prompt;
 
@@ -218,8 +225,20 @@ class TableView4 extends Component {
     		} else {
     			console.log("I am not the storyTeller");
 
-    			// If the turn phase is on 'playersSubmitCards'
-    			if (this.props.gameState.turnPhase === 'playersSubmitCards'){
+                // If the turn phase is on 'storyTellerSubmits' show the player's prompt
+                if (this.props.gameState.turnPhase === 'storyTellerSubmits'){
+                    console.log("storyTellerSubmits phase");
+                    let prompt = 
+                    <TurnPhaseMessage
+                        swipedDown={this.swipedDown}
+                        gameState={this.props.gameState}
+                    />
+                console.log("Sending Prompt", prompt);
+                return prompt;
+    			
+
+                // If the turn phase is on 'playersSubmitCards'
+    			} else if (this.props.gameState.turnPhase === 'playersSubmitCards'){
     				let prompt = 
     				<SubmitCard 
                 		handleChangeSelectedCard={this.props.handleChangeSelectedCard}

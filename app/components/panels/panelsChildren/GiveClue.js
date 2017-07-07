@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 const PlayerButtonsStyling = {
   border: '1px solid red',
-  width: '360px',
-  height: '345px',
-  marginLeft: '360px',
+  width: '320px',
+  height: '305px',
+  marginLeft: '320px',
 
 
 }
@@ -24,36 +24,11 @@ class GiveClue extends Component {
   constructor(props){
     super(props);
     this.state = {
-      clue:'',
-      selectedCardID:'',
-
-    }
-
-    // this.submitStoryTellerRes = this.submitStoryTellerRes.bind(this);
-    // this.handleChangeClue = this.handleChangeClue.bind(this);
-    // this.handleChangeSelectedCard = this.handleChangeSelectedCard.bind(this);
+   
+    };
   }
 
-  // handleChangeClue(event){
-  //   this.setState({ clue: event.target.value });
-  // }
-
-  // handleChangeSelectedCard(event){
-  //   this.setState({ selectedCardID: event.target.value });
-  // }
-
-  // submitStoryTellerRes(event) {
-  //   event.preventDefault();
-  //   let cardID = this.state.selectedCardID;
-  //   let clueText = this.state.clue;
-
-  //   var data = {
-  //     cardID: cardID,
-  //     clueText: clueText
-  //   };
-  //   socket.emit("storyTellerClue", data);
-  //   console.log("sent storyTeller selections");
-  // }
+ 
   
   render() {
     return (
