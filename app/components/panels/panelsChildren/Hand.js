@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 // import Modal from './ModalJS/Modal';
 
 const PlayerButtonsStyling = {
-  border: '1px solid red',
-  width: '100%',
-  height: '100%',
+  width: '80%',
+  height: '80%',
+  margin: '8% 0 0 10%',
+  backgroundImage: 'url(/images/avatars/Wood-Button.jpg)',
 }
 
 const PlayerButtonWrapper = {

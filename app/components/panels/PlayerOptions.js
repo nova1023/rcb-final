@@ -6,7 +6,8 @@ import Hand from './panelsChildren/Hand';
 import Emotes from './panelsChildren/Emotes';
 
 const PlayerOptionsStyling = {
-	background: 'lightblue',
+	backgroundColor: '#491b10',
+	backgroundImage: 'url(/images/avatars/dark-wood.png)',
 	height: '10%',
 }
 
