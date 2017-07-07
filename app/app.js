@@ -27,6 +27,8 @@ class App extends Component {
       p2Points: 0,
       p3Points: 0,
       p4Points: 0,
+      fireRedirect: false,
+
     };
 
 
@@ -45,6 +47,8 @@ class App extends Component {
     this.handleChangeClue = this.handleChangeClue.bind(this);
     this.handleChangeSelectedCard = this.handleChangeSelectedCard.bind(this);
     this.nextTurn = this.nextTurn.bind(this);
+    this.exitGame = this.exitGame.bind(this);
+    this.backToLobby = this.backToLobby.bind(this);
     
     let socket = this.props.socket;
     console.log('Props', this.props);
@@ -71,6 +75,9 @@ class App extends Component {
           console.log("received game over");
           console.log(data);
       });
+
+    // when a player disconnects
+    socket.on("exitGame", this.exitGame);
   }
 
   handleChangeClue(event){
@@ -126,6 +133,16 @@ class App extends Component {
       p4Points: data[3].currentPoints,
       turnPhase: 'readyForNextTurn'
     });
+  }
+
+  exitGame(){
+    console.log("Game is ending.");
+    this.setState({turnPhase: 'exitGame'});
+  }
+
+  backToLobby(){
+    console.log("Going back to lobby");
+    this.setState({fireRedirect: true});
   }
 
   // Sending Data to the server through socket.emit
@@ -208,6 +225,10 @@ class App extends Component {
 
   render() {
 
+    if (this.state.fireRedirect === true) {
+      return <Redirect to='/lobby' />
+
+    } else {
    
     return (
       <div className="App container-fluid" style={AppContainerStyling}>        
@@ -221,6 +242,8 @@ class App extends Component {
                 submitCard={this.submitCard}
                 submitVote={this.submitVote}
                 sendReadyForNextTurn={this.sendReadyForNextTurn}
+                exitGame={this.exitGame}
+                backToLobby={this.backToLobby}
                 socket={this.props.socket}
               />
            

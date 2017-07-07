@@ -177,9 +177,9 @@ class TableView4 extends Component {
     showPrompts(){
     	console.log("showPrompts called");
     	
-    	// If the gameState is set up
-    	// if (this.state.gameState !== undefined){
-    	// 	console.log("TableView gameState is defined");
+    	// If the turn phase is not exitGame
+    	if (this.props.turnPhase !== 'exitGame'){
+    		console.log("exitGame has not been called");
     		
     		// If the storyTeller's Number matches my player number
     		//----------------------------------------------------------------------------------------------
@@ -301,9 +301,16 @@ class TableView4 extends Component {
     			// If the turn phase is on 'readyForNextTurn'
     			} else if(this.props.gameState.turnPhase === 'readyForNextTurn') {
     				let prompt = 
+                    <div>
+                    <TurnPhaseMessage
+                        swipedDown={this.swipedDown}
+                        gameState={this.props.gameState}
+                        message={'Ready up for the next turn.'}
+                    />
     				<ReadyUp
     					sendReadyForNextTurn={this.props.sendReadyForNextTurn}
     				/>
+                    </div>
     				console.log("Sent Prompt", prompt);
     				return prompt;
 
@@ -316,12 +323,22 @@ class TableView4 extends Component {
     		
     		}
     	
-    	// // If the gameState is undefined
-    	// } else {
-    	// 	console.log("TableView return nothing");
-    	// 	// do nothing
-    	// 	return;
-    	// }
+    	// If the turn phase is exitGame
+    	} else {
+    		console.log("exitGame has been called");
+            let prompt = 
+            <div>
+    		<TurnPhaseMessage
+                swipedDown={this.swipedDown}
+                gameState={this.props.gameState}
+                message={'Ready up for the next turn.'}
+            />
+            <ReadyUp
+                sendReadyForNextTurn={this.props.sendReadyForNextTurn}
+            />
+            </div>
+    		return prompt;
+    	}
     }
 
 	render() {
