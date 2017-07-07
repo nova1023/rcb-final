@@ -31,8 +31,7 @@ class Score extends Component {
 		return (
 			<div  className='row' style={PlayerButtonWrapper}>
 
-        <div className='col-xs-12' data-toggle="modal" data-target="#scoreBoard" style={PlayerButtonsStyling}>
-
+        <div className='col-xs-12' data-toggle="modal" data-target="#scoreBoardModal" style={PlayerButtonsStyling}>
         	S
         </div>
 
