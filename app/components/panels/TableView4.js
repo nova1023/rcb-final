@@ -194,6 +194,7 @@ class TableView4 extends Component {
                     <TurnPhaseMessage
                         swipedDown={this.swipedDown}
                         gameState={this.props.gameState}
+                        message={'You are the story teller this turn. Please submit a card and a clue.'}
                     />
                     <GiveClue 
     					handleChangeClue={this.props.handleChangeClue}
@@ -203,6 +204,29 @@ class TableView4 extends Component {
                     </div>
 	    		console.log("Sending Prompt", prompt);
 	    		return prompt;
+
+                // If the turn phase is on 'playersSubmitCards'
+                } else if (this.props.gameState.turnPhase === 'playersSubmitCards'){
+                    let prompt = 
+                    <TurnPhaseMessage
+                        swipedDown={this.swipedDown}
+                        gameState={this.props.gameState}
+                        message={'Waiting for the other players to submit their cards.'}
+                    />
+                    console.log("sent prompt", prompt);
+                    return prompt;
+
+                // If the turn phase is on 'playersSubmitVotes'
+                } else if(this.props.gameState.turnPhase === 'playersSubmitVotes'){
+                    let prompt = 
+                    <TurnPhaseMessage
+                        swipedDown={this.swipedDown}
+                        gameState={this.props.gameState}
+                        message={'Waiting for the other players to submit their votes.'}
+                    />
+                    console.log("Checking submittedCards", this.props.gameState.submittedCards);
+                    console.log("Sent Prompt", prompt);
+                    return prompt;
 
 	    		// If the turn phase is on 'readyForNextTurn'
 	    		} else if(this.props.gameState.turnPhase === 'readyForNextTurn') {
@@ -232,6 +256,7 @@ class TableView4 extends Component {
                     <TurnPhaseMessage
                         swipedDown={this.swipedDown}
                         gameState={this.props.gameState}
+                        message={'Waiting for the story teller to submit their card and clue.'}
                     />
                 console.log("Sending Prompt", prompt);
                 return prompt;
@@ -239,22 +264,36 @@ class TableView4 extends Component {
 
                 // If the turn phase is on 'playersSubmitCards'
     			} else if (this.props.gameState.turnPhase === 'playersSubmitCards'){
-    				let prompt = 
+    				let prompt =
+                    <div>
+                    <TurnPhaseMessage
+                        swipedDown={this.swipedDown}
+                        gameState={this.props.gameState}
+                        message={'Please submit a card that you think matches the clue to fool the other players.'}
+                    /> 
     				<SubmitCard 
                 		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
                 		submitCard={this.props.submitCard}
                 	/>;
+                    </div>
     				console.log("sent prompt", prompt);
     				return prompt;
     			
     			// If the turn phase is on 'playersSubmitVotes'
     			} else if(this.props.gameState.turnPhase === 'playersSubmitVotes'){
     				let prompt = 
+                    <div>
+                    <TurnPhaseMessage
+                        swipedDown={this.swipedDown}
+                        gameState={this.props.gameState}
+                        message={'Please vote for the card you think is the story teller\'s card.'}
+                    />
     				<SubmitVote
     					handleChangeSelectedCard={this.props.handleChangeSelectedCard}
     					submitVote={this.props.submitVote}
     					cardChoices={this.props.gameState.submittedCards}
     				/>;
+                    </div>
     				console.log("Checking submittedCards", this.props.gameState.submittedCards);
     				console.log("Sent Prompt", prompt);
     				return prompt;
