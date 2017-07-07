@@ -224,11 +224,26 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
                 var game = gamesMap.get(gameName);
 
                 if(game)
-                {                   
-                    game.connectedPlayerCount--;
+                {   
+                   // Checks if game is over.
+                   //
+                   // If game is over game room is kept open so players can chat unill all players
+                   // exit or disconnect.
+                   //
+                   // If game is not over, 'exitGame' is emmited to all players in room to kick them back to lobby
+                   // and game is deleted.  This is needed if player disconnects in middle a game.
+                   if(game.gameOver)
+                   {
+                        game.connectedPlayerCount--;
 
-                    if(game.connectedPlayerCount === 0) 
-                        gamesMap.delete(game.room)      // room is also game name. 
+                        if(game.connectedPlayerCount === 0) 
+                            gamesMap.delete(game.room);      // room is also game name. 
+                   }
+                   else
+                   {
+                        IO.sockets.in(game.room).emit('exitGame');
+                        gamesMap.delete(game.room);
+                   }       
                 }
             
                 allPlayersMap.delete(socket.id);
