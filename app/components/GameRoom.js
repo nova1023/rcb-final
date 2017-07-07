@@ -45,6 +45,8 @@ class GameRoom extends Component {
                 		submitCard={this.props.submitCard}
                 		submitVote={this.props.submitVote}
                 		sendReadyForNextTurn={this.props.sendReadyForNextTurn}
+                		exitGame={this.props.exitGame}
+                		backToLobby={this.props.backToLobby}
                 	/>
 					<PlayerOptions gameState={this.props.gameState} />
 				</div>

@@ -58,56 +58,68 @@ console.log("a player joined: " + newPlayer.userName, socket.id);//TEST CODE
         // instantiates a new game with players and stores game in 'gamesMap' 
         function joinGame()
         {
-            //enqueues player
-            playersQueue.unshift(allPlayersMap.get(socket.id));
+            var player = allPlayersMap.get(socket.id);
 
-            //if enough players for game, instantiates a new game and poplulates with players.
-            if(playersQueue.length >= GameSize)
-            {
+            //checks if player already submited 'joinGame'. (i.e. player.game is not null )
+            if(!player.game)
+            {    
+                //temporary assignment for above if conditional.
+                player.game = "game pending";
+                
+                //enqueues player
+                playersQueue.unshift(player);
+
+                //if enough players for game, instantiates a new game and poplulates with players.
+                if(playersQueue.length >= GameSize)
+                {
 
 console.log("\nGame Created");//TEST CODE 
 
-                // creates name for new game based on number of games (e.g. game1, game2,...)
-                var gameName = "game" + (gamesMap.size + 1);
+                    // creates name for new game based on number of games (e.g. game1, game2,...)
+                    var gameName = "game" + (gamesMap.size + 1);
 console.log("gameName:", gameName);//TEST CODE                
-                // instantiates new game and assigns room
-                var newGame = new Game(IO)
-                newGame.room = gameName;
+                    // instantiates new game and assigns room
+                    var newGame = new Game(IO)
+                    newGame.room = gameName;
 
-                // Creates key-value pair of gameName-newGame
-                gamesMap.set(gameName, newGame);
+                    // Creates key-value pair of gameName-newGame
+                    gamesMap.set(gameName, newGame);
 
-                // populates game with players
-                for (var i = 0; i < GameSize; i++)
-                {   
-                    var player = playersQueue.pop();
-                    player.game = gameName; //game name and room name are same
-                    player.room = gameName;
-                    player.playerNumber = i+1;
+                    // populates game with players
+                    for (var i = 0; i < GameSize; i++)
+                    {   
+                        var player = playersQueue.pop();
+                        player.game = gameName; //game name and room name are same
+                        player.room = gameName;
+                        player.playerNumber = i+1;
 
-                    newGame.players.push(player);
-                    newGame.connectedPlayerCount++;
+                        newGame.players.push(player);
+                        newGame.connectedPlayerCount++;
 
-                    player.socket.leave("Main"); 
-                    player.socket.join(gameName);      
+                        player.socket.leave("Main"); 
+                        player.socket.join(gameName);      
+                    }
+
+                    IO.sockets.in(gameName).emit('joinGame');
                 }
-
-                IO.sockets.in(gameName).emit('joinGame');
-            }
+            }           
         }
 
         //---------------------------------------
 
         function storyTellerClue(data)
         {   
+            var player = allPlayersMap.get(socket.id);
+
             // gets game from player.
-            var gameName = allPlayersMap.get(socket.id).game
+            var gameName = player.game
             var game = gamesMap.get(gameName);
 
             data.belongsTo = game.storyTeller.playerNumber;            
             game.HandleSubmitCard(data);
 
             IO.sockets.in(game.room).emit("relayClue", data.clueText);
+            Chat.relayMessage("Storyteller Clue", data.clueText, game.room); 
         }
 
         //---------------------------------------
@@ -193,16 +205,20 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
             var gameName = player.game;            
             var game = gamesMap.get(gameName);
 
-            game.connectedPlayerCount--;
+            if(game)
+            {    
 
-            if(game.connectedPlayerCount === 0)
-                gamesMap.delete(game.room)      // room is also game name.
+                game.connectedPlayerCount--;
 
-            socket.leave(game.room);
-            socket.join("Main");
-            player.room = "Main";
-            player.game = null;
-           
+                if(game.connectedPlayerCount === 0)
+                    gamesMap.delete(game.room)      // room is also game name.
+
+                socket.leave(game.room);
+                socket.join("Main");
+                player.room = "Main";
+                player.game = null;
+           }
+            
             socket.emit("exitGame");
         }
        
@@ -224,11 +240,39 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
                 var game = gamesMap.get(gameName);
 
                 if(game)
-                {                   
-                    game.connectedPlayerCount--;
+                {   
+                   // Checks if game is over.
+                   // If game is over game room is kept open so players can chat unill all players
+                   // exit or disconnect.
+                   // If game is not over, 'exitGame' is emmited to all players in room to kick them back to lobby
+                   // and game is deleted.  This is needed if player disconnects in middle a game.
+                   if(game.gameOver)
+                   {
+                        game.connectedPlayerCount--;
 
-                    if(game.connectedPlayerCount === 0) 
-                        gamesMap.delete(game.room)      // room is also game name. 
+                        if(game.connectedPlayerCount === 0) 
+                            gamesMap.delete(game.room);      // room is also game name.                             
+                   }
+                   else
+                   {                   
+                        IO.sockets.in(game.room).emit('exitGame');
+                        
+                        // Sets all players room back to "Main" and game to null.
+                        // Unjoins players from game back to lobby room.
+                        for(var key in game.players)
+                        {
+                            var player = game.players[key];
+                            var room = player.room;
+                           
+                            player.socket.leave(room); 
+                            player.socket.join("Main");
+
+                            player.room = "Main";
+                            player.game = null; 
+                        }    
+
+                        gamesMap.delete(game.room);
+                   }       
                 }
             
                 allPlayersMap.delete(socket.id);
