@@ -1,23 +1,69 @@
 import React, { Component } from 'react';
-// import GameInfo from './panels/GameInfo';
-// import PlayNowAlias from './panels/PlayNowAlias';
-import { Route, Link, Redirect, NavLink } from 'react-router-dom';
+import NavBar from './panels/NavBar';
+import { Route, Link, Redirect } from 'react-router-dom';
+
+const LandingPageContainer = {
+	height: '100vh',
+	width: '320px',
+	backgroundImage: 'url(/images/avatars/landing-bg1.png)',
+	backgroundSize: 'cover',
+	backgroundRepeat: 'no-repeat',
+	color: 'white',
+	border: '1px solid'
+}
+
+const LandingEmblem = {
+	margin: '0 auto',
+	width: '50%'
+}
+
+const GameDescriptionStyling = {
+	paddingLeft: '2%'
+}
+
+const InputStyling = {
+	color: 'black'
+}
+
+const SignUpModalStyling = {
+	color: 'black'
+}
+
 
 class Landing extends Component {
 	constructor(props) {
     super(props);
     this.state = {
     	value: '',
-		fireRedirect: false,
+    	name: '',
+    	password: '',
+    	confirmPassword: '',
+			fireRedirect: false,
 
 	};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
+    this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this);
   }
 
   handleChange(event) {
     this.setState({value: event.target.value});
+  }
+
+  handleNameChange(event) {
+    this.setState({name: event.target.value});
+  }
+
+  handlePasswordChange(event) {
+  	this.setState({password: event.target.value});
+  }
+
+  handleConfirmPasswordChange(event) {
+  	this.setState({confirmPassword: event.target.value});
   }
 
   handleSubmit(event) {
@@ -28,6 +74,51 @@ class Landing extends Component {
     console.log('A name was submitted: ' + this.state.value);
     socket.emit("playerJoined", this.state.value);
     this.setState({fireRedirect: true});
+  }
+
+  handleSignUpSubmit(event) {
+    event.preventDefault();
+    console.log('A name was submitted: ' + this.state.name);
+    console.log('Password was submitted: ' + this.state.password);
+    
+    let socket = this.props.socket;
+    let self = this;
+
+    if (this.state.password === this.state.confirmPassword){
+    	console.log('Both passwords match: ' + this.state.password + ' & ' + this.state.confirmPassword);
+
+      //build data to send to back end
+      var userInfo = {};
+      userInfo.username = this.state.name;
+      userInfo.password = this.state.password;
+      userInfo.passwordConfirm = this.state.confirmPassword;
+      console.log("data object built");
+      console.log(userInfo);
+
+      //Make post request to register new user
+      $.ajax(
+      {
+        url: "/api/register",
+        method: "POST",
+        data: userInfo
+      }).done(function(response)
+      {
+        if (response.success) {
+          socket.emit("playerJoined", self.state.name);
+          self.setState({fireRedirect: true});
+          console.log(self.state.name);
+          $(".modal-backdrop").remove();
+
+        }
+        else {
+          alert("Player did not sign up");
+        }
+      });
+    }
+    else {
+    	console.log('Please make sure both password inputs are identical');
+    }
+    
   }
 
 
@@ -41,58 +132,21 @@ class Landing extends Component {
 		
 
 		return (
-			<div className="container-fluid">
-
-		
-				<nav className="navbar navbar-default" id="main-nav-bar">
-				  
-				  	<div className="row">
-							<div className="col-xs-12">
-
-						    <div className="navbar-header">
-						      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-						        <span className="sr-only">Toggle navigation</span>
-						        <span className="icon-bar"></span>
-						        <span className="icon-bar"></span>
-						        <span className="icon-bar"></span>
-						      </button>
-						       <a className="navbar-brand" href="">
-						       	<img src="#" alt="Oops!" id=""></img>
-						       </a>
-						    </div>
-
-						    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						      <ul className="nav navbar-nav navbar-right">
-						        <li className="">
-						          <a href="#">Home<span className="sr-only">(current)</span></a>
-						        </li>
-						        <li>
-						        	<NavLink to="/signin">Sign In</NavLink>
-						        </li>
-						        <li>
-						          <a href="#">User Profile</a>
-						        </li>
-						      </ul>
-						    </div>
-						  </div> 
-						</div>
-				  
-				</nav>
+			<div className="container-fluid" style={LandingPageContainer}>
+				<NavBar socket={this.props.socket} />
 
 				<div className="col-xs-12">
 					<div className="row">
-						<div className="col-xs-4">
-							<img src={"http://images.uesp.net//1/1e/SR-book-Nightingale.png"} alt="Wrong" className="img-responsive" />
+						<div className="col-xs-12" >
+							<img src={"/images/avatars/emblem.png"} alt="Wrong" className="img-responsive" style={LandingEmblem} />
 						</div>
 
-						<div className="col-xs-8">
-							<div>
-								<h4 id="game-description">Det er et velkjent faktum at lesere distraheres av lesbart innhold på en side når man ser på dens layout. 
+						<div className="row">
+							<div className="col-xs-12">
+								<h4 id="game-description" style={GameDescriptionStyling}>Det er et velkjent faktum at lesere distraheres av lesbart innhold på en side når man ser på dens layout. 
 								Poenget med å bruke Lorem Ipsum er at det har en mer eller mindre normal fordeling av bokstaver i ord, 
 								i motsetning til 'Innhold her, innhold her', og gir inntrykk av å være lesbar tekst. 
-								Mange webside- og sideombrekkingsprogrammer bruker nå Lorem Ipsum som sin standard for provisorisk tekst, 
-								og et søk etter 'Lorem Ipsum' vil avdekke mang en uferdig webside. Ulike versjoner har sprunget frem i senere år, 
-								noen ved rene uhell og andre mer planlagte (med humor o.l.).
+								Mange webside- og sideombrekkingsprogrammer
 								</h4>
 							</div>
 						</div>	
@@ -103,21 +157,60 @@ class Landing extends Component {
 					<div className="row">
 						<div className="col-xs-10 col-xs-offset-1 text-center">
 							<form onSubmit={this.handleSubmit}>
-								<h3>No sign up required!</h3>
+								<h3>Play as a Guest or sign up below!</h3>
 				        <label>
 				          Nickname:
-				          <input type="text" value={this.state.value} onChange={this.handleChange} />
+				          <input type="text" value={this.state.value} onChange={this.handleChange} style={InputStyling}/>
 				        </label>
-				       <input type="submit" value="Submit" />
+				       <input type="submit" value="Submit" style={InputStyling}/>
 				      </form>
 
-				      <Link to="/signup"><h1>SIGN UP NOW</h1></Link>
-				      <hr />
-				      <h1><Link to="/lobby">Lobby Link</Link></h1>
-				      <h1><Link to="/gameroom">GameRoom Link</Link></h1>
-				      <h1><Link to="/testingPage">Testing Page</Link></h1>
+				      <div className='col-xs-12' data-toggle="modal" data-target="#signUpModal">
+			        	<h1>Sign Up Now!</h1>
+			        </div>
 
 
+			        <div className="modal fade" id="signUpModal">
+	              <div className="modal-dialog" style={SignUpModalStyling}>
+	                <div className="modal-content">
+	                  <div className="modal-header">
+	                    <h3 className="modal-title pull-left">Sign Up</h3>
+	                    <button type="button" className="close" data-dismiss="modal" title="Close"> 
+	                    	<span className="glyphicon glyphicon-remove"></span>
+	                    </button>
+	                  </div>
+
+	                  <div className="modal-body">
+	        						<form action="/api/register" method="POST" onSubmit={this.handleSignUpSubmit}>
+	        							<div className="form-group">
+		        							<label className="pull-left" htmlFor="userName">
+		        								Name:
+		        							</label>
+		      								<input type="text" name="username" className="form-control" placeholder="Username" value={this.state.name} onChange={this.handleNameChange} />
+	      								</div>
+
+	      								<div className="form-group">
+		        							<label className="pull-left" htmlFor="signUpPassword">
+		        								Password:
+		        							</label>
+		        							<input type="password" name="password" className="form-control" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}  />
+	        							</div>
+
+	        							<div className="form-group">
+		        							<label className="pull-left" htmlFor="signUpConfirmPassword">
+		        								Confirm Password:
+		        							</label>
+		        							<input type="password" name="passwordConfirm" className="form-control" placeholder="Confirm Password" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} />
+	        							</div>
+
+	        							<button type="submit" value="Submit" className="btn btn-default">Submit</button>
+	        							
+	        						</form>
+	                  </div>
+
+	                </div>
+	              </div>
+            	</div>
 
 						</div>
 					</div>
@@ -130,7 +223,7 @@ class Landing extends Component {
 }
 export default Landing;
 
-
+// <Link to="/signup"><h1>SIGN UP NOW</h1></Link>
 
 // <footer class="footer">
 // 		    <div class="container">

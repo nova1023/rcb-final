@@ -53,8 +53,6 @@ class SignIn extends Component {
 	    	alert("Player did not join");
 	    }
     });
-
-   
   }
 
 	render() {
