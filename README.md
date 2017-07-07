@@ -1,6 +1,6 @@
 # Mostly Cryptic
 
-Mostly Cryptic is an online multiplayer card game.  Each game consists of four players and each player is dealt six cards of images.   
+Mostly Cryptic is an online multiplayer card game.  Players are dealt six random image cards.  Each player has a turn at being the storyteller.  When you are the storyteller you submit one of your image cards and a clue.  Other players see your clue and submit one of their image cards that they think matches the clue. All the images are displayed to the players and players try and pick the storyteller's card.
 
 ## How to get started
 Sign up and create an account or just enter a nickname and play as a guest. 
