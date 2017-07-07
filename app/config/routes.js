@@ -19,6 +19,8 @@ module.exports = (
 			<Route path="/lobby" render={(props) => (<Lobby socket={socket} />)} />
 			<Route path="/gameroom" render={(props) => (<GameRoom socket={socket} />)} />
 			<Route path="/testingPage" render={(props) => (<App socket={socket} />)} />
+			<Route path="/signup" render={(props) => (<SignUp socket={socket} />)} />
+			<Route path="/signin" render={(props) => (<SignIn socket={socket} />)} />
 		</Switch>
 	</Router>
 );
