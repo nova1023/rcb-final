@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavBar from './NavBar';
+import NavBar from './panels/NavBar';
 import { Route, Link, Redirect } from 'react-router-dom';
 
 const LandingPageContainer = {
