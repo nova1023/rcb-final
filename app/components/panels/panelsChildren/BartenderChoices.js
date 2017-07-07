@@ -69,7 +69,7 @@ class BartenderChoices extends Component {
 	}
 
 	changeReadyButton(){
-		ReadyButtonStyling={
+		ReadyButtonStyling = {
 			color: '#18ff35',
 			fontSize: '20px',
 			backgroundColor: 'green',

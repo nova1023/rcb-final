@@ -5,7 +5,6 @@ import BartenderPortrait from './panelsChildren/BartenderPortrait';
 const LobbyViewStyling = {
     height: '60%',
     width: '100%',
-
 }
 
 class LobbyView extends Component {

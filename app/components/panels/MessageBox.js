@@ -3,10 +3,9 @@ import Velocity from 'velocity-animate';
 
 const MessageBoxStyling = {
     position: 'absolute',
-    height: '20%',
-    width: '300px',
-    top: '30%',
-    left: '10%',
+    width: '56%',
+    top: '27%',
+    left: '23%',
     backgroundColor: 'rgba(0, 0, 20, .9)',
     border: '3px solid grey',
     outline: '3px solid black',
@@ -16,7 +15,6 @@ const MessageBoxStyling = {
     paddingLeft: '2%',
     paddingRight: '2%',
     opacity: '0',
-    margin: '0 auto',
 
 }
 
@@ -64,7 +62,7 @@ class MessageBox extends Component {
         switch(messageState){
             case 'welcome':
                 this.show();
-                return 'Welcome to the Cloak Inn Tavern';
+                return 'Welcome to the Cloak Inn Tavern!';
             break;
                 
             case 'rules':
@@ -74,7 +72,7 @@ class MessageBox extends Component {
             
             case 'origins':
                 this.show();
-                return 'Welcome to the Cloak Inn Tavern';
+                return 'Welcome to the Cloak Inn Tavern!';
             break;
             
             case 'ready':
@@ -93,9 +91,11 @@ class MessageBox extends Component {
         let Message = this.setMessage();
 
         return (
+          <div className="row">
             <div ref='MessageBox' className="col-xs-12" style={MessageBoxStyling} onClick={this.clicked}>
-               {Message}
-            </div>		
+              <div className="row">{Message}</div>
+            </div>
+          </div>
         )  
     }
 }
