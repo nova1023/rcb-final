@@ -10,6 +10,9 @@ const LobbyChatStyling = {
 }
 
 class LobbyChat extends Component {
+    componentDidUpdate(){
+        console.log("LobbyChat updated.");
+    }
     render() {
         return (
             <div className="col-xs-12" style={LobbyChatStyling}>
