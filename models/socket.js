@@ -226,10 +226,8 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
                 if(game)
                 {   
                    // Checks if game is over.
-                   //
                    // If game is over game room is kept open so players can chat unill all players
                    // exit or disconnect.
-                   //
                    // If game is not over, 'exitGame' is emmited to all players in room to kick them back to lobby
                    // and game is deleted.  This is needed if player disconnects in middle a game.
                    if(game.gameOver)
@@ -237,11 +235,26 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
                         game.connectedPlayerCount--;
 
                         if(game.connectedPlayerCount === 0) 
-                            gamesMap.delete(game.room);      // room is also game name. 
+                            gamesMap.delete(game.room);      // room is also game name.                             
                    }
                    else
-                   {
+                   {                   
                         IO.sockets.in(game.room).emit('exitGame');
+                        
+                        // Sets all players room back to "Main" and game to null.
+                        // Unjoins players from game back to lobby room.
+                        for(var key in game.players)
+                        {
+                            var player = game.players[key];
+                            var room = player.room;
+                           
+                            player.socket.leave(room); 
+                            player.socket.join("Main");
+
+                            player.room = "Main";
+                            player.game = null; 
+                        }    
+
                         gamesMap.delete(game.room);
                    }       
                 }
