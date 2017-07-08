@@ -34,11 +34,16 @@ class ChatInput extends Component {
 	}
 
 	handleMessageSubmit(event) {
-		let socket = this.props.socket;
 		event.preventDefault();
+		let socket = this.props.socket;
+		if (this.state.message === '') {
+			alert("Please type a message first.");
+		}
+		else{
 		console.log("Message Submitted." + this.state.message);
 		socket.emit("sendMessage", this.state.message);
 		this.setState({message: ""});
+		}
 	}
 
 	render() {

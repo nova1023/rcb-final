@@ -175,35 +175,35 @@ class App extends Component {
     let socket = this.props.socket;
     let cardID = this.state.selectedCardID;
     let clueText = this.state.clue;
-
+    if (this.state.clue === '' || this.state.selectedCardID === '') {
+      alert("Please type in a clue or card number from your hand.");
+    }
+    else {
     var data = {
       cardID: cardID,
       clueText: clueText
     };
     socket.emit("storyTellerClue", data);
     console.log("sent storyTeller selections");
+    }
   }
-
-  // submitStoryTellerRes(cardID, clueText) {
-  //   var data = {
-  //     cardID: cardID,
-  //     clueText: clueText
-  //   };
-  //   socket.emit("storyTellerClue", data);
-  //   console.log("sent storyTeller selections");
-  // }
 
   submitCard(event) {
     event.preventDefault();
     let socket = this.props.socket;
     let cardID = this.state.selectedCardID;
     let playerNumber = this.state.myPlayerNumber;
-
+    if (this.state.selectedCardID === '') {
+      alert("Please type in a card number from your hand.");
+    }
+    else {
     socket.emit("submitCard", {cardID:cardID, belongsTo:playerNumber});
     console.log("Sent Player's card choice.");
     this.setState({
-      turnPhase: 'sentCard'
+      turnPhase: 'sentCard',
+      selectedCardID: ''
     });
+    }
   }
 
   submitVote(event) {
@@ -211,12 +211,16 @@ class App extends Component {
     let socket = this.props.socket;
     let cardID = this.state.selectedCardID;
     let playerNumber = this.state.myPlayerNumber;
-
+    if (cardID === '') {
+      alert("Please type the card number you think belongs to the Storyteller.");
+    }
+    else {
     socket.emit("submitVote", {cardID: cardID, playerNumber: playerNumber});
     console.log("Sent Player's vote choice");
     this.setState({
       turnPhase: 'sentVote'
     });
+    }
   }
 
   sendReadyForNextTurn() {
