@@ -23,7 +23,7 @@ class App extends Component {
       myHand: [],
       clue: '',
       selectedCardID: '',
-      turnPhase: '',
+      turnPhase: 'welcome',
       submittedCards: [],
       p1Points: 0,
       p2Points: 0,

@@ -201,6 +201,7 @@ class TableView4 extends Component {
                         message={'You are the story teller this turn. Please submit a card and a clue.'}
                     />
                     <GiveClue 
+                        gameState={this.props.gameState}
     					handleChangeClue={this.props.handleChangeClue}
                 		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
                 		submitStoryTellerRes={this.props.submitStoryTellerRes}
@@ -315,7 +316,8 @@ class TableView4 extends Component {
                         gameState={this.props.gameState}
                         message={'Please submit a card that you think matches the clue to fool the other players.'}
                     /> 
-    				<SubmitCard 
+    				<SubmitCard
+                        gameState={this.props.gameState} 
                 		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
                 		submitCard={this.props.submitCard}
                 	/>;
