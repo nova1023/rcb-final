@@ -4,9 +4,9 @@ import Velocity from 'velocity-animate';
 const MessageBoxStyling = {
     position: 'absolute',
     height: '20%',
-    width: '300px',
+    width: '308px',
     top: '30%',
-    left: '10%',
+    // left: '10%',
     backgroundColor: 'rgba(0, 0, 20, .9)',
     border: '3px solid grey',
     outline: '3px solid black',
@@ -69,7 +69,7 @@ class MessageBox extends Component {
                 
             case 'rules':
                 this.show();
-                return 'The goal of the game is to get 30 points first.';
+                return 'The goal of the game is to get 9 points first.';
             break;
             
             case 'origins':
