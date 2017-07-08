@@ -280,14 +280,12 @@ class Landing extends Component {
 					</div>
 				</div>
 			</div>
-
-		  
 		)
 	}}
 }
 export default Landing;
 
-// <Link to="/signup"><h1>SIGN UP NOW</h1></Link>
+
 
 // <footer class="footer">
 // 		    <div class="container">

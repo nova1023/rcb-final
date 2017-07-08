@@ -27,7 +27,7 @@ const ButtonStyling = {
 }
 
 const BigButtonStyling = {
-  left: '11%',
+  left: '21%',
   position: 'relative',
   fontWeight: 'bold'
 }
@@ -53,7 +53,7 @@ class ReadyUp extends Component {
             <div className="modal-dialog" style={BackToLobbyModalStyling}>
               <div className="modal-content">
                 <div className="modal-header">
-                  <div className="pull-left">Back to Lobby</div>
+                  <h4 className="pull-left">Back to Lobby</h4>
                     <button type="button" className="close" data-dismiss="modal" title="Close"> 
                     <span className="glyphicon glyphicon-remove"></span>
                     </button>
