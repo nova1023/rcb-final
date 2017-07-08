@@ -39,10 +39,7 @@ class TurnPhaseMessage extends Component {
   }
 
   hide(){
-    Velocity(this.refs.TurnPhaseMessageDiv, {opacity: '0', duration: 500, complete:function(){
-      console.log("trying complete param.");
-      this.show();
-    }})
+    Velocity(this.refs.TurnPhaseMessageDiv, {opacity: '0', duration: 500})
   }
 
   handleClick(){
