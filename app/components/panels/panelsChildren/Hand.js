@@ -29,6 +29,11 @@ const HandModalStyling = {
   margin: '0 auto',
 }
 
+const IconStyling = {
+  width: '100%',
+  height: '100%',
+}
+
 class Hand extends Component {
 	constructor(props) {
     super(props);
@@ -82,7 +87,7 @@ class Hand extends Component {
       
       <div  className='row' style={PlayerButtonWrapper}>
         <div className='col-xs-12' data-toggle="modal" data-target="#myModal" style={PlayerButtonsStyling}>
-          H
+          <img src='/images/avatars/complete/icon-hand.png' style={IconStyling} />
         </div>
 
           <div className="modal fade" id="myModal">

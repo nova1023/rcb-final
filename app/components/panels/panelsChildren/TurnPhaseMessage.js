@@ -61,8 +61,11 @@ class TurnPhaseMessage extends Component {
       ref='TurnPhaseMessageDiv' 
       className='TurnPhaseMessage text-center' 
       style={TurnPhaseMessageStyling} 
-      onClick={this.handleClick}>
-        <p style={TurnPhasePromptText}>{Message}</p>
+      onClick={this.handleClick}
+      >
+        <p style={TurnPhasePromptText}> 
+          {Message}
+        </p>
       </div>
     )
   }

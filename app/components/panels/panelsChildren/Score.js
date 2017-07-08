@@ -25,6 +25,11 @@ const ScoreModalStyling = {
   margin: '0 auto',
 }
 
+const IconStyling = {
+  width: '100%',
+  height: '100%',
+}
+
 class Score extends Component {
 	
 	render() {
@@ -32,7 +37,7 @@ class Score extends Component {
 			<div  className='row' style={PlayerButtonWrapper}>
 
         <div className='col-xs-12' data-toggle="modal" data-target="#scoreBoardModal" style={PlayerButtonsStyling}>
-        	S
+        	<img src='/images/avatars/complete/icon-score.png' style={IconStyling} />
         </div>
 
           <div className="modal fade" id="scoreBoardModal">
