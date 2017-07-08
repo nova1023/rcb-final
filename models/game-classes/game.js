@@ -225,7 +225,9 @@ function Game(io)
         {
             turnResults.push(
             {
+
                 playerNumber: this.players[index].playerNumber,
+                userName: this.players[index].userName,
                 currentPoints: this.players[index].currentPoints
             });
         }

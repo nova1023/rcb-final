@@ -42,7 +42,7 @@ const SignUpModalStyling = {
 	textShadow: '0 0 0',
 	width: '21em',
 	top: '21%',
-	margin: '0 auto'
+	margin: '0 auto',
 	color: 'black'
 }
 
