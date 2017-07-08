@@ -11,6 +11,11 @@ const LobbyContainerStyling = {
 	overflow: 'hidden'
 }
 
+const LobbyViewStyling = {
+    height: '60%',
+    width: '100%',
+}
+
 class Lobby extends Component {
 	constructor(props){
 		super(props);
@@ -68,8 +73,9 @@ class Lobby extends Component {
 			return <Redirect to='/testingPage' />
 		} else {
 	    return (
-	    	<div className="container-fluid" >
-	    		<div className="row LobbyContainer" style={LobbyContainerStyling}>
+	    	<div className="container-fluid" style={LobbyContainerStyling}>
+	    		<div className="row">
+            <div className="col-xs-12" style={LobbyViewStyling}>
 
 		    			<LobbyView
 		    				rulesButtonClicked = {this.rulesButtonClicked}
@@ -78,18 +84,17 @@ class Lobby extends Component {
 		    				socket={this.props.socket}
 		    			/>
 
-		    
-
 		    			<MessageBox
 		    				messageState={this.state.messageState}
 		    			/>
+		    		</div>	
+	    			</div>
 
-		    			
-  			
+	    	
 	    				<LobbyChat socket={this.props.socket} />
-
-	    		</div>
 	    		
+	    			
+	    
 	    	</div>
 			)  
   	}
