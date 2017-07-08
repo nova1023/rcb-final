@@ -33,7 +33,7 @@ class Hand extends Component {
 	constructor(props) {
     super(props);
     this.state = {
-      isModalOpen: false,
+      // isModalOpen: false,
       gameState:{},
       card1: '',
       card2: '',
@@ -75,7 +75,6 @@ class Hand extends Component {
       }
     }
     console.log("Hand", this.state);
-    
   }
 
   render() {
