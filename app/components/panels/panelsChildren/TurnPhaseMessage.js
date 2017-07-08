@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Velocity from 'velocity-animate';
 
 const TurnPhaseMessageStyling = {
   width: '30%',
@@ -34,15 +35,16 @@ class TurnPhaseMessage extends Component {
   }
 
   show(){
-
+    Velocity(this.refs.TurnPhaseMessageDiv, {opacity:'1', duration: 500})
   }
 
   hide(){
-
+    Velocity(this.refs.TurnPhaseMessageDiv, {opacity: '0', duration: 500})
   }
 
   handleClick(){
-
+    console.log("TurnPhaseMessage has been clicked");
+    this.hide();
   }
 
   componentDidMount(){
@@ -55,7 +57,11 @@ class TurnPhaseMessage extends Component {
     let Message = this.props.message;
 
     return (
-      <div className='TurnPhaseMessage text-center' style={TurnPhaseMessageStyling}>
+      <div
+      ref='TurnPhaseMessageDiv' 
+      className='TurnPhaseMessage text-center' 
+      style={TurnPhaseMessageStyling} 
+      onClick={this.handleClick}>
         <p style={TurnPhasePromptText}>{Message}</p>
       </div>
     )

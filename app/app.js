@@ -11,6 +11,7 @@ const AppContainerStyling = {
   // height:'100vh',
   // width: '100vw',
   // margin: '0 auto'
+  backgroundImage: 'url(/images/avatars/complete/Wood-bar-3-sideways.png)',
 }
 
 class App extends Component {

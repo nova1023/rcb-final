@@ -67,7 +67,7 @@ class MessageBox extends Component {
                 
             case 'rules':
                 this.show();
-                return 'The goal of the game is to get 30 points first.';
+                return 'The goal of the game is to get 9 points first.';
             break;
             
             case 'origins':

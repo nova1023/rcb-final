@@ -8,7 +8,8 @@ const LobbyContainerStyling = {
 	height: '100vh',
 	width: '320px',
 	margin: '0 auto',
-	overflow: 'hidden'
+	overflow: 'hidden',
+	backgroundImage: 'url(/images/avatars/complete/Wood-bar-3-sideways.png)',
 }
 
 const LobbyViewStyling = {
