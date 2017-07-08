@@ -45,15 +45,7 @@ const InputGroupStyling = {
 }
 
 class SubmitVote extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      clue:'',
-      selectedCardID:'',
 
-    }
-  }
-  
   render() {
     return (
       <div  className='row' style={PlayerButtonWrapper}>
@@ -83,7 +75,13 @@ class SubmitVote extends Component {
                       onChange={this.props.handleChangeSelectedCard}  
                     />
                     <span className="input-group-btn">
-                      <button data-dismiss="modal" className="btn btn-default" onClick={this.props.submitVote} style={SubmitButtonStyling}>Submit</button>
+                      <button 
+                        data-dismiss="modal" 
+                        className="btn btn-default" 
+                        onClick={this.props.submitVote} 
+                        style={SubmitButtonStyling}
+                        >Submit
+                      </button>
                     </span>
                   </div>
 

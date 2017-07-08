@@ -27,9 +27,9 @@ const ButtonStyling = {
 }
 
 const BigButtonStyling = {
-  left: '10%',
+  left: '11%',
   position: 'relative',
-  fontWeight: '10%'
+  fontWeight: 'bold'
 }
 
 class ReadyUp extends Component {
@@ -73,9 +73,6 @@ class ReadyUp extends Component {
               </div>
 
                 <div className="modal-footer">
-                  <div className="pull-left">
-                  
-                  </div>
                   <button className="btn btn-default" type="button" data-dismiss="modal" style={ButtonStyling}>Close</button>
                 </div>
               </div>
