@@ -4,12 +4,13 @@ import React, { Component } from 'react';
 //const socket = IO() ;
 
 const chatInput = {
-	height: '30%',
-	width: '90%',
+	width: '95%',
 	margin: '0 auto'
-
 }
 
+const ButtonStyling = {
+	fontWeight: 'bold'
+}
 
 class ChatInput extends Component {
 	constructor(props) {
@@ -37,21 +38,23 @@ class ChatInput extends Component {
 
 	render() {
 		return (
-			<div>
-			<form onSubmit={this.handleMessageSubmit} id="message-form">
-
-				<input
-					style={chatInput} 
-					type="text" 
-					placeholder="Message" 
-					id="message" 
-					value={this.state.message}
-					onChange={this.handleMessageInputChange}
-					/>
-				<input type="submit" value="Submit" id="chat-button" />
+			
+			<form onSubmit={this.handleMessageSubmit}>
+				<div className="input-group" style={chatInput}>
+			  	<input 
+			  		type="text" 
+			  		className="form-control" 
+			  		placeholder="Message" 
+			  		id="message" 
+			  		value={this.state.message} 
+			  		onChange={this.handleMessageInputChange} 
+			  		/>
+						<span className="input-group-btn">
+							<button type="submit" value="Submit" className="btn btn-default" style={ButtonStyling}>Send</button>
+						</span>
+					</div>
 			</form>
 			
-			</div>
 		)
 	}
 }

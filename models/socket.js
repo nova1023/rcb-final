@@ -151,7 +151,15 @@ console.log("gameName:", gameName);//TEST CODE
             if(game.CheckAllPlayersVoted())
             {
                 game.CalculateResults();
-                IO.sockets.in(game.room).emit("turnResults", game.GetTurnResultsArray());
+
+                //check if game's over
+                if (game.cardDeck.length < game.players.length || game.CheckForWinner())
+                {    
+                    game.gameOver = true;
+                    IO.sockets.in(game.room).emit("gameOver", game.GetTurnResultsArray());
+                }  
+                else //game is not over
+                    IO.sockets.in(game.room).emit("turnResults", game.GetTurnResultsArray());
             }    
         }
 

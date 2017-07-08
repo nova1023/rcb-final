@@ -300,13 +300,14 @@ function Game(io)
     {
         //check if game is over.
         //TODO: check for a tie
-        if (this.cardDeck.length < this.players.length || this.CheckForWinner())
-        {    
-            this.gameOver = true;
-            io.in(this.room).emit("gameOver", this.GetTurnResultsArray());
-        }    
-        else
-        {
+        //Game over check moved to socket.js submitVote(). 
+        // if (this.cardDeck.length < this.players.length || this.CheckForWinner())
+        // {    
+        //     this.gameOver = true;
+        //     io.in(this.room).emit("gameOver", this.GetTurnResultsArray());
+        // }    
+        // else
+        // {
             //move cards played this turn to dead pile
             while (this.cardsPlayedThisTurn.length > 0)
                 this.deadPile.push(this.cardsPlayedThisTurn.pop());
@@ -322,7 +323,7 @@ function Game(io)
             }
 
             this.RefillPlayersCardHand();
-        }
+        // }
     };
 
     // If all players have submitted 'nextTurn' returns true, else returns false.

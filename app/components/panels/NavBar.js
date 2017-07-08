@@ -24,7 +24,20 @@ const NavBarLinkText = {
   fontSize: 'medium'
 }
 const SignInModalStyling = {
+	color: 'black',
+	textShadow: '0 0 0',
+	width: '21em',
+	top: '21%',
+	margin: '0 auto'
+}
+
+const UserInput = {
+	fontWeight: 'bold',
 	color: 'black'
+}
+
+const ButtonStyling = {
+	fontWeight: 'bold'
 }
 
 class NavBar extends Component {
@@ -94,7 +107,14 @@ class NavBar extends Component {
 						<div className="col-xs-12">
 
 					    <div className="navbar-header">
-					      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" style={NavBarToggleButton}>
+					      <button 
+						      type="button" 
+						      className="navbar-toggle collapsed" 
+						      data-toggle="collapse" 
+						      data-target="#bs-example-navbar-collapse-1" 
+						      aria-expanded="false" 
+						      style={NavBarToggleButton}
+						      >
 					        <span className="sr-only">Toggle navigation</span>
 					        <span className="icon-bar"></span>
 					        <span className="icon-bar"></span>
@@ -130,17 +150,39 @@ class NavBar extends Component {
 				        							<label className="pull-left" htmlFor="userName">
 				        								Name:
 				        							</label>
-				      								<input type="text" name="username" className="form-control" placeholder="Username" value={this.state.name} onChange={this.handleNameChange} />
+				      								<input 
+				      								type="text" 
+				      								name="username" 
+				      								className="form-control" 
+				      								placeholder="Username" 
+				      								style={UserInput}
+				      								value={this.state.name} 
+				      								onChange={this.handleNameChange} />
 			      								</div>
 
 			      								<div className="form-group">
 				        							<label className="pull-left" htmlFor="signInPassword">
 				        								Password:
 				        							</label>
-				        							<input type="password" name="password" className="form-control" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}  />
+				        							<input 
+					        							type="password" 
+					        							name="password" 
+					        							className="form-control" 
+					        							placeholder="Password" 
+					        							style={UserInput}
+					        							value={this.state.password} 
+					        							onChange={this.handlePasswordChange}  
+					        						/>
 			        							</div>
 
-			        							<button type="submit" value="Submit" className="btn btn-default">Submit</button>
+			        							<button 
+				        							type="submit" 
+				        							value="Submit" 
+				        							className="btn btn-default" 
+				        							style={ButtonStyling}
+			        							>
+				        							Submit
+			        							</button>
 			        							
 			        						</form>
 			                  </div>
