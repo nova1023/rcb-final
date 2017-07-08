@@ -5,14 +5,19 @@ const PlayerButtonsStyling = {
   width: '320px',
   height: '305px',
   marginLeft: '320px',
-
-
 }
 
 const PlayerButtonWrapper = {
   height: '100px',
   width: '100px',
+}
 
+const SubmitClueModalStyling = {
+  color: 'black',
+  textShadow: '0 0 0',
+  width: '21em',
+  top: '21%',
+  margin: '0 auto'
 }
 
 class GiveClue extends Component {
@@ -33,7 +38,7 @@ class GiveClue extends Component {
         </div>
 
           <div className="modal fade" id="giveClue">
-            <div className="modal-dialog">
+            <div className="modal-dialog" style={SubmitClueModalStyling}>
               <div className="modal-content">
                 <div className="modal-header">
                   <div className="pull-left">Submit a clue and a card</div>
@@ -43,6 +48,36 @@ class GiveClue extends Component {
               <div className="modal-body">
               
                 <form onSubmit={this.props.submitStoryTellerRes}>
+                  <div className="form-group">
+                    <label className="pull-left" htmlFor="userName">
+                      Name:
+                    </label>
+                    <input 
+                    type="text" 
+                    name="username" 
+                    className="form-control" 
+                    placeholder="Username" 
+                    style={UserInput}
+                    value={this.state.name} 
+                    onChange={this.handleNameChange} />
+                  </div>
+
+                  <div className="form-group">
+                    <label className="pull-left" htmlFor="signInPassword">
+                      Password:
+                    </label>
+                    <input 
+                      type="password" 
+                      name="password" 
+                      className="form-control" 
+                      placeholder="Password" 
+                      style={UserInput}
+                      value={this.state.password} 
+                      onChange={this.handlePasswordChange}  
+                    />
+                  </div>
+
+
                   <label>
                     Enter Clue:
                     <input type="text" value={this.props.clue} onChange={this.props.handleChangeClue} />

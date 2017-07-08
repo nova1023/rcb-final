@@ -25,11 +25,6 @@ const HandModalPosition = {
   top: '10%'
 }
 
-const ModalXButton = {
-  position: 'relative',
-  top: '5%'
-}
-
 class Hand extends Component {
 	constructor(props) {
     super(props);
@@ -93,7 +88,7 @@ class Hand extends Component {
               <div className="modal-content">
                 <div className="modal-header">
                   <h3 className="modal-title pull-left">Your Hand</h3>
-                    <button type="button" className="close" data-dismiss="modal" title="Close" style={ModalXButton}> 
+                    <button type="button" className="close" data-dismiss="modal" title="Close"> 
                       <span className="glyphicon glyphicon-remove"></span>
                     </button>
                 </div>

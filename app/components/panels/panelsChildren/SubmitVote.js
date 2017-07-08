@@ -53,7 +53,9 @@ class SubmitVote extends Component {
               <div className="modal-content">
                 <div className="modal-header">
                   <div className="pull-left">Submit Vote</div>
-                    <button type="button" className="close" data-dismiss="modal" title="Close"> <span className="glyphicon glyphicon-remove"></span></button>
+                    <button type="button" className="close" data-dismiss="modal" title="Close"> 
+                      <span className="glyphicon glyphicon-remove"></span>
+                    </button>
                 </div>
           
               <div className="modal-body">
@@ -105,16 +107,15 @@ class SubmitVote extends Component {
                   <a className="right carousel-control" href="#votingCardGallery" role="button" data-slide="next"> 
                   <span className="glyphicon glyphicon-chevron-right"></span></a>
                 </div>
-
-                <button data-dismiss="modal" onClick={this.props.submitVote}>Submit</button>
               </div>
 
                 <div className="modal-footer">
                   <div className="pull-left">
-                  
+                    
                   </div>
-                  <button className="btn-sm close" type="button" data-dismiss="modal">Close</button>
+                  <button data-dismiss="modal" onClick={this.props.submitVote}>Submit</button>
                 </div>
+
               </div>
             </div>
           </div>

@@ -23,6 +23,7 @@ const NavBarLinkText = {
 	color: 'white',
   fontSize: 'medium'
 }
+
 const SignInModalStyling = {
 	color: 'black',
 	textShadow: '0 0 0',
@@ -175,15 +176,18 @@ class NavBar extends Component {
 					        						/>
 			        							</div>
 
-			        							<button 
-				        							type="submit" 
-				        							value="Submit" 
-				        							className="btn btn-default" 
-				        							style={ButtonStyling}
-			        							>
-				        							Submit
-			        							</button>
-			        							
+			        							<div className="row">
+				        							<div className="pull-right">
+					        							<button 
+						        							type="submit" 
+						        							value="Submit" 
+						        							className="btn btn-default" 
+						        							style={ButtonStyling}
+					        							>
+					        								Submit
+				        								</button>
+				        							</div>
+			        							</div>
 			        						</form>
 			                  </div>
 

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import BartenderChoices from './panelsChildren/BartenderChoices';
 import BartenderPortrait from './panelsChildren/BartenderPortrait';
 
-
-
 class LobbyView extends Component {
     render() {
         return (

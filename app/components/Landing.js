@@ -199,7 +199,7 @@ class Landing extends Component {
 			          	onChange={this.handleChange} 
 			          	style={UserInput}/>
 			       			<span className="input-group-btn">
-			       				<button type="submit" value="Submit" className="btn btn-default" style={ButtonStyling}>Go</button>
+			       				<button type="submit" value="Submit" className="btn btn-default" style={ButtonStyling}>Play!</button>
 			       			</span>
 			       		</div>
 				      </form>
@@ -265,11 +265,15 @@ class Landing extends Component {
 		        							/>
 	        							</div>
 
-	        							<button type="submit" value="Submit" className="btn btn-default" style={ButtonStyling}>Submit</button>
+	        							<div className="row">
+			        						<div className="pull-right">
+			        							<button type="submit" value="Submit" className="btn btn-default" style={ButtonStyling}>Submit</button>
+			                  	</div>
+		                  	</div>
 	        						</form>
 	                  </div>
-
-	                </div>
+  	
+ 	                </div>
 	              </div>
             	</div>
 

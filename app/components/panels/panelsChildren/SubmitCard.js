@@ -5,18 +5,19 @@ const PlayerButtonsStyling = {
   width: '320px',
   height: '305px',
   marginLeft: '320px',
-
 }
 
 const PlayerButtonWrapper = {
   height: '100px',
   width: '100px',
-
 }
 
-const HideBulletPoints = {
-  listStyleType: 'none',
-
+const SubmitCardModalStyling = {
+  color: 'black',
+  textShadow: '0 0 0',
+  width: '21em',
+  top: '21%',
+  margin: '0 auto'
 }
 
 class SubmitCard extends Component {
@@ -38,19 +39,36 @@ class SubmitCard extends Component {
         </div>
 
           <div className="modal fade" id="submitCardModal">
-            <div className="modal-dialog">
+            <div className="modal-dialog" style={SubmitCardModalStyling}>
               <div className="modal-content">
                 <div className="modal-header">
                   <div className="pull-left">SubmitCard</div>
-                    <button type="button" className="close" data-dismiss="modal" title="Close"> <span className="glyphicon glyphicon-remove"></span></button>
+                    <button type="button" className="close" data-dismiss="modal" title="Close"> 
+                    <span className="glyphicon glyphicon-remove"></span>
+                    </button>
                 </div>
           
               <div className="modal-body">
+                <div className="form-group">
+                  <label className="pull-left" htmlFor="card">
+                    Enter Card:
+                  </label>
+                  <input 
+                    type="text"
+                    name="card"  
+                    className="form-control" 
+                    placeholder="Card #" 
+                    style={SubmitCardModalStyling}
+                    value={this.props.selectedCardID} 
+                    onChange={this.props.handleChangeSelectedCard}  
+                  />
+                </div>
               
                 <form>
                   <label>
                     Enter Card:
-                    <input type="text" value={this.props.selectedCardID} onChange={this.props.handleChangeSelectedCard} />
+                    <input type="text" value={this.props.selectedCardID} 
+                    onChange={this.props.handleChangeSelectedCard} />
                   </label>
                 </form>
                 <button data-dismiss="modal" onClick={this.props.submitCard}>Submit</button>
