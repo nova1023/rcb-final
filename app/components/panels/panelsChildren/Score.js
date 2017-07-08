@@ -48,10 +48,10 @@ class Score extends Component {
               <div className="modal-body text-center">
               
                 
-                	<h4>Player 1: {this.props.gameState.p1Points}</h4>
-                	<h4>Player 2: {this.props.gameState.p2Points}</h4>
-                	<h4>Player 3: {this.props.gameState.p3Points}</h4>
-                	<h4>Player 4: {this.props.gameState.p4Points}</h4>
+                	<h4>{this.props.gameState.p1UserName}: {this.props.gameState.p1Points}</h4>
+                	<h4>{this.props.gameState.p1UserName}: {this.props.gameState.p2Points}</h4>
+                	<h4>{this.props.gameState.p1UserName}: {this.props.gameState.p3Points}</h4>
+                	<h4>{this.props.gameState.p1UserName}: {this.props.gameState.p4Points}</h4>
                	
      
               </div>
