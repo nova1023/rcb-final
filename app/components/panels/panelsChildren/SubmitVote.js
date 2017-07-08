@@ -23,6 +23,14 @@ const CardNumberStyling = {
   textShadow: '1px 1px 15px black'
 }
 
+const SubmitVoteModalStyling = {
+  color: 'black',
+  textShadow: '0 0 0',
+  width: '21em',
+  top: '21%',
+  margin: '0 auto'
+}
+
 class SubmitVote extends Component {
   constructor(props){
     super(props);
@@ -37,11 +45,11 @@ class SubmitVote extends Component {
     return (
       <div  className='row' style={PlayerButtonWrapper}>
         <div className='col-xs-12' data-toggle="modal" data-target="#submitVoteModal" style={PlayerButtonsStyling}>
-          V
+          SUBMIT VOTES
         </div>
 
           <div className="modal fade" id="submitVoteModal">
-            <div className="modal-dialog">
+            <div className="modal-dialog" >
               <div className="modal-content">
                 <div className="modal-header">
                   <div className="pull-left">Submit Vote</div>
@@ -49,12 +57,20 @@ class SubmitVote extends Component {
                 </div>
           
               <div className="modal-body">
-                <form>
-                  <label>
+                <div className="form-group">
+                  <label className="pull-left" htmlFor="vote">
                     Enter Vote:
-                    <input type="text" value={this.props.selectedCardID} onChange={this.props.handleChangeSelectedCard} />
                   </label>
-                </form>
+                  <input 
+                    type="text"
+                    name="vote"  
+                    className="form-control" 
+                    placeholder="Card #" 
+                    style={SubmitVoteModalStyling}
+                    value={this.props.selectedCardID} 
+                    onChange={this.props.handleChangeSelectedCard}  
+                  />
+                </div>
 
                 <div id="votingCardGallery" className="carousel slide" data-interval="false">
                   <div className="carousel-inner">
