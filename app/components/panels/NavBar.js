@@ -90,7 +90,7 @@ class NavBar extends Component {
 	    	$(".modal-backdrop").remove();
 	    }
 	    else {
-	    	alert("Player did not join");
+	    	alert("Player did not join.");
 	    }
     });
   }
