@@ -32,7 +32,8 @@ const MenuItemStyling = {
 	margin: '15% 0 0 5%',
 	textShadow: '-1px 1px 6px black',
 	border: '1px solid #d19f64',
-	paddingTop: '3%',
+	paddingTop: '5%',
+	paddingBottom: '5%'
 
 }
 
@@ -47,7 +48,8 @@ let ReadyButtonStyling = {
 	margin: '15% 0 0 5%',
 	textShadow: '-1px 1px 6px black',
 	border: '1px solid #d19f64',
-	paddingTop: '3%',
+	paddingTop: '5%',
+	paddingBottom: '5%'
 }
 
 
@@ -80,7 +82,8 @@ class BartenderChoices extends Component {
 			margin: '15% 0 0 5%',
 			textShadow: '-1px 1px 6px black',
 			border: '1px solid #45ff38',
-			paddingTop: '3%',
+			paddingTop: '5%',
+			paddingBottom: '5%'
 		}
 	}
 
@@ -93,11 +96,11 @@ class BartenderChoices extends Component {
 	                </div>
 	                
 	                <div className='col-xs-4' style={ButtonStyling} onClick={this.props.originsButtonClicked}>
-	                	<p style={MenuItemStyling}>Origins</p>
+	                	<div style={MenuItemStyling}>Origins</div>
 	                </div>
 	                
 	                <div className='col-xs-4' style={ButtonStyling} onClick={this.handleReadyClicked}>
-	                	<p style={ReadyButtonStyling}>Ready Up</p>	
+	                	<div style={ReadyButtonStyling}>Ready Up</div>	
 	                </div>
             	</div>
             </div>		
