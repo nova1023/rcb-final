@@ -14,6 +14,24 @@ const PlayerButtonWrapper = {
 
 }
 
+const BackToLobbyModalStyling = {
+  color: 'black',
+  textShadow: '0 0 0',
+  width: '21em',
+  top: '25%',
+  margin: '0 auto'
+}
+
+const ButtonStyling = {
+  fontWeight: 'bold'
+}
+
+const BigButtonStyling = {
+  left: '21%',
+  position: 'relative',
+  fontWeight: 'bold'
+}
+
 class ReadyUp extends Component {
   constructor(props){
     super(props);
@@ -27,28 +45,34 @@ class ReadyUp extends Component {
   render() {
     return (
       <div  className='row' style={PlayerButtonWrapper}>
-        <div className='col-xs-12' data-toggle="modal" data-target="#readyUpModal" style={PlayerButtonsStyling}>
+        <div className='col-xs-12' data-toggle="modal" data-target="#backToLobby" style={PlayerButtonsStyling}>
           R
         </div>
 
-          <div className="modal fade" id="readyUpModal">
-            <div className="modal-dialog">
+          <div className="modal fade" id="backToLobby">
+            <div className="modal-dialog" style={BackToLobbyModalStyling}>
               <div className="modal-content">
                 <div className="modal-header">
-                  <div className="pull-left">Back to Lobby</div>
-                    <button type="button" className="close" data-dismiss="modal" title="Close"> <span className="glyphicon glyphicon-remove"></span></button>
+                  <h4 className="pull-left">Back to Lobby</h4>
+                    <button type="button" className="close" data-dismiss="modal" title="Close"> 
+                    <span className="glyphicon glyphicon-remove"></span>
+                    </button>
                 </div>
           
               <div className="modal-body">
               
-                <button data-dismiss="modal" onClick={this.props.backToLobby}>Back to lobby</button>
+                <button 
+                  data-dismiss="modal"
+                  className="bn btn-default btn-lg" 
+                  onClick={this.props.backToLobby}
+                  style={BigButtonStyling}
+                >
+                  Back to lobby
+                </button>
      
               </div>
 
                 <div className="modal-footer">
-                  <div className="pull-left">
-                  
-                  </div>
                   <button className="btn-sm close" type="button" data-dismiss="modal">Close</button>
                 </div>
               </div>

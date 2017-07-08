@@ -192,11 +192,15 @@ class TableView4 extends Component {
     				let prompt = 
     				<div>
                     <TurnPhaseMessage
+                        swipedRight={this.swipedRight}
+                        swipedLeft={this.swipedLeft}
+                        swipedDown={this.swipedDown}
                         swipedUp={this.swipedUp}
                         gameState={this.props.gameState}
                         message={'You are the story teller this turn. Please submit a card and a clue.'}
                     />
                     <GiveClue 
+                        gameState={this.props.gameState}
     					handleChangeClue={this.props.handleChangeClue}
                 		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
                 		submitStoryTellerRes={this.props.submitStoryTellerRes}
@@ -209,6 +213,9 @@ class TableView4 extends Component {
                 } else if (this.props.gameState.turnPhase === 'playersSubmitCards'){
                     let prompt = 
                     <TurnPhaseMessage
+                        swipedRight={this.swipedRight}
+                        swipedLeft={this.swipedLeft}
+                        swipedDown={this.swipedDown}
                         swipedUp={this.swipedUp}
                         gameState={this.props.gameState}
                         message={'Waiting for the other players to submit their cards.'}
@@ -220,6 +227,9 @@ class TableView4 extends Component {
                 } else if(this.props.gameState.turnPhase === 'playersSubmitVotes'){
                     let prompt = 
                     <TurnPhaseMessage
+                        swipedRight={this.swipedRight}
+                        swipedLeft={this.swipedLeft}
+                        swipedDown={this.swipedDown}
                         swipedUp={this.swipedUp}
                         gameState={this.props.gameState}
                         message={'Waiting for the other players to submit their votes.'}
@@ -233,6 +243,9 @@ class TableView4 extends Component {
     				let prompt = 
                     <div>
                     <TurnPhaseMessage
+                        swipedRight={this.swipedRight}
+                        swipedLeft={this.swipedLeft}
+                        swipedDown={this.swipedDown}
                         swipedUp={this.swipedUp}
                         gameState={this.props.gameState}
                         message={'This turn is over, please ready up for next turn.'}
@@ -248,6 +261,9 @@ class TableView4 extends Component {
                     let prompt = 
                     <div>
                     <TurnPhaseMessage
+                        swipedRight={this.swipedRight}
+                        swipedLeft={this.swipedLeft}
+                        swipedDown={this.swipedDown}
                         swipedUp={this.swipedUp}
                         gameState={this.props.gameState}
                         message={'Someone won! When you\'re ready, please return to the lobby.'}
@@ -276,6 +292,9 @@ class TableView4 extends Component {
                     console.log("storyTellerSubmits phase");
                     let prompt = 
                     <TurnPhaseMessage
+                        swipedRight={this.swipedRight}
+                        swipedLeft={this.swipedLeft}
+                        swipedDown={this.swipedDown}
                         swipedUp={this.swipedUp}
                         gameState={this.props.gameState}
                         message={'Waiting for the story teller to submit their card and clue.'}
@@ -289,11 +308,15 @@ class TableView4 extends Component {
     				let prompt =
                     <div>
                     <TurnPhaseMessage
+                        swipedRight={this.swipedRight}
+                        swipedLeft={this.swipedLeft}
+                        swipedDown={this.swipedDown}
                         swipedUp={this.swipedUp}
                         gameState={this.props.gameState}
                         message={'Please submit a card that you think matches the clue to fool the other players.'}
                     /> 
-    				<SubmitCard 
+    				<SubmitCard
+                        gameState={this.props.gameState} 
                 		handleChangeSelectedCard={this.props.handleChangeSelectedCard}
                 		submitCard={this.props.submitCard}
                 	/>;
@@ -307,6 +330,9 @@ class TableView4 extends Component {
     				let prompt = 
                     <div>
                     <TurnPhaseMessage
+                        swipedRight={this.swipedRight}
+                        swipedLeft={this.swipedLeft}
+                        swipedDown={this.swipedDown}
                         swipedUp={this.swipedUp}
                         gameState={this.props.gameState}
                         message={'Please vote for the card you think is the story teller\'s card.'}
@@ -326,6 +352,9 @@ class TableView4 extends Component {
     				let prompt = 
                     <div>
                     <TurnPhaseMessage
+                        swipedRight={this.swipedRight}
+                        swipedLeft={this.swipedLeft}
+                        swipedDown={this.swipedDown}
                         swipedUp={this.swipedUp}
                         gameState={this.props.gameState}
                         message={'This turn is over, please ready up for next turn.'}
@@ -341,6 +370,9 @@ class TableView4 extends Component {
                     let prompt = 
                     <div>
                     <TurnPhaseMessage
+                        swipedRight={this.swipedRight}
+                        swipedLeft={this.swipedLeft}
+                        swipedDown={this.swipedDown}
                         swipedUp={this.swipedUp}
                         gameState={this.props.gameState}
                         message={'Someone won! When you\'re ready, please return to the lobby.'}
@@ -367,6 +399,9 @@ class TableView4 extends Component {
             let prompt = 
             <div>
     		<TurnPhaseMessage
+                swipedRight={this.swipedRight}
+                swipedLeft={this.swipedLeft}
+                swipedDown={this.swipedDown}
                 swipedUp={this.swipedUp}
                 gameState={this.props.gameState}
                 message={'Someone has left the game, when you are ready, click to go back tothe lobby.'}

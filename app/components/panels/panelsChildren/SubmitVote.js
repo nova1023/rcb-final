@@ -27,20 +27,25 @@ const SubmitVoteModalStyling = {
   color: 'black',
   textShadow: '0 0 0',
   width: '21em',
-  top: '21%',
+  top: '10%',
   margin: '0 auto'
 }
 
-class SubmitVote extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      clue:'',
-      selectedCardID:'',
+const UserInput = {
+  fontWeight: 'bold',
+  color: 'black'
+}
 
-    }
-  }
-  
+const SubmitButtonStyling = {
+  fontWeight: 'bold'
+}
+
+const InputGroupStyling = {
+  margin: '-10px 0 4px 0'
+}
+
+class SubmitVote extends Component {
+
   render() {
     return (
       <div  className='row' style={PlayerButtonWrapper}>
@@ -49,72 +54,72 @@ class SubmitVote extends Component {
         </div>
 
           <div className="modal fade" id="submitVoteModal">
-            <div className="modal-dialog" >
+            <div className="modal-dialog" style={SubmitVoteModalStyling}>
               <div className="modal-content">
                 <div className="modal-header">
-                  <div className="pull-left">Submit Vote</div>
-                    <button type="button" className="close" data-dismiss="modal" title="Close"> <span className="glyphicon glyphicon-remove"></span></button>
+                  <h3 className="pull-left">Submit Vote</h3>
+                    <button type="button" className="close" data-dismiss="modal" title="Close"> 
+                      <span className="glyphicon glyphicon-remove"></span>
+                    </button>
                 </div>
           
-              <div className="modal-body">
-                <div className="form-group">
-                  <label className="pull-left" htmlFor="vote">
-                    Enter Vote:
-                  </label>
-                  <input 
-                    type="text"
-                    name="vote"  
-                    className="form-control" 
-                    placeholder="Card #" 
-                    style={SubmitVoteModalStyling}
-                    value={this.props.selectedCardID} 
-                    onChange={this.props.handleChangeSelectedCard}  
-                  />
-                </div>
-
-                <div id="votingCardGallery" className="carousel slide" data-interval="false">
-                  <div className="carousel-inner">
-                    <div className="item active">
-                      <img className="text-center" src={'/images/card-images/'+ this.props.cardChoices[0].cardID + '.png'} style={CardImagesStyling} />
-                      <div className="carousel-caption">
-                        <h2 style={CardNumberStyling}>{this.props.cardChoices[0].cardID}</h2>
-                      </div>
-                    </div>
-                    <div className="item">
-                      <img className="text-center" src={'/images/card-images/'+ this.props.cardChoices[1].cardID + '.png'} style={CardImagesStyling} />
-                      <div className="carousel-caption">
-                        <h2 style={CardNumberStyling}>{this.props.cardChoices[1].cardID}</h2>
-                      </div>
-                    </div>
-                    <div className="item">
-                      <img className="text-center" src={'/images/card-images/'+ this.props.cardChoices[2].cardID + '.png'} style={CardImagesStyling} />
-                      <div className="carousel-caption">
-                        <h2 style={CardNumberStyling}>{this.props.cardChoices[2].cardID}</h2>
-                      </div>
-                    </div>
-                    <div className="item">
-                      <img className="text-center" src={'/images/card-images/'+ this.props.cardChoices[3].cardID + '.png'} style={CardImagesStyling} />
-                      <div className="carousel-caption">
-                        <h2 style={CardNumberStyling}>{this.props.cardChoices[3].cardID}</h2>
-                      </div>
-                    </div>
+                <div className="modal-body">
+                  <div className="input-group" style={InputGroupStyling}>
+                    <input 
+                      type="text"
+                      name="vote"  
+                      className="form-control" 
+                      placeholder="Submit Card #" 
+                      style={UserInput}
+                      value={this.props.selectedCardID} 
+                      onChange={this.props.handleChangeSelectedCard}  
+                    />
+                    <span className="input-group-btn">
+                      <button 
+                        data-dismiss="modal" 
+                        className="btn btn-default" 
+                        onClick={this.props.submitVote} 
+                        style={SubmitButtonStyling}
+                        >Submit
+                      </button>
+                    </span>
                   </div>
 
-                  <a className="left carousel-control" href="#votingCardGallery" role="button" data-slide="prev"> 
-                  <span className="glyphicon glyphicon-chevron-left"></span></a> 
-                  <a className="right carousel-control" href="#votingCardGallery" role="button" data-slide="next"> 
-                  <span className="glyphicon glyphicon-chevron-right"></span></a>
-                </div>
+                  <div id="votingCardGallery" className="carousel slide" data-interval="false">
+                    <div className="carousel-inner">
+                      <div className="item active">
+                        <img className="text-center" src={'/images/card-images/'+ this.props.cardChoices[0].cardID + '.png'} style={CardImagesStyling} />
+                        <div className="carousel-caption">
+                          <h2 style={CardNumberStyling}>{this.props.cardChoices[0].cardID}</h2>
+                        </div>
+                      </div>
+                      <div className="item">
+                        <img className="text-center" src={'/images/card-images/'+ this.props.cardChoices[1].cardID + '.png'} style={CardImagesStyling} />
+                        <div className="carousel-caption">
+                          <h2 style={CardNumberStyling}>{this.props.cardChoices[1].cardID}</h2>
+                        </div>
+                      </div>
+                      <div className="item">
+                        <img className="text-center" src={'/images/card-images/'+ this.props.cardChoices[2].cardID + '.png'} style={CardImagesStyling} />
+                        <div className="carousel-caption">
+                          <h2 style={CardNumberStyling}>{this.props.cardChoices[2].cardID}</h2>
+                        </div>
+                      </div>
+                      <div className="item">
+                        <img className="text-center" src={'/images/card-images/'+ this.props.cardChoices[3].cardID + '.png'} style={CardImagesStyling} />
+                        <div className="carousel-caption">
+                          <h2 style={CardNumberStyling}>{this.props.cardChoices[3].cardID}</h2>
+                        </div>
+                      </div>
+                    </div>
 
-                <button data-dismiss="modal" onClick={this.props.submitVote}>Submit</button>
-              </div>
-
-                <div className="modal-footer">
-                  <div className="pull-left">
-                  
+                    <a className="left carousel-control" href="#votingCardGallery" role="button" data-slide="prev"> 
+                    <span className="glyphicon glyphicon-chevron-left"></span></a> 
+                    <a className="right carousel-control" href="#votingCardGallery" role="button" data-slide="next"> 
+                    <span className="glyphicon glyphicon-chevron-right"></span></a>
                   </div>
-                  <button className="btn-sm close" type="button" data-dismiss="modal">Close</button>
                 </div>
+
               </div>
             </div>
           </div>
