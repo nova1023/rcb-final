@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { Redirect, NavLink } from 'react-router-dom';
 
 const NavBarStyling = {
-	backgroundColor: '#6f510c',
-
+	backgroundColor: 'black',
 }
 
 const BrandImg = {
 	position: 'relative',
 	top: '-13px',
 	left: '4px',
-	width: '45px'
+	width: '45px',
+	borderRadius: '50%',
+  boxShadow: '0px 0px 7px white'
 }
 
 const NavBarToggleButton = {
@@ -18,8 +19,25 @@ const NavBarToggleButton = {
 	right: '4px'
 }
 
+const NavBarLinkText = {
+	color: 'white',
+  fontSize: 'medium'
+}
 const SignInModalStyling = {
+	color: 'black',
+	textShadow: '0 0 0',
+	width: '21em',
+	top: '21%',
+	margin: '0 auto'
+}
+
+const UserInput = {
+	fontWeight: 'bold',
 	color: 'black'
+}
+
+const ButtonStyling = {
+	fontWeight: 'bold'
 }
 
 class NavBar extends Component {
@@ -89,7 +107,14 @@ class NavBar extends Component {
 						<div className="col-xs-12">
 
 					    <div className="navbar-header">
-					      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" style={NavBarToggleButton}>
+					      <button 
+						      type="button" 
+						      className="navbar-toggle collapsed" 
+						      data-toggle="collapse" 
+						      data-target="#bs-example-navbar-collapse-1" 
+						      aria-expanded="false" 
+						      style={NavBarToggleButton}
+						      >
 					        <span className="sr-only">Toggle navigation</span>
 					        <span className="icon-bar"></span>
 					        <span className="icon-bar"></span>
@@ -103,10 +128,10 @@ class NavBar extends Component {
 					    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					      <ul className="nav navbar-nav navbar-right">
 					        <li className="">
-					          <NavLink to="/">Home<span className="sr-only">(current)</span></NavLink>
+					          <NavLink to="/" style={NavBarLinkText}>Home<span className="sr-only">(current)</span></NavLink>
 					        </li>
 					        <li>
-					        	<NavLink to="#" data-toggle="modal" data-target="#signInModal">Sign In</NavLink>
+					        	<NavLink to="#" data-toggle="modal" data-target="#signInModal" style={NavBarLinkText}>Sign In</NavLink>
 					        </li>
 
 					        <div className="modal fade" id="signInModal">
@@ -125,17 +150,39 @@ class NavBar extends Component {
 				        							<label className="pull-left" htmlFor="userName">
 				        								Name:
 				        							</label>
-				      								<input type="text" name="username" className="form-control" placeholder="Username" value={this.state.name} onChange={this.handleNameChange} />
+				      								<input 
+				      								type="text" 
+				      								name="username" 
+				      								className="form-control" 
+				      								placeholder="Username" 
+				      								style={UserInput}
+				      								value={this.state.name} 
+				      								onChange={this.handleNameChange} />
 			      								</div>
 
 			      								<div className="form-group">
 				        							<label className="pull-left" htmlFor="signInPassword">
 				        								Password:
 				        							</label>
-				        							<input type="password" name="password" className="form-control" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}  />
+				        							<input 
+					        							type="password" 
+					        							name="password" 
+					        							className="form-control" 
+					        							placeholder="Password" 
+					        							style={UserInput}
+					        							value={this.state.password} 
+					        							onChange={this.handlePasswordChange}  
+					        						/>
 			        							</div>
 
-			        							<button type="submit" value="Submit" className="btn btn-default">Submit</button>
+			        							<button 
+				        							type="submit" 
+				        							value="Submit" 
+				        							className="btn btn-default" 
+				        							style={ButtonStyling}
+			        							>
+				        							Submit
+			        							</button>
 			        							
 			        						</form>
 			                  </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import BartenderButton from './BartenderButton';
 
 const BartenderChoicesStyling = {
-    height: '20%',
+    height: '10%',
     backgroundImage: 'url(/images/avatars/classy-fabric.png), url(/images/avatars/table-2.png)',
 
 }
@@ -32,7 +32,8 @@ const MenuItemStyling = {
 	margin: '15% 0 0 5%',
 	textShadow: '-1px 1px 6px black',
 	border: '1px solid #d19f64',
-	paddingTop: '3%',
+	paddingTop: '5%',
+	paddingBottom: '5%'
 
 }
 
@@ -47,7 +48,8 @@ let ReadyButtonStyling = {
 	margin: '15% 0 0 5%',
 	textShadow: '-1px 1px 6px black',
 	border: '1px solid #d19f64',
-	paddingTop: '3%',
+	paddingTop: '5%',
+	paddingBottom: '5%'
 }
 
 
@@ -69,7 +71,7 @@ class BartenderChoices extends Component {
 	}
 
 	changeReadyButton(){
-		ReadyButtonStyling={
+		ReadyButtonStyling = {
 			color: '#18ff35',
 			fontSize: '20px',
 			backgroundColor: 'green',
@@ -80,7 +82,8 @@ class BartenderChoices extends Component {
 			margin: '15% 0 0 5%',
 			textShadow: '-1px 1px 6px black',
 			border: '1px solid #45ff38',
-			paddingTop: '3%',
+			paddingTop: '5%',
+			paddingBottom: '5%'
 		}
 	}
 
@@ -89,15 +92,15 @@ class BartenderChoices extends Component {
             <div className="col-xs-12" style={BartenderChoicesStyling}>
 	            <div className='row text-center' style={ButtonContainerStyling}>    
 	                <div className='col-xs-4' style={ButtonStyling} onClick={this.props.rulesButtonClicked}>
-	                	<p style={MenuItemStyling}>Rules</p>
+	                	<div style={MenuItemStyling}>Rules</div>
 	                </div>
 	                
 	                <div className='col-xs-4' style={ButtonStyling} onClick={this.props.originsButtonClicked}>
-	                	<p style={MenuItemStyling}>Origins</p>
+	                	<div style={MenuItemStyling}>Origins</div>
 	                </div>
 	                
 	                <div className='col-xs-4' style={ButtonStyling} onClick={this.handleReadyClicked}>
-	                	<p style={ReadyButtonStyling}>Ready Up</p>	
+	                	<div style={ReadyButtonStyling}>Ready Up</div>	
 	                </div>
             	</div>
             </div>		

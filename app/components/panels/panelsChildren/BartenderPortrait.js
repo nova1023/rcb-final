@@ -10,15 +10,15 @@ const BartenderPortraitStyling = {
 }
 
 const BartenderAvatarStyling = {
-	position: 'absolute',
+	position: 'relative',
 	bottom: '20%',
 	left: '15%',
 
 }
 
 const CounterStyling = {
-	height: '20%',
-	position: 'absolute',
+	height: '10%',
+	// position: 'absolute',
 	bottom: '0',
 
 }
@@ -26,10 +26,14 @@ const CounterStyling = {
 class BartenderPortrait extends Component {
     render() {
         return (
+            <div className="row">
             <div className="col-xs-12" style={BartenderPortraitStyling}>
                 <img src='/images/avatars/complete/Candace-1.png' style={BartenderAvatarStyling} />
-                <img src='/images/avatars/complete/Wood-Bar-3.png' style={CounterStyling} />
-            </div>		
+            </div>
+            <div className="col-xs-12">
+                <img src='/images/avatars/complete/Wood-bar-3.png' style={CounterStyling} />
+            </div>
+            </div>	
         )  
     }
 }

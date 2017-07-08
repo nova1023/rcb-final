@@ -16,11 +16,7 @@ class ChatView extends Component {
 	constructor(props){
 		super(props);
 		this.state ={
-			storedMessages: [
-			{name: 'Zim', message: 'I WILL DESTROY YOU ALL!!!1!'},
-			{name: 'Urr', message: 'I WILL DESTROY this box of cupcakes.'}
-			]
-
+			storedMessages: []
 		};
 
 		this.storeRelayedMessage = this.storeRelayedMessage.bind(this);
