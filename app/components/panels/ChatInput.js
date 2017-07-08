@@ -20,10 +20,6 @@ class ChatInput extends Component {
 
 		this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
 		this.handleMessageInputChange = this.handleMessageInputChange.bind(this);
-		this.readyForGame = this.readyForGame.bind(this);
-
-		
-
 
 	}
 

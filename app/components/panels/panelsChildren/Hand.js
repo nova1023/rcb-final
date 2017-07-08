@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 // import Modal from './ModalJS/Modal';
 
 const PlayerButtonsStyling = {
-  border: '1px solid red',
-  width: '100%',
-  height: '100%',
+  width: '80%',
+  height: '80%',
+  margin: '8% 0 0 10%',
+  backgroundImage: 'url(/images/avatars/Wood-Button.jpg)',
 }
 
 const PlayerButtonWrapper = {
@@ -13,6 +14,20 @@ const PlayerButtonWrapper = {
 
 const CardImagesStyling = {
   margin: '0 auto'
+}
+
+const CardNumberStyling = {
+  fontWeight: '700',
+  textShadow: '1px 1px 15px black'
+}
+
+const HandModalPosition = {
+  top: '10%'
+}
+
+const ModalXButton = {
+  position: 'relative',
+  top: '5%'
 }
 
 class Hand extends Component {
@@ -67,18 +82,19 @@ class Hand extends Component {
 
   render() {
     return (
-
       <div  className='row' style={PlayerButtonWrapper}>
         <div className='col-xs-12' data-toggle="modal" data-target="#myModal" style={PlayerButtonsStyling}>
           H
         </div>
 
           <div className="modal fade" id="myModal">
-            <div className="modal-dialog">
+            <div className="modal-dialog" style={HandModalPosition}>
               <div className="modal-content">
                 <div className="modal-header">
-                  <div className="pull-left">Your Hand</div>
-                    <button type="button" className="close" data-dismiss="modal" title="Close"> <span className="glyphicon glyphicon-remove"></span></button>
+                  <h3 className="modal-title pull-left">Your Hand</h3>
+                    <button type="button" className="close" data-dismiss="modal" title="Close" style={ModalXButton}> 
+                      <span className="glyphicon glyphicon-remove"></span>
+                    </button>
                 </div>
           
               <div className="modal-body">
@@ -86,39 +102,39 @@ class Hand extends Component {
                   <div className="carousel-inner">
                     <div className="item active"> 
                       <img className='text-center' src={"/images/card-images/"+this.state.card1} alt="item1" style={CardImagesStyling}/>
-                        <div className="carousel-caption">
-                          <h3>Heading 1</h3>
-                        </div>
+                      <div className="carousel-caption">
+                        <h2 style={CardNumberStyling}>{this.state.card1.substr(0, this.state.card1.lastIndexOf('.'))}</h2>
+                      </div>
                     </div>
                     <div className="item"> 
                       <img className='text-center' src={"/images/card-images/"+this.state.card2} alt="item2" style={CardImagesStyling}/>
-                        <div className="carousel-caption">
-                          <h3>Heading 2</h3>
-                        </div>
+                      <div className="carousel-caption">
+                        <h2 style={CardNumberStyling}>{this.state.card2.substr(0, this.state.card2.lastIndexOf('.'))}</h2>
+                      </div>
                     </div>
                     <div className="item"> 
                       <img className='text-center' src={"/images/card-images/"+this.state.card3} alt="item3" style={CardImagesStyling}/>
-                        <div className="carousel-caption">
-                          <h3>Heading 3</h3>
-                        </div>
+                      <div className="carousel-caption">
+                        <h2 style={CardNumberStyling}>{this.state.card3.substr(0, this.state.card3.lastIndexOf('.'))}</h2>
+                      </div>
                     </div>
                     <div className="item"> 
                       <img className='text-center' src={"/images/card-images/"+this.state.card4} alt="item4" style={CardImagesStyling}/>
-                        <div className="carousel-caption">
-                          <h3>Heading 4</h3>
-                        </div>
+                      <div className="carousel-caption">
+                        <h2 style={CardNumberStyling}>{this.state.card4.substr(0, this.state.card4.lastIndexOf('.'))}</h2>
+                      </div>
                     </div>
                     <div className="item"> 
                       <img className='text-center' src={"/images/card-images/"+this.state.card5} alt="item5" style={CardImagesStyling}/>
-                        <div className="carousel-caption">
-                          <h3>Heading 5</h3>
-                        </div>
+                      <div className="carousel-caption">
+                        <h2 style={CardNumberStyling}>{this.state.card5.substr(0, this.state.card5.lastIndexOf('.'))}</h2>
+                      </div>
                     </div>
                     <div className="item"> 
                       <img className='text-center' src={"/images/card-images/"+this.state.card6} alt="item5" style={CardImagesStyling}/>
-                        <div className="carousel-caption">
-                          <h3>Heading 6</h3>
-                        </div>
+                      <div className="carousel-caption">
+                        <h2 style={CardNumberStyling}>{this.state.card6.substr(0, this.state.card6.lastIndexOf('.'))}</h2>
+                      </div>
                     </div>
                   </div>
 

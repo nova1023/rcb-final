@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 const portraitStyling = {
-	backgroundColor: 'yellow'
+	backgroundColor: 'black'
 }
 
 const PlayerAvatarStyling = {

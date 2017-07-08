@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Route, Link, Redirect } from 'react-router-dom';
 
 import GameRoom from './components/GameRoom.js';
 
@@ -7,8 +8,9 @@ import GameRoom from './components/GameRoom.js';
 // const socket = IO() ;
 
 const AppContainerStyling = {
-  height:'100vh',
-  width: '100vw',
+  // height:'100vh',
+  // width: '100vw',
+  // margin: '0 auto'
 }
 
 class App extends Component {
@@ -26,6 +28,7 @@ class App extends Component {
       p2Points: 0,
       p3Points: 0,
       p4Points: 0,
+      fireRedirect: false,
     };
 
 
@@ -44,6 +47,9 @@ class App extends Component {
     this.handleChangeClue = this.handleChangeClue.bind(this);
     this.handleChangeSelectedCard = this.handleChangeSelectedCard.bind(this);
     this.nextTurn = this.nextTurn.bind(this);
+    this.exitGame = this.exitGame.bind(this);
+    this.backToLobby = this.backToLobby.bind(this);
+    this.gameOver = this.gameOver.bind(this);
     
     let socket = this.props.socket;
     console.log('Props', this.props);
@@ -65,11 +71,11 @@ class App extends Component {
     //FOR TESTING receving nextTurn data
     socket.on("nextTurn", this.nextTurn);
 
-    //FOR TESTING receiving gameOver data
-    socket.on("gameOver", function(data){
-          console.log("received game over");
-          console.log(data);
-      });
+    // when the game is over
+    socket.on("gameOver", this.gameOver);
+
+    // when a player disconnects
+    socket.on("exitGame", this.exitGame);
   }
 
   handleChangeClue(event){
@@ -125,6 +131,24 @@ class App extends Component {
       p4Points: data[3].currentPoints,
       turnPhase: 'readyForNextTurn'
     });
+  }
+
+  exitGame(){
+    
+    this.setState({turnPhase: 'exitGame'});
+    console.log("Game is ending.", this.state.turnPhase);
+  }
+
+  backToLobby(){
+    let socket=this.props.socket;
+    console.log("Going back to lobby");
+    this.setState({fireRedirect: true});
+    socket.emit("exitGame");
+  }
+
+  gameOver(){
+    this.setState({turnPhase: 'gameOver'});
+    console.log("The game is over, somebody won!");
   }
 
   // Sending Data to the server through socket.emit
@@ -207,12 +231,13 @@ class App extends Component {
 
   render() {
 
+    if (this.state.fireRedirect === true) {
+      return <Redirect to='/lobby' />
+
+    } else {
    
     return (
       <div className="App container-fluid" style={AppContainerStyling}>        
-          
-          <div className='row'>
-            <div className='col-xs-12'>
               <GameRoom 
                 gameState={this.state}
                 handleChangeClue={this.handleChangeClue}
@@ -221,14 +246,13 @@ class App extends Component {
                 submitCard={this.submitCard}
                 submitVote={this.submitVote}
                 sendReadyForNextTurn={this.sendReadyForNextTurn}
+                exitGame={this.exitGame}
+                backToLobby={this.backToLobby}
                 socket={this.props.socket}
               />
-            </div>
-          </div>
-
       </div>
     );
-  }
+  }}
 }
 
 export default App;
