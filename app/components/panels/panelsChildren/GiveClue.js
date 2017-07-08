@@ -20,6 +20,15 @@ const SubmitClueModalStyling = {
   margin: '0 auto'
 }
 
+const SubmitButtonStyling = {
+  fontWeight: 'bold'
+}
+
+const UserInput = {
+  fontWeight: 'bold',
+  color: 'black'
+}
+
 class GiveClue extends Component {
   constructor(props){
     super(props);
@@ -41,59 +50,50 @@ class GiveClue extends Component {
             <div className="modal-dialog" style={SubmitClueModalStyling}>
               <div className="modal-content">
                 <div className="modal-header">
-                  <div className="pull-left">Submit a clue and a card</div>
+                  <h4 className="pull-left">Submit clue & card</h4>
                     <button type="button" className="close" data-dismiss="modal" title="Close"> <span className="glyphicon glyphicon-remove"></span></button>
                 </div>
           
-              <div className="modal-body">
-              
-                <form onSubmit={this.props.submitStoryTellerRes}>
-                  <div className="form-group">
-                    <label className="pull-left" htmlFor="userName">
-                      Name:
-                    </label>
-                    <input 
-                    type="text" 
-                    name="username" 
-                    className="form-control" 
-                    placeholder="Username" 
-                    style={UserInput}
-                    value={this.state.name} 
-                    onChange={this.handleNameChange} />
-                  </div>
-
-                  <div className="form-group">
-                    <label className="pull-left" htmlFor="signInPassword">
-                      Password:
-                    </label>
-                    <input 
-                      type="password" 
-                      name="password" 
+                <div className="modal-body">
+                  <form onSubmit={this.props.submitStoryTellerRes}>
+                    <div className="form-group">
+                      <label className="pull-left" htmlFor="clue">
+                        Clue:
+                      </label>
+                      <input 
+                      type="text" 
+                      name="clue" 
                       className="form-control" 
-                      placeholder="Password" 
+                      placeholder="Your Clue" 
                       style={UserInput}
-                      value={this.state.password} 
-                      onChange={this.handlePasswordChange}  
-                    />
-                  </div>
+                      value={this.props.clue} 
+                      onChange={this.props.handleChangeClue} 
+                      />
+                    </div>
 
+                    <div className="form-group">
+                      <label className="pull-left" htmlFor="card">
+                        Card:
+                      </label>
+                      <input 
+                        type="text" 
+                        name="card" 
+                        className="form-control" 
+                        placeholder="Card #" 
+                        style={UserInput}
+                        value={this.props.selectedCardID} 
+                        onChange={this.props.handleChangeSelectedCard}  
+                      />
+                    </div>
 
-                  <label>
-                    Enter Clue:
-                    <input type="text" value={this.props.clue} onChange={this.props.handleChangeClue} />
-                  </label>
-                  <input type="text" value={this.props.selectedCardID} onChange={this.props.handleChangeSelectedCard} />
-                </form>
-                <button data-dismiss="modal" onClick={this.props.submitStoryTellerRes}>Submit</button>
-     
-              </div>
-
-                <div className="modal-footer">
-                  <div className="pull-left">
-                  
-                  </div>
-                  <button className="btn-sm close" type="button" data-dismiss="modal">Close</button>
+                    <div className="row">
+                      <div className="pull-right">
+                        <button data-dismiss="modal" className="btn btn-default" onClick={this.props.submitStoryTellerRes} style={SubmitButtonStyling}>Submit</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
+
               </div>
             </div>
           </div>

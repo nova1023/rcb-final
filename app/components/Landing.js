@@ -43,7 +43,6 @@ const SignUpModalStyling = {
 	width: '21em',
 	top: '21%',
 	margin: '0 auto',
-	color: 'black'
 }
 
 const MostlyCrypticStyling = {
@@ -212,7 +211,7 @@ class Landing extends Component {
 	              <div className="modal-dialog" style={SignUpModalStyling}>
 	                <div className="modal-content">
 	                  <div className="modal-header">
-	                    <h3 className="modal-title pull-left">Sign Up</h3>
+	                    <h4 className="modal-title pull-left">Sign Up</h4>
 	                    <button type="button" className="close" data-dismiss="modal" title="Close"> 
 	                    	<span className="glyphicon glyphicon-remove"></span>
 	                    </button>

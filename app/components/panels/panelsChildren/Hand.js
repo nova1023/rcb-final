@@ -21,8 +21,12 @@ const CardNumberStyling = {
   textShadow: '1px 1px 15px black'
 }
 
-const HandModalPosition = {
-  top: '10%'
+const HandModalStyling = {
+  top: '10%',
+  color: 'black',
+  textShadow: '0 0 0',
+  width: '21em',
+  margin: '0 auto',
 }
 
 class Hand extends Component {
@@ -71,7 +75,6 @@ class Hand extends Component {
       }
     }
     console.log("Hand", this.state);
-
     
   }
 
@@ -84,10 +87,10 @@ class Hand extends Component {
         </div>
 
           <div className="modal fade" id="myModal">
-            <div className="modal-dialog" style={HandModalPosition}>
+            <div className="modal-dialog" style={HandModalStyling}>
               <div className="modal-content">
                 <div className="modal-header">
-                  <h3 className="modal-title pull-left">Your Hand</h3>
+                  <h4 className="modal-title pull-left">Your Hand</h4>
                     <button type="button" className="close" data-dismiss="modal" title="Close"> 
                       <span className="glyphicon glyphicon-remove"></span>
                     </button>

@@ -20,6 +20,15 @@ const SubmitCardModalStyling = {
   margin: '0 auto'
 }
 
+const UserInput = {
+  fontWeight: 'bold',
+  color: 'black'
+}
+
+const SubmitButtonStyling = {
+  fontWeight: 'bold'
+}
+
 class SubmitCard extends Component {
   constructor(props){
     super(props);
@@ -42,45 +51,35 @@ class SubmitCard extends Component {
             <div className="modal-dialog" style={SubmitCardModalStyling}>
               <div className="modal-content">
                 <div className="modal-header">
-                  <div className="pull-left">SubmitCard</div>
+                  <h4 className="pull-left">Submit a card</h4>
                     <button type="button" className="close" data-dismiss="modal" title="Close"> 
                     <span className="glyphicon glyphicon-remove"></span>
                     </button>
                 </div>
           
-              <div className="modal-body">
-                <div className="form-group">
-                  <label className="pull-left" htmlFor="card">
-                    Enter Card:
-                  </label>
-                  <input 
-                    type="text"
-                    name="card"  
-                    className="form-control" 
-                    placeholder="Card #" 
-                    style={SubmitCardModalStyling}
-                    value={this.props.selectedCardID} 
-                    onChange={this.props.handleChangeSelectedCard}  
-                  />
-                </div>
-              
-                <form>
-                  <label>
-                    Enter Card:
-                    <input type="text" value={this.props.selectedCardID} 
-                    onChange={this.props.handleChangeSelectedCard} />
-                  </label>
-                </form>
-                <button data-dismiss="modal" onClick={this.props.submitCard}>Submit</button>
-     
-              </div>
-
-                <div className="modal-footer">
-                  <div className="pull-left">
-                  
+                <div className="modal-body">
+                  <div className="form-group">
+                    <label className="pull-left" htmlFor="card">
+                      Enter Card:
+                    </label>
+                    <input 
+                      type="text"
+                      name="card"  
+                      className="form-control" 
+                      placeholder="Card #" 
+                      style={UserInput}
+                      value={this.props.selectedCardID} 
+                      onChange={this.props.handleChangeSelectedCard}  
+                    />
                   </div>
-                  <button className="btn-sm close" type="button" data-dismiss="modal">Close</button>
+
+                  <div className="row">
+                    <div className="pull-right">
+                      <button data-dismiss="modal" className="btn btn-default" onClick={this.props.submitCard} style={SubmitButtonStyling}>Submit</button>
+                    </div>
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>
