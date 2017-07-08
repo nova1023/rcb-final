@@ -54,6 +54,7 @@ class SignIn extends Component {
 	    }
     });
   }
+}
 
 	render() {
 		if (this.state.fireRedirect === true) {

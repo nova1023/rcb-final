@@ -57,18 +57,3 @@ class ChatInput extends Component {
 }
 
 export default ChatInput;
-
-// <form onSubmit={this.handleMessageSubmit} id="message-form" style={chatInput}>
-// 					<label>
-// 						Message:
-// 						<input
-// 							style={chatInput} 
-// 							type="text" 
-// 							placeholder="message" 
-// 							id="message" 
-// 							value={this.state.message}
-// 							onChange={this.handleMessageInputChange}
-// 						/>
-// 					</label>
-// 					<input type="submit" value="Submit" id="chat-button"  />
-// 			</form>
