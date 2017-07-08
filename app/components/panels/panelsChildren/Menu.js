@@ -13,13 +13,18 @@ const PlayerButtonWrapper = {
 
 }
 
+const IconStyling = {
+	width: '100%',
+	height: '100%',
+}
+
 class Menu extends Component {
 	
 	render() {
 		return (
 			<div className='row' style={PlayerButtonWrapper}>
 				<div className='col-xs-12' style={PlayerButtonsStyling}>
-					M
+					<img src='/images/avatars/complete/icon-menu.png' style={IconStyling} />
 				</div>
 			</div>
 		)

@@ -46,52 +46,10 @@ class SubmitCard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      gameState: {},
-      card1: '',
-      card2: '',
-      card3: '',
-      card4: '',
-      card5: '',
-      card6: '',
-      myHand: [],
-      clue:'',
-      selectedCardID:'',
-
-    }
+      
+    };
   }
-  
-  componentDidUpdate(){
-    // console.log("Hand Component Updated");
-    if(this.state.gameState !== this.props.gameState){
-      // console.log("Hand Updated state with gameState");
-      this.setState({gameState: this.props.gameState})
-    } else {
-      // console.log("Hand did not update state with gameState");
-      //do nothing
-      if (this.state.gameState !== undefined){
-        // console.log("Hand this.gameState !== undefined");
-        if (this.state.myHand !== this.state.gameState.myHand){
-          this.setState({
-            card1: this.state.gameState.myHand[0] + '.png',
-            card2: this.state.gameState.myHand[1] + '.png',
-            card3: this.state.gameState.myHand[2] + '.png',
-            card4: this.state.gameState.myHand[3] + '.png',
-            card5: this.state.gameState.myHand[4] + '.png',
-            card6: this.state.gameState.myHand[5] + '.png',
-            myHand: this.state.gameState.myHand
-          })
-        } else {
-          // do nothing
-        }
-      } else {
-        // do nothing
-        // console.log("Hand this,gameState does = undefined");
-      }
-    }
-    console.log("Hand", this.state);
-  }
-
-  
+    
   render() {
     return (
       <div  className='row' style={PlayerButtonWrapper}>
@@ -134,39 +92,39 @@ class SubmitCard extends Component {
                   <div id="submitOwnCardGallery" className="carousel slide" data-interval="false">
                     <div className="carousel-inner">
                       <div className="item active"> 
-                        <img className='text-center' src={"/images/card-images/"+this.state.card1} alt="item1" style={CardImagesStyling}/>
+                        <img className='text-center' src={"/images/card-images/"+this.props.gameState.myHand[0]+".png"} alt="item1" style={CardImagesStyling}/>
                         <div className="carousel-caption">
-                          <h2 style={CardNumberStyling}>{this.state.card1.substr(0, this.state.card1.lastIndexOf('.'))}</h2>
+                          <h2 style={CardNumberStyling}>{this.props.gameState.myHand[0]}</h2>
                         </div>
                       </div>
                       <div className="item"> 
-                        <img className='text-center' src={"/images/card-images/"+this.state.card2} alt="item2" style={CardImagesStyling}/>
+                        <img className='text-center' src={"/images/card-images/"+this.props.gameState.myHand[1]+".png"} alt="item2" style={CardImagesStyling}/>
                         <div className="carousel-caption">
-                          <h2 style={CardNumberStyling}>{this.state.card2.substr(0, this.state.card2.lastIndexOf('.'))}</h2>
+                          <h2 style={CardNumberStyling}>{this.props.gameState.myHand[1]}</h2>
                         </div>
                       </div>
                       <div className="item"> 
-                        <img className='text-center' src={"/images/card-images/"+this.state.card3} alt="item3" style={CardImagesStyling}/>
+                        <img className='text-center' src={"/images/card-images/"+this.props.gameState.myHand[2]+".png"} alt="item3" style={CardImagesStyling}/>
                         <div className="carousel-caption">
-                          <h2 style={CardNumberStyling}>{this.state.card3.substr(0, this.state.card3.lastIndexOf('.'))}</h2>
+                          <h2 style={CardNumberStyling}>{this.props.gameState.myHand[2]}</h2>
                         </div>
                       </div>
                       <div className="item"> 
-                        <img className='text-center' src={"/images/card-images/"+this.state.card4} alt="item4" style={CardImagesStyling}/>
+                        <img className='text-center' src={"/images/card-images/"+this.props.gameState.myHand[3]+".png"} alt="item4" style={CardImagesStyling}/>
                         <div className="carousel-caption">
-                          <h2 style={CardNumberStyling}>{this.state.card4.substr(0, this.state.card4.lastIndexOf('.'))}</h2>
+                          <h2 style={CardNumberStyling}>{this.props.gameState.myHand[3]}</h2>
                         </div>
                       </div>
                       <div className="item"> 
-                        <img className='text-center' src={"/images/card-images/"+this.state.card5} alt="item5" style={CardImagesStyling}/>
+                        <img className='text-center' src={"/images/card-images/"+this.props.gameState.myHand[4]+".png"} alt="item5" style={CardImagesStyling}/>
                         <div className="carousel-caption">
-                          <h2 style={CardNumberStyling}>{this.state.card5.substr(0, this.state.card5.lastIndexOf('.'))}</h2>
+                          <h2 style={CardNumberStyling}>{this.props.gameState.myHand[4]}</h2>
                         </div>
                       </div>
                       <div className="item"> 
-                        <img className='text-center' src={"/images/card-images/"+this.state.card6} alt="item5" style={CardImagesStyling}/>
+                        <img className='text-center' src={"/images/card-images/"+this.props.gameState.myHand[5]+".png"} alt="item5" style={CardImagesStyling}/>
                         <div className="carousel-caption">
-                          <h2 style={CardNumberStyling}>{this.state.card6.substr(0, this.state.card6.lastIndexOf('.'))}</h2>
+                          <h2 style={CardNumberStyling}>{this.props.gameState.myHand[5]}</h2>
                         </div>
                       </div>
                     </div>
