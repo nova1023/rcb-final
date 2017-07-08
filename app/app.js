@@ -28,10 +28,10 @@ class App extends Component {
       p2Points: 0,
       p3Points: 0,
       p4Points: 0,
-      p1UserName: '',
-      p2UserName: '',
-      p3UserName: '',
-      p4UserName: '',
+      p1UserName: 'player1',
+      p2UserName: 'player2',
+      p3UserName: 'player3',
+      p4UserName: 'player4',
       fireRedirect: false,
 
     };
