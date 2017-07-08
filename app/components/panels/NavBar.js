@@ -23,6 +23,7 @@ const NavBarLinkText = {
 	color: 'white',
   fontSize: 'medium'
 }
+
 const SignInModalStyling = {
 	color: 'black',
 	textShadow: '0 0 0',
@@ -31,10 +32,10 @@ const SignInModalStyling = {
 	margin: '0 auto'
 }
 
-const UserInput = {
-	fontWeight: 'bold',
-	color: 'black'
-}
+	const UserInput = {
+		fontWeight: 'bold',
+		color: 'black'
+	}
 
 const ButtonStyling = {
 	fontWeight: 'bold'
@@ -138,7 +139,7 @@ class NavBar extends Component {
 			              <div className="modal-dialog" style={SignInModalStyling}>
 			                <div className="modal-content">
 			                  <div className="modal-header">
-			                    <h3 className="modal-title pull-left">Sign In</h3>
+			                    <h4 className="modal-title pull-left">Sign In</h4>
 			                    <button type="button" className="close" data-dismiss="modal" title="Close"> 
 			                    	<span className="glyphicon glyphicon-remove"></span>
 			                    </button>
@@ -151,13 +152,14 @@ class NavBar extends Component {
 				        								Name:
 				        							</label>
 				      								<input 
-				      								type="text" 
-				      								name="username" 
-				      								className="form-control" 
-				      								placeholder="Username" 
-				      								style={UserInput}
-				      								value={this.state.name} 
-				      								onChange={this.handleNameChange} />
+					      								type="text" 
+					      								name="username" 
+					      								className="form-control" 
+					      								placeholder="Username" 
+					      								style={UserInput}
+					      								value={this.state.name} 
+					      								onChange={this.handleNameChange} 
+				      								/>
 			      								</div>
 
 			      								<div className="form-group">
@@ -175,15 +177,18 @@ class NavBar extends Component {
 					        						/>
 			        							</div>
 
-			        							<button 
-				        							type="submit" 
-				        							value="Submit" 
-				        							className="btn btn-default" 
-				        							style={ButtonStyling}
-			        							>
-				        							Submit
-			        							</button>
-			        							
+			        							<div className="row">
+				        							<div className="pull-right">
+					        							<button 
+						        							type="submit" 
+						        							value="Submit" 
+						        							className="btn btn-default" 
+						        							style={ButtonStyling}
+					        							>
+					        								Submit
+				        								</button>
+				        							</div>
+			        							</div>
 			        						</form>
 			                  </div>
 

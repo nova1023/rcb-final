@@ -12,6 +12,11 @@ const ButtonStyling = {
 	fontWeight: 'bold'
 }
 
+const UserInput = {
+	fontWeight: 'bold',
+	color: 'black'
+}
+
 class ChatInput extends Component {
 	constructor(props) {
 		super(props);
@@ -45,7 +50,8 @@ class ChatInput extends Component {
 			  		type="text" 
 			  		className="form-control" 
 			  		placeholder="Message" 
-			  		id="message" 
+			  		id="message"
+			  		style={UserInput}
 			  		value={this.state.message} 
 			  		onChange={this.handleMessageInputChange} 
 			  		/>

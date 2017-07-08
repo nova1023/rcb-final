@@ -43,7 +43,6 @@ const SignUpModalStyling = {
 	width: '21em',
 	top: '21%',
 	margin: '0 auto',
-	color: 'black'
 }
 
 const MostlyCrypticStyling = {
@@ -199,7 +198,7 @@ class Landing extends Component {
 			          	onChange={this.handleChange} 
 			          	style={UserInput}/>
 			       			<span className="input-group-btn">
-			       				<button type="submit" value="Submit" className="btn btn-default" style={ButtonStyling}>Go</button>
+			       				<button type="submit" value="Submit" className="btn btn-default" style={ButtonStyling}>Play!</button>
 			       			</span>
 			       		</div>
 				      </form>
@@ -212,7 +211,7 @@ class Landing extends Component {
 	              <div className="modal-dialog" style={SignUpModalStyling}>
 	                <div className="modal-content">
 	                  <div className="modal-header">
-	                    <h3 className="modal-title pull-left">Sign Up</h3>
+	                    <h4 className="modal-title pull-left">Sign Up</h4>
 	                    <button type="button" className="close" data-dismiss="modal" title="Close"> 
 	                    	<span className="glyphicon glyphicon-remove"></span>
 	                    </button>
@@ -265,11 +264,15 @@ class Landing extends Component {
 		        							/>
 	        							</div>
 
-	        							<button type="submit" value="Submit" className="btn btn-default" style={ButtonStyling}>Submit</button>
+	        							<div className="row">
+			        						<div className="pull-right">
+			        							<button type="submit" value="Submit" className="btn btn-default" style={ButtonStyling}>Submit</button>
+			                  	</div>
+		                  	</div>
 	        						</form>
 	                  </div>
-
-	                </div>
+  	
+ 	                </div>
 	              </div>
             	</div>
 

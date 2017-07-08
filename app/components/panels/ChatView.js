@@ -6,12 +6,15 @@ const chatBox = {
 	width: '95%',
 	backgroundColor: 'black',
 	margin: '0 auto',
-	fontSize: '20px',
+	fontSize: '17px',
 	color: 'white',
 	overflow: 'auto',
-
 }
 
+const ChatMessagesPadding = {
+	padding: '0 3px 0 3px',
+	wordWrap: 'break-word'
+}
 class ChatView extends Component {
 	constructor(props){
 		super(props);
@@ -39,7 +42,7 @@ class ChatView extends Component {
 		console.log("displayMessages called");
 		let storedMessages = this.state.storedMessages;
 		
-		return storedMessages.map((data, index)=> <div ref={data.name + index} key={index}>{data.name + ": " + data.message}</div>)
+		return storedMessages.map((data, index)=> <div ref={data.name + index} key={index} style={ChatMessagesPadding}>{data.name + ": " + data.message}</div>)
 	}
 
 	scrollToBottom(){
