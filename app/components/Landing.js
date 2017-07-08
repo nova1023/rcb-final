@@ -43,8 +43,17 @@ const SignUpModalStyling = {
 	width: '21em',
 	top: '21%',
 	margin: '0 auto'
+	color: 'black'
 }
 
+const MostlyCrypticStyling = {
+	color: 'white',
+	zIndex: 100 ,
+	position: 'absolute',
+	top: '10%',
+	right: '5%',
+	fontWeight: 900
+}
 
 class Landing extends Component {
 	constructor(props) {
@@ -158,16 +167,18 @@ class Landing extends Component {
 
 				<div className="col-xs-12">
 					<div className="row">
-						<div className="col-xs-12" >
+						<div className="col-xs-12">
+							<h1 style={MostlyCrypticStyling}>Mostly Cryptic</h1>
 							<img src={"/images/avatars/emblem.png"} alt="Wrong" className="img-responsive" style={LandingEmblem} />
 						</div>
 
 						<div className="row">
 							<div className="col-xs-12">
-								<h4 id="game-description" style={GameDescriptionStyling}>Det er et velkjent faktum at lesere distraheres av lesbart innhold på en side når man ser på dens layout. 
-								Poenget med å bruke Lorem Ipsum er at det har en mer eller mindre normal fordeling av bokstaver i ord, 
-								i motsetning til 'Innhold her, innhold her', og gir inntrykk av å være lesbar tekst. 
-								Mange webside- og sideombrekkingsprogrammer
+								<h4 id="game-description" style={GameDescriptionStyling}>The Storyteller selects a card from their
+								 hand and enters a clue represented by the picture. The others then play a card which best represents
+								 that clue. The cards are revealed and each player votes for the best image. Points are awarded for
+								 correct guesses. But beware, give too good of a clue and get all votes or too poor of a clue and
+								  get none of the votes and your points will be zero.
 								</h4>
 							</div>
 						</div>	
