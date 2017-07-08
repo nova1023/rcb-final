@@ -36,7 +36,6 @@ const MostlyCrypticStyling = {
 	top: '10%',
 	right: '5%',
 	fontWeight: 900
-
 }
 
 
