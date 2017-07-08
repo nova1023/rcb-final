@@ -3,7 +3,7 @@ import ChatView from './ChatView';
 import ChatInput from './ChatInput';
 
 const LobbyChatStyling = {
-	height: '40%',
+	height: '45%',
 	width: '100%',
     backgroundImage: 'url(/images/avatars/classy-fabric.png), url(/images/avatars/table-2.png)',
 

@@ -9,7 +9,7 @@ const LandingPageContainer = {
 	backgroundSize: 'cover',
 	backgroundRepeat: 'no-repeat',
 	color: 'white',
-	border: '1px solid',
+	border: '1px solid white',
 	textShadow: '2px 2px 7px black'
 }
 
@@ -28,11 +28,21 @@ const InputStyling = {
 	color: 'black'
 }
 
+const UserInput = {
+	fontWeight: 'bold',
+	color: 'black'
+}
+
 const ButtonStyling = {
 	fontWeight: 'bold'
 }
 
 const SignUpModalStyling = {
+	color: 'black',
+	textShadow: '0 0 0',
+	width: '21em',
+	top: '21%',
+	margin: '0 auto',
 	color: 'black'
 }
 
@@ -44,10 +54,6 @@ const MostlyCrypticStyling = {
 	right: '5%',
 	fontWeight: 900
 }
-
-const SignUpNowLink = {
-}
-
 
 class Landing extends Component {
 	constructor(props) {
@@ -185,7 +191,13 @@ class Landing extends Component {
 							<form onSubmit={this.handleSubmit}>
 								<h3>Play as a Guest or sign up below!</h3>
 								<div className="input-group">
-			          	<input type="text" className="form-control" placeholder="Nickname" value={this.state.value} onChange={this.handleChange} style={InputStyling}/>
+			          	<input 
+			          	type="text" 
+			          	className="form-control" 
+			          	placeholder="Nickname" 
+			          	value={this.state.value} 
+			          	onChange={this.handleChange} 
+			          	style={UserInput}/>
 			       			<span className="input-group-btn">
 			       				<button type="submit" value="Submit" className="btn btn-default" style={ButtonStyling}>Go</button>
 			       			</span>
@@ -212,25 +224,48 @@ class Landing extends Component {
 		        							<label className="pull-left" htmlFor="userName">
 		        								Name:
 		        							</label>
-		      								<input type="text" name="username" className="form-control" placeholder="Username" value={this.state.name} onChange={this.handleNameChange} />
+		      								<input 
+		      									type="text" 
+		      									name="username" 
+		      									className="form-control" 
+		      									placeholder="Username" 
+		      									style={UserInput}
+		      									value={this.state.name} 
+		      									onChange={this.handleNameChange} 
+		      									/>
 	      								</div>
 
 	      								<div className="form-group">
 		        							<label className="pull-left" htmlFor="signUpPassword">
 		        								Password:
 		        							</label>
-		        							<input type="password" name="password" className="form-control" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}  />
+		        							<input 
+			        							type="password" 
+			        							name="password" 
+			        							className="form-control" 
+			        							placeholder="Password" 
+			        							style={UserInput}
+			        							value={this.state.password} 
+			        							onChange={this.handlePasswordChange}  
+		        							/>
 	        							</div>
 
 	        							<div className="form-group">
 		        							<label className="pull-left" htmlFor="signUpConfirmPassword">
 		        								Confirm Password:
 		        							</label>
-		        							<input type="password" name="passwordConfirm" className="form-control" placeholder="Confirm Password" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} />
+		        							<input 
+			        							type="password" 
+			        							name="passwordConfirm" 
+			        							className="form-control" 
+			        							placeholder="Confirm Password" 
+			        							style={UserInput}
+			        							value={this.state.confirmPassword} 
+			        							onChange={this.handleConfirmPasswordChange} 
+		        							/>
 	        							</div>
 
-	        							<button type="submit" value="Submit" className="btn btn-default">Submit</button>
-	        							
+	        							<button type="submit" value="Submit" className="btn btn-default" style={ButtonStyling}>Submit</button>
 	        						</form>
 	                  </div>
 
