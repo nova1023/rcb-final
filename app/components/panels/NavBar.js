@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { Redirect, NavLink } from 'react-router-dom';
 
 const NavBarStyling = {
-	backgroundColor: '#6f510c',
-
+	backgroundColor: 'black',
 }
 
 const BrandImg = {
 	position: 'relative',
 	top: '-13px',
 	left: '4px',
-	width: '45px'
+	width: '45px',
+	borderRadius: '50%',
+  boxShadow: '0px 0px 7px white'
 }
 
 const NavBarToggleButton = {
@@ -18,6 +19,10 @@ const NavBarToggleButton = {
 	right: '4px'
 }
 
+const NavBarLinkText = {
+	color: 'white',
+  fontSize: 'medium'
+}
 const SignInModalStyling = {
 	color: 'black'
 }
@@ -103,10 +108,10 @@ class NavBar extends Component {
 					    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					      <ul className="nav navbar-nav navbar-right">
 					        <li className="">
-					          <NavLink to="/">Home<span className="sr-only">(current)</span></NavLink>
+					          <NavLink to="/" style={NavBarLinkText}>Home<span className="sr-only">(current)</span></NavLink>
 					        </li>
 					        <li>
-					        	<NavLink to="#" data-toggle="modal" data-target="#signInModal">Sign In</NavLink>
+					        	<NavLink to="#" data-toggle="modal" data-target="#signInModal" style={NavBarLinkText}>Sign In</NavLink>
 					        </li>
 
 					        <div className="modal fade" id="signInModal">

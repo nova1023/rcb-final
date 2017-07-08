@@ -9,12 +9,15 @@ const LandingPageContainer = {
 	backgroundSize: 'cover',
 	backgroundRepeat: 'no-repeat',
 	color: 'white',
-	border: '1px solid'
+	border: '1px solid',
+	textShadow: '2px 2px 7px black'
 }
 
 const LandingEmblem = {
 	margin: '0 auto',
-	width: '35%'
+	width: '35%',
+	borderRadius: '50%',
+	boxShadow: '0px 0px 40px white'
 }
 
 const GameDescriptionStyling = {
@@ -23,6 +26,10 @@ const GameDescriptionStyling = {
 
 const InputStyling = {
 	color: 'black'
+}
+
+const ButtonStyling = {
+	fontWeight: 'bold'
 }
 
 const SignUpModalStyling = {
@@ -36,6 +43,9 @@ const MostlyCrypticStyling = {
 	top: '10%',
 	right: '5%',
 	fontWeight: 900
+}
+
+const SignUpNowLink = {
 }
 
 
@@ -177,12 +187,12 @@ class Landing extends Component {
 								<div className="input-group">
 			          	<input type="text" className="form-control" placeholder="Nickname" value={this.state.value} onChange={this.handleChange} style={InputStyling}/>
 			       			<span className="input-group-btn">
-			       				<button type="submit" value="Submit" className="btn btn-default" style={InputStyling}>Go</button>
+			       				<button type="submit" value="Submit" className="btn btn-default" style={ButtonStyling}>Go</button>
 			       			</span>
 			       		</div>
 				      </form>
 
-				      <div className='col-xs-12' data-toggle="modal" data-target="#signUpModal">
+				      <div className='col-xs-12' data-toggle="modal" data-target="#signUpModal" >
 			        	<h1>Sign Up Now!</h1>
 			        </div>
 

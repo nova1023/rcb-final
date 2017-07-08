@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import BartenderButton from './BartenderButton';
 
 const BartenderChoicesStyling = {
-    height: '20%',
+    height: '10%',
     backgroundImage: 'url(/images/avatars/classy-fabric.png), url(/images/avatars/table-2.png)',
 
 }
@@ -69,7 +69,7 @@ class BartenderChoices extends Component {
 	}
 
 	changeReadyButton(){
-		ReadyButtonStyling={
+		ReadyButtonStyling = {
 			color: '#18ff35',
 			fontSize: '20px',
 			backgroundColor: 'green',
@@ -89,7 +89,7 @@ class BartenderChoices extends Component {
             <div className="col-xs-12" style={BartenderChoicesStyling}>
 	            <div className='row text-center' style={ButtonContainerStyling}>    
 	                <div className='col-xs-4' style={ButtonStyling} onClick={this.props.rulesButtonClicked}>
-	                	<p style={MenuItemStyling}>Rules</p>
+	                	<div style={MenuItemStyling}>Rules</div>
 	                </div>
 	                
 	                <div className='col-xs-4' style={ButtonStyling} onClick={this.props.originsButtonClicked}>
