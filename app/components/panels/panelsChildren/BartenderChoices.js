@@ -63,6 +63,7 @@ class BartenderChoices extends Component {
 
 		this.handleReadyClicked = this.handleReadyClicked.bind(this);
 		this.changeReadyButton = this.changeReadyButton.bind(this);
+		this.changeReadyButtonBack = this.changeReadyButtonBack.bind(this);
 	}
 
 	handleReadyClicked(){
@@ -85,6 +86,27 @@ class BartenderChoices extends Component {
 			paddingTop: '5%',
 			paddingBottom: '5%'
 		}
+	}
+
+	changeReadyButtonBack(){
+		ReadyButtonStyling = {
+			color: 'white',
+			fontSize: '20px',
+			backgroundColor: '#491b10',
+			backgroundImage: 'url(/images/avatars/Wood-Button.jpg)',
+			boxShadow: '0 5px 20px 2px black',
+			width: '90%',
+			height: '50%',
+			margin: '15% 0 0 5%',
+			textShadow: '-1px 1px 6px black',
+			border: '1px solid #d19f64',
+			paddingTop: '5%',
+			paddingBottom: '5%'
+		}
+	}
+
+	componentDidMount(){
+		this.changeReadyButtonBack();
 	}
 
     render() {

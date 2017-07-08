@@ -32,6 +32,7 @@ class TurnPhaseMessage extends Component {
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.displayScore = this.displayScore.bind(this);
   }
 
   show(){
@@ -47,6 +48,32 @@ class TurnPhaseMessage extends Component {
     this.hide();
   }
 
+  displayScore(){
+    let p1Points = this.props.gameState.p1Points;
+    let p2Points = this.props.gameState.p2Points;
+    let p3Points = this.props.gameState.p3Points;
+    let p4Points = this.props.gameState.p4Points;
+    let yourPoints = '';
+    if (this.props.gameState.myPlayerNumber === 1){
+      yourPoints = p1Points;
+    } else if (this.props.gameState.myPlayerNumber === 2) {
+      yourPoints = p2Points; 
+    } else if (this.props.gameState.myPlayerNumber === 3) {
+      yourPoints = p3Points;
+    } else {
+      yourPoints = p4Points;
+    }
+
+    if (this.props.gameState.turnPhase === 'readyForNextTurn') {
+      let message = "Your score: " + yourPoints + "\n";
+      
+
+      return message;
+    } else {
+      return null;
+    }
+  }
+
   componentDidMount(){
     console.log("TurnPhaseMessage has mounted");
     this.props.swipedUp();
@@ -54,6 +81,7 @@ class TurnPhaseMessage extends Component {
 
   render() {
 
+    let ScoreMessage = this.displayScore();
     let Message = this.props.message;
 
     return (
@@ -63,7 +91,8 @@ class TurnPhaseMessage extends Component {
       style={TurnPhaseMessageStyling} 
       onClick={this.handleClick}
       >
-        <p style={TurnPhasePromptText}> 
+        <p style={TurnPhasePromptText}>
+          {ScoreMessage}
           {Message}
         </p>
       </div>
