@@ -7,9 +7,13 @@ import { Route, Link, Redirect } from 'react-router-dom';
 const LobbyContainerStyling = {
 	height: '100vh',
 	width: '320px',
-	overflow: 'hidden',
 	margin: '0 auto',
-	
+	overflow: 'hidden'
+}
+
+const LobbyViewStyling = {
+    height: '60%',
+    width: '100%',
 }
 
 class Lobby extends Component {
@@ -18,8 +22,7 @@ class Lobby extends Component {
 		this.state = {
 			fireRedirect: false,
 			messageState: 'none',
-			isReady: false,
-			
+			isReady: false
 		};
 
 		this.handleRedirect = this.handleRedirect.bind(this);
@@ -30,21 +33,21 @@ class Lobby extends Component {
 		let socket = this.props.socket;
 
 		socket.on("joinGame", this.handleRedirect);
-
 	}
 
+
 	handleRedirect(){
-		this.setState({fireRedirect: true})
+		this.setState({fireRedirect: true});
 	}
 
 	rulesButtonClicked(){
 		console.log("rulesButtonClicked");
-		this.setState({messageState: 'rules'})
+		this.setState({messageState: 'rules'});
 	}
 
 	originsButtonClicked(){
 		console.log("originsButtonClicked");
-		this.setState({messageState: 'origins'})
+		this.setState({messageState: 'origins'});
 	}
 
 	readyButtonClicked(){
@@ -59,33 +62,44 @@ class Lobby extends Component {
 		}
 	}
 
+
 	componentDidMount(){
 		console.log("Lobby has mounted.");
-		this.setState({messageState: 'welcome'})
+		this.setState({messageState: 'welcome'});
 	}
 
   render() {
   	if (this.state.fireRedirect === true) {
 			return <Redirect to='/testingPage' />
-
 		} else {
-    return (
-    	<div className="container-fluid">
-    		<div className="LobbyContainer row" style={LobbyContainerStyling}>
-    			<LobbyView
-    				rulesButtonClicked = {this.rulesButtonClicked}
-    				originsButtonClicked = {this.originsButtonClicked}
-    				readyButtonClicked = {this.readyButtonClicked}
-    				socket={this.props.socket}
-    			/>
-    			<LobbyChat socket={this.props.socket} />
-    			<MessageBox
-    				messageState={this.state.messageState}
-    			/>
-    		</div>
-    	</div>
-		)  
-  }}
+	    return (
+	    	<div className="container-fluid" style={LobbyContainerStyling}>
+	    		<div className="row">
+            <div className="col-xs-12" style={LobbyViewStyling}>
+
+		    			<LobbyView
+		    				rulesButtonClicked = {this.rulesButtonClicked}
+		    				originsButtonClicked = {this.originsButtonClicked}
+		    				readyButtonClicked = {this.readyButtonClicked}
+		    				socket={this.props.socket}
+		    			/>
+
+		    			<MessageBox
+		    				messageState={this.state.messageState}
+		    			/>
+		    		</div>	
+	    			</div>
+
+	    	
+	    				<LobbyChat socket={this.props.socket} />
+	    		
+	    			
+	    
+	    	</div>
+			)  
+  	}
+	}
 }
+
 
 export default Lobby;

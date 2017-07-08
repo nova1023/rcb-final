@@ -28,6 +28,10 @@ class App extends Component {
       p2Points: 0,
       p3Points: 0,
       p4Points: 0,
+      p1UserName: 'player1',
+      p2UserName: 'player2',
+      p3UserName: 'player3',
+      p4UserName: 'player4',
       fireRedirect: false,
 
     };
@@ -127,9 +131,13 @@ class App extends Component {
     console.log("turnResults--", data);
     this.setState({
       p1Points: data[0].currentPoints,
+      p1UserName: data[0].userName,
       p2Points: data[1].currentPoints,
+      p2UserName: data[1].userName,
       p3Points: data[2].currentPoints,
+      p3UserName: data[2].userName,
       p4Points: data[3].currentPoints,
+      p4UserName: data[3].userName,
       turnPhase: 'readyForNextTurn'
     });
   }

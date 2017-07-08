@@ -2,21 +2,24 @@ import React, { Component } from 'react';
 import Velocity from 'velocity-animate';
 
 const TurnPhaseMessageStyling = {
-  width: '70%',
+  width: '30%',
   // height: '30%',
-  fontSize: '30px',
-  position: 'fixed',
-  top: '0',
-  margin: '2% auto',
+  fontSize: '17px',
+  position: 'relative',
+  // top: '0',
+  margin: '1% auto',
   backgroundColor: 'rgba(0, 0, 20, .9)',
   border: '3px solid grey',
   outline: '3px solid black',
   color: 'white',
   textShadow: '-1px 1px 6px black',
-  fontSize: '20px',
-  paddingLeft: '2%',
-  paddingRight: '2%',
+  // paddingLeft: '2%',
+  // paddingRight: '2%',
 
+}
+
+const TurnPhasePromptText = {
+  margin: '0'
 }
 
 class TurnPhaseMessage extends Component {
@@ -62,7 +65,7 @@ class TurnPhaseMessage extends Component {
       className='TurnPhaseMessage text-center' 
       style={TurnPhaseMessageStyling} 
       onClick={this.handleClick}>
-        <p>{Message}</p>
+        <p style={TurnPhasePromptText}>{Message}</p>
       </div>
     )
   }

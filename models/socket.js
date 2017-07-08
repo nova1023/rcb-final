@@ -109,14 +109,17 @@ console.log("gameName:", gameName);//TEST CODE
 
         function storyTellerClue(data)
         {   
+            var player = allPlayersMap.get(socket.id);
+
             // gets game from player.
-            var gameName = allPlayersMap.get(socket.id).game
+            var gameName = player.game
             var game = gamesMap.get(gameName);
 
             data.belongsTo = game.storyTeller.playerNumber;            
             game.HandleSubmitCard(data);
 
             IO.sockets.in(game.room).emit("relayClue", data.clueText);
+            Chat.relayMessage("Storyteller Clue", data.clueText, game.room); 
         }
 
         //---------------------------------------
@@ -148,7 +151,15 @@ console.log("gameName:", gameName);//TEST CODE
             if(game.CheckAllPlayersVoted())
             {
                 game.CalculateResults();
-                IO.sockets.in(game.room).emit("turnResults", game.GetTurnResultsArray());
+
+                //check if game's over
+                if (game.cardDeck.length < game.players.length || game.CheckForWinner())
+                {    
+                    game.gameOver = true;
+                    IO.sockets.in(game.room).emit("gameOver", game.GetTurnResultsArray());
+                }  
+                else //game is not over
+                    IO.sockets.in(game.room).emit("turnResults", game.GetTurnResultsArray());
             }    
         }
 
@@ -202,16 +213,20 @@ console.log("\n", game.room, "STARTED\n");//TEST CODE
             var gameName = player.game;            
             var game = gamesMap.get(gameName);
 
-            game.connectedPlayerCount--;
+            if(game)
+            {    
 
-            if(game.connectedPlayerCount === 0)
-                gamesMap.delete(game.room)      // room is also game name.
+                game.connectedPlayerCount--;
 
-            socket.leave(game.room);
-            socket.join("Main");
-            player.room = "Main";
-            player.game = null;
-           
+                if(game.connectedPlayerCount === 0)
+                    gamesMap.delete(game.room)      // room is also game name.
+
+                socket.leave(game.room);
+                socket.join("Main");
+                player.room = "Main";
+                player.game = null;
+           }
+            
             socket.emit("exitGame");
         }
        
