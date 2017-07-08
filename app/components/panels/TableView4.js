@@ -69,7 +69,6 @@ class TableView4 extends Component {
   	componentDidMount(){
   		// Velocity(this.refs.p2,{ rotateZ: '+=360deg' },1000)
     //      .then(e=>console.log('animation complete'))
-        
     //     console.log("block", this.refs.block.scrollWidth,);
     //     console.log("p1", this.refs.p1.offsetLeft);
     //     console.log("p2", this.refs.p2.offsetLeft);
@@ -322,6 +321,7 @@ class TableView4 extends Component {
                 		submitCard={this.props.submitCard}
                 	/>;
                     </div>
+
     				console.log("sent prompt", prompt);
     				return prompt;
     			
@@ -445,6 +445,9 @@ class TableView4 extends Component {
 						<PortraitView
                             avatar={'Kana'}
                          />
+					</div>
+					<div className='col-xs-12 Table' style={TableStyling}>
+						{prompt}
 					</div>
 					<div className='col-xs-12 Table' style={TableStyling}>
 						{prompt}

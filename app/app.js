@@ -34,7 +34,6 @@ class App extends Component {
       p3UserName: 'player3',
       p4UserName: 'player4',
       fireRedirect: false,
-
     };
 
 
@@ -252,8 +251,6 @@ class App extends Component {
    
     return (
       <div className="App container-fluid" style={AppContainerStyling}>        
-          
-         
               <GameRoom 
                 gameState={this.state}
                 handleChangeClue={this.handleChangeClue}
@@ -266,8 +263,6 @@ class App extends Component {
                 backToLobby={this.backToLobby}
                 socket={this.props.socket}
               />
-           
-
       </div>
     );
   }}

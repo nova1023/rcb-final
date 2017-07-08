@@ -31,7 +31,6 @@ class GameRoom extends Component {
 			
 		};
 	}
-
 	render() {
 
 		return(

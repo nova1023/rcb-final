@@ -45,8 +45,6 @@ class GiveClue extends Component {
    
     };
   }
-
- 
   
   render() {
     return (

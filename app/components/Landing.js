@@ -147,7 +147,6 @@ class Landing extends Component {
     else {
     	console.log('Please make sure both password inputs are identical');
     }
-    
   }
 
 
@@ -182,8 +181,7 @@ class Landing extends Component {
 							</div>
 						</div>	
 					</div>
-				</div>
-				
+				</div>		
 				<div className="col-xs-12">
 					<div className="row">
 						<div className="col-xs-10 col-xs-offset-1 text-center">
@@ -275,7 +273,6 @@ class Landing extends Component {
  	                </div>
 	              </div>
             	</div>
-
 						</div>
 					</div>
 				</div>

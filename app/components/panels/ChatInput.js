@@ -46,6 +46,12 @@ class ChatInput extends Component {
 		}
 	}
 
+	readyForGame() {
+		console.log("sending ready for game", this.props);
+		let socket = this.props.socket
+		socket.emit("joinGame");
+	}
+
 	render() {
 		return (
 			

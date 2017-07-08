@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 const PlayerButtonsStyling = {
   // border: '1px solid red',
   width: '80%',
@@ -51,14 +50,10 @@ class Score extends Component {
                 </div>
           
               <div className="modal-body text-center">
-              
-                
                 	<h4>{this.props.gameState.p1UserName}: {this.props.gameState.p1Points}</h4>
                 	<h4>{this.props.gameState.p2UserName}: {this.props.gameState.p2Points}</h4>
                 	<h4>{this.props.gameState.p3UserName}: {this.props.gameState.p3Points}</h4>
                 	<h4>{this.props.gameState.p4UserName}: {this.props.gameState.p4Points}</h4>
-               	
-     
               </div>
 
                 <div className="modal-footer">

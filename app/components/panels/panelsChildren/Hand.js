@@ -84,7 +84,6 @@ class Hand extends Component {
 
   render() {
     return (
-      
       <div  className='row' style={PlayerButtonWrapper}>
         <div className='col-xs-12' data-toggle="modal" data-target="#myModal" style={PlayerButtonsStyling}>
           <img src='/images/avatars/complete/icon-hand.png' style={IconStyling} />

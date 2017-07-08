@@ -49,7 +49,6 @@ class SubmitCard extends Component {
       
     };
   }
-    
   render() {
     return (
       <div  className='row' style={PlayerButtonWrapper}>
