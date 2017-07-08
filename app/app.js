@@ -133,11 +133,11 @@ class App extends Component {
       p1Points: data[0].currentPoints,
       p1UserName: data[0].userName,
       p2Points: data[1].currentPoints,
-      p2UserName: data[0].userName,
+      p2UserName: data[1].userName,
       p3Points: data[2].currentPoints,
-      p3UserName: data[0].userName,
+      p3UserName: data[2].userName,
       p4Points: data[3].currentPoints,
-      p4UserName: data[0].userName,
+      p4UserName: data[3].userName,
       turnPhase: 'readyForNextTurn'
     });
   }
